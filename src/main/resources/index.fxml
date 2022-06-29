@@ -7,5 +7,10 @@
 <AnchorPane prefHeight="400.0" prefWidth="689.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.parish.attendancesb.controllers.IndexController">
    <children>
       <Label fx:id="lblTitle" layoutX="285.0" layoutY="14.0" text="Titulo" />
+      <ComboBox fx:id="cmb1" editable="true" layoutX="14.0" layoutY="99.0" prefWidth="150.0" />
+      <ComboBox fx:id="cmb2" editable="true" layoutX="181.0" layoutY="99.0" prefWidth="150.0" />
+      <ComboBox fx:id="cmb3" editable="true" layoutX="345.0" layoutY="99.0" prefWidth="150.0" />
+      <ComboBox fx:id="cmb4" editable="true" layoutX="507.0" layoutY="100.0" prefWidth="150.0" />
+      <ComboBox fx:id="cmb5" editable="true" layoutX="270.0" layoutY="232.0" prefWidth="150.0" />
    </children>
 </AnchorPane>
