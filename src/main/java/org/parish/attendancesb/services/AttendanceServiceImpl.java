@@ -11,15 +11,18 @@ import org.parish.attendancesb.services.interfaces.AttendanceService;
 import org.parish.attendancesb.services.interfaces.CatequesisService;
 import org.parish.attendancesb.services.interfaces.ReceiverPersonService;
 import org.parish.attendancesb.services.attendance.Resume;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class AttendanceServiceImpl implements AttendanceService {
     private AttendanceRepository attendanceRepository;
     private CatequesisService catequesisService;
     private ReceiverPersonService receiverPersonService;
     private AttendanceDateService attendanceDateService;
+    private AttendanceService attendanceService;
 
     public AttendanceServiceImpl() {
     }
@@ -49,7 +52,7 @@ public class AttendanceServiceImpl implements AttendanceService {
         ReceiverPerson receiverPerson = this.receiverPersonService.getById(id);
         Catequesis catequesis = this.catequesisService.get();
         List<AttendanceDate> attendanceDateList = this.attendanceDateService.getAllByIdCatequesis(catequesis.getId());
-        List<Attendance> attendanceList = this.attendance.listByCatequesisByReceiverPerson(receiverPerson.getId(), catequesis.getId());
+        List<Attendance> attendanceList = this.attendanceRepository.findByCatequesisAndReceiverPerson(receiverPerson.getId(), catequesis.getId());
 
         //return new Resume(receiverPerson, lad, la);
 
@@ -64,6 +67,5 @@ public class AttendanceServiceImpl implements AttendanceService {
 
         return resume;
     }
-
 
 }

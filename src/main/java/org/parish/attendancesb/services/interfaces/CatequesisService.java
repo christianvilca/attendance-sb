@@ -7,5 +7,4 @@ import java.util.Optional;
 
 public interface CatequesisService {
     public Catequesis get();
-    public Catequesis getById(Integer id);
 }
