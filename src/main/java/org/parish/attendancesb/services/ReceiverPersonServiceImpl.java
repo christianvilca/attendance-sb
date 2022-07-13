@@ -1,8 +1,8 @@
-package org.parish.attendancesb.services.impl;
+package org.parish.attendancesb.services;
 
 import org.parish.attendancesb.models.ReceiverPerson;
 import org.parish.attendancesb.repositories.ReceiverPersonRepository;
-import org.parish.attendancesb.services.ReceiverPersonService;
+import org.parish.attendancesb.services.interfaces.ReceiverPersonService;
 
 import java.util.Optional;
 

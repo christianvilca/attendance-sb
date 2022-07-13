@@ -1,4 +1,4 @@
-package org.parish.attendancesb.services.impl;
+package org.parish.attendancesb.services;
 
 import lombok.Data;
 import lombok.ToString;

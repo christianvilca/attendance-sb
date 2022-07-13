@@ -1,8 +1,8 @@
-package org.parish.attendancesb.services.impl;
+package org.parish.attendancesb.services;
 
 import org.parish.attendancesb.models.Catequesis;
 import org.parish.attendancesb.repositories.CatequesisRepository;
-import org.parish.attendancesb.services.CatequesisService;
+import org.parish.attendancesb.services.interfaces.CatequesisService;
 
 public class CatequesisServiceImpl implements CatequesisService {
     private CatequesisRepository catequesisRepository;

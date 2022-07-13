@@ -1,21 +1,25 @@
-package org.parish.attendancesb.services.impl;
+package org.parish.attendancesb.services;
 
 import org.parish.attendancesb.models.Attendance;
+import org.parish.attendancesb.models.AttendanceDate;
 import org.parish.attendancesb.models.Catequesis;
 import org.parish.attendancesb.models.ReceiverPerson;
 import org.parish.attendancesb.models.datetime.DateTime;
 import org.parish.attendancesb.repositories.AttendanceRepository;
-import org.parish.attendancesb.services.AttendanceService;
-import org.parish.attendancesb.services.CatequesisService;
-import org.parish.attendancesb.services.ReceiverPersonService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.parish.attendancesb.services.interfaces.AttendanceDateService;
+import org.parish.attendancesb.services.interfaces.AttendanceService;
+import org.parish.attendancesb.services.interfaces.CatequesisService;
+import org.parish.attendancesb.services.interfaces.ReceiverPersonService;
+import org.parish.attendancesb.services.attendance.Resume;
 
+import java.util.List;
 import java.util.Optional;
 
 public class AttendanceServiceImpl implements AttendanceService {
     private AttendanceRepository attendanceRepository;
     private CatequesisService catequesisService;
     private ReceiverPersonService receiverPersonService;
+    private AttendanceDateService attendanceDateService;
 
     public AttendanceServiceImpl() {
     }
@@ -41,5 +45,25 @@ public class AttendanceServiceImpl implements AttendanceService {
         return Optional.of(attendance);
     }
 
-    
+    public Resume resume(Integer id) {
+        ReceiverPerson receiverPerson = this.receiverPersonService.getById(id);
+        Catequesis catequesis = this.catequesisService.get();
+        List<AttendanceDate> attendanceDateList = this.attendanceDateService.getAllByIdCatequesis(catequesis.getId());
+        List<Attendance> attendanceList = this.attendance.listByCatequesisByReceiverPerson(receiverPerson.getId(), catequesis.getId());
+
+        //return new Resume(receiverPerson, lad, la);
+
+        Resume resume = new Resume(catequesis, receiverPerson, attendanceDateList, attendanceList);
+
+        for (Attendance attendance1 : attendanceList) {
+            System.out.println("Attendance: "+ attendance1);
+        }
+        for (AttendanceDate attendance2 : attendanceDateList) {
+            System.out.println("AttendanceDate: "+ attendance2);
+        }
+
+        return resume;
+    }
+
+
 }
