@@ -1,8 +1,6 @@
 package org.parish.attendancesb.models.datetime;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import org.springframework.stereotype.Component;
 
@@ -97,7 +95,7 @@ public class Time {
         return (int) duration.getSeconds();
     }
 
-    public String getHourAMPM() {
+    public String toAMPM() {
         String time = this.localTime.format(DateTimeFormatter.ofPattern(FORMAT_TIME_AMPM));
 
         time = time.replace("a. m.", "AM");
@@ -111,7 +109,7 @@ public class Time {
     }
 
     public static void main(String[] args) {
-        System.out.println(new Time("03:30 a.m.").getHourAMPM());
+        System.out.println(new Time("03:30 a.m.").toAMPM());
         System.out.println(new Time(3, 30));
         LocalTime local = LocalTime.of(3, 30);
         System.out.println(local.format(DateTimeFormatter.ofPattern("hh:mm a")));

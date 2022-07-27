@@ -1,7 +1,6 @@
 package org.parish.attendancesb.models.datetime;
 
 import org.junit.jupiter.api.*;
-import org.mockito.InjectMocks;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -62,7 +61,7 @@ class TimeTest {
 
     @Test
     void getHourAMPM() {
-        assertEquals("03:30 AM", time.getHourAMPM());
+        assertEquals("03:30 AM", time.toAMPM());
     }
 
 }
