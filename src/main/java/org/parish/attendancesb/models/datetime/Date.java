@@ -3,15 +3,20 @@ package org.parish.attendancesb.models.datetime;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
+import org.springframework.stereotype.Component;
 
+import javax.persistence.Embeddable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 @Data
 @ToString
 @RequiredArgsConstructor
+@Component
+@Embeddable
 public class Date {
     private LocalDate localDate;
+
     private static final String FORMAT_DATE = "yyyy-MM-dd";
 
     private static final String[] MONTHS = new String[]{
@@ -29,10 +34,6 @@ public class Date {
             "Diciembre"
     };
 
-    public Date(LocalDate localDate) {
-        this.localDate = localDate;
-    }
-
     public Date(String date) {
         this.parse(date);
     }
@@ -45,27 +46,23 @@ public class Date {
         localDate = LocalDate.of(year, month, day);
     }
 
-    public LocalDate get() {
-        return localDate;
-    }
-
     public void parse(String date) {
         localDate = LocalDate.parse(date, DateTimeFormatter.ofPattern(FORMAT_DATE));
     }
 
-    public int year(){
+    public int getYear() {
         return this.localDate.getYear();
     }
 
-    public String month() {
-        return MONTHS[this.monthValue() - 1];
+    public String getMonth() {
+        return MONTHS[this.getMonthValue() - 1];
     }
 
-    public int monthValue() {
+    public int getMonthValue() {
         return this.localDate.getMonthValue();
     }
 
-    public int day() {
+    public int getDay() {
         return this.localDate.getDayOfMonth();
     }
 

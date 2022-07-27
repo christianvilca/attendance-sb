@@ -3,17 +3,21 @@ package org.parish.attendancesb.models.datetime;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
+import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
+import javax.persistence.Embeddable;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 @Data
 @ToString
+@Component
+@Embeddable
 public class DateTime {
     private LocalDateTime localDateTime;
     private Time time;
     private Date date;
+
+    private static final String FORMAT_DATETIME = "yyyy-MM-dd HH:mm:ss";
 
     public DateTime() {
         this.localDateTime = LocalDateTime.now();
@@ -23,16 +27,8 @@ public class DateTime {
         this.localDateTime = LocalDateTime.parse(dateTime);
     }
 
-    public DateTime(LocalDate date, LocalTime time) {
-        localDateTime = LocalDateTime.of(date, time);
-    }
-
     public DateTime(Date date, Time time) {
         localDateTime = LocalDateTime.of(date.getLocalDate(), time.getLocalTime());
-    }
-
-    public DateTime(int year, int month, int day) {
-        date.set(year, month, day);
     }
 
     public DateTime(int year, int month, int day, int hour, int minute) {
@@ -40,12 +36,24 @@ public class DateTime {
         time.set(hour, minute);
     }
 
+    public DateTime(int year, int month, int day, int hour, int minute, int second) {
+        date.set(year, month, day);
+        time.set(hour, minute, second);
+    }
+
+    public boolean isBefore(String dateTime) {
+        return this.localDateTime.isBefore(LocalDateTime.parse(dateTime));
+    }
+
     public boolean isAfter(String dateTime) {
         return this.localDateTime.isAfter(LocalDateTime.parse(dateTime));
     }
 
     public static void main(String[] args) {
-
-        System.out.println(new DateTime());
+        LocalDateTime localDateTime = LocalDateTime.of(2022, 01, 01, 5, 30, 20);
+        LocalDateTime localDateTime1 = LocalDateTime.of(2022, 01, 01, 8, 6);
+        System.out.println(LocalDateTime.now());
+        System.out.println(localDateTime);
+        System.out.println(localDateTime1);
     }
 }
