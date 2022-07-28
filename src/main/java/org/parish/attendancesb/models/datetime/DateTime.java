@@ -3,6 +3,8 @@ package org.parish.attendancesb.models.datetime;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.Embeddable;
@@ -45,8 +47,32 @@ public class DateTime {
         return this.localDateTime.isBefore(LocalDateTime.parse(dateTime));
     }
 
+    public boolean isBefore(DateTime dateTime) {
+        return this.localDateTime.isBefore(dateTime.getLocalDateTime());
+    }
+
     public boolean isAfter(String dateTime) {
         return this.localDateTime.isAfter(LocalDateTime.parse(dateTime));
+    }
+
+    public boolean isAfter(DateTime dateTime) {
+        return this.localDateTime.isAfter(dateTime.getLocalDateTime());
+    }
+
+    public Date getDate() {
+        return new Date(
+                localDateTime.getYear(),
+                localDateTime.getMonthValue(),
+                localDateTime.getDayOfMonth()
+        );
+    }
+
+    public Time getTime() {
+        return new Time(
+                localDateTime.getHour(),
+                localDateTime.getMinute(),
+                localDateTime.getSecond()
+        );
     }
 
     public static void main(String[] args) {
