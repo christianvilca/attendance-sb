@@ -1,14 +1,14 @@
 package org.parish.attendancesb.models;
 
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
+import lombok.*;
+import org.parish.attendancesb.models.datetime.Date;
 
 import javax.persistence.*;
 
 @Data
 @ToString
 @RequiredArgsConstructor
+@NoArgsConstructor
 @Entity(name = "attendance_date")
 public class AttendanceDate {
 
@@ -17,8 +17,21 @@ public class AttendanceDate {
     private Integer id;
 
     @Column(name = "id_catequesis")
-    private Integer idCatequesis;
+    @NonNull
+    private Catequesis catequesis;
 
-    private String date;
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "localDate", column = @Column(name = "date"))
+    })
+    @NonNull
+    private Date date;
 
+    public String getMonth() {
+        return this.date.getMonth();
+    }
+
+    public int getDay() {
+        return this.date.getDay();
+    }
 }
