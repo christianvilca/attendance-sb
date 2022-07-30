@@ -39,6 +39,11 @@ public class Attendance {
         this.dateTime = dateTime;
     }
 
+    public Attendance(DateTime dateTime, Catequesis catequesis) {
+        this.dateTime = dateTime;
+        this.catequesis = catequesis;
+    }
+
     public boolean isBeforeStart() {
         DateTime dateTime = new DateTime(this.dateTime.getDate(), catequesis.getTimeStartWithTolerance());
         return this.dateTime.isBefore(dateTime);

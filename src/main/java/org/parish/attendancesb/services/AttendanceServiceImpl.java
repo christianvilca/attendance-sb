@@ -54,15 +54,13 @@ public class AttendanceServiceImpl implements AttendanceService {
         List<AttendanceDate> attendanceDateList = this.attendanceDateService.getAllByIdCatequesis(catequesis.getId());
         List<Attendance> attendanceList = this.attendanceRepository.findByCatequesisAndReceiverPerson(receiverPerson.getId(), catequesis.getId());
 
-        //return new Resume(receiverPerson, lad, la);
-
-        Resume resume = new Resume(catequesis, receiverPerson, attendanceDateList, attendanceList);
+        Resume resume = new Resume(attendanceDateList, attendanceList);
 
         for (Attendance attendance1 : attendanceList) {
-            System.out.println("Attendance: "+ attendance1);
+            System.out.println("Attendance: " + attendance1);
         }
         for (AttendanceDate attendance2 : attendanceDateList) {
-            System.out.println("AttendanceDate: "+ attendance2);
+            System.out.println("AttendanceDate: " + attendance2);
         }
 
         return resume;
