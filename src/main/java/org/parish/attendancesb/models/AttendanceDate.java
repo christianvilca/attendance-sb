@@ -9,22 +9,22 @@ import javax.persistence.*;
 @ToString
 @RequiredArgsConstructor
 @NoArgsConstructor
-@Entity(name = "attendance_date")
+@Entity
 public class AttendanceDate {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "id_catequesis")
     @NonNull
+    @Embedded
+    @ManyToOne
+    @JoinColumn(name="catequesis_id")
     private Catequesis catequesis;
 
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name = "localDate", column = @Column(name = "date"))
-    })
     @NonNull
+    @Embedded
+    @AttributeOverride(name = "localDate", column = @Column(name = "date", columnDefinition = "TEXT"))
     private Date date;
 
     public String getMonth() {

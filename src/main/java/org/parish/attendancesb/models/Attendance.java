@@ -1,7 +1,6 @@
 package org.parish.attendancesb.models;
 
 import lombok.*;
-import org.parish.attendancesb.models.datetime.Date;
 import org.parish.attendancesb.models.datetime.DateTime;
 import org.springframework.stereotype.Component;
 
@@ -20,19 +19,16 @@ public class Attendance {
     private Integer id;
 
     @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name = "dateTime", column = @Column(name = "date_time"))
-    })
-    @NonNull
+    @AttributeOverride(name = "localDateTime", column = @Column(name = "date_time", columnDefinition = "TEXT"))
     private DateTime dateTime;
 
     @ManyToOne()
-    @JoinColumn(name = "id_catequesis")
+    @JoinColumn(name = "catequesis_id")
     private Catequesis catequesis;
 
-    @ManyToOne()
-    @JoinColumn(name = "id_receiver_person")
     @NonNull
+    @ManyToOne()
+    @JoinColumn(name = "receiver_person_id")
     private ReceiverPerson receiverPerson;
 
     public Attendance(DateTime dateTime) {

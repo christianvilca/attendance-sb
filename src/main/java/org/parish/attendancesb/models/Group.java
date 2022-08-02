@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Data
 @ToString
 @RequiredArgsConstructor
-@Entity(name = "group_catequesis")
+@Entity
 public class Group {
 
     @Id
@@ -18,7 +18,7 @@ public class Group {
 
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name="id_catequesis")
+    @ManyToOne()
+    @JoinColumn(name="catequesis_id")
     private Catequesis catequesis;
 }

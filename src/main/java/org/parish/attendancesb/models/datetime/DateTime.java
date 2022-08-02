@@ -1,10 +1,7 @@
 package org.parish.attendancesb.models.datetime;
 
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 import lombok.ToString;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.Embeddable;
@@ -16,8 +13,6 @@ import java.time.LocalDateTime;
 @Embeddable
 public class DateTime {
     private LocalDateTime localDateTime;
-    private Time time;
-    private Date date;
 
     private static final String FORMAT_DATETIME = "yyyy-MM-dd HH:mm:ss";
 
@@ -31,16 +26,6 @@ public class DateTime {
 
     public DateTime(Date date, Time time) {
         localDateTime = LocalDateTime.of(date.getLocalDate(), time.getLocalTime());
-    }
-
-    public DateTime(int year, int month, int day, int hour, int minute) {
-        date.set(year, month, day);
-        time.set(hour, minute);
-    }
-
-    public DateTime(int year, int month, int day, int hour, int minute, int second) {
-        date.set(year, month, day);
-        time.set(hour, minute, second);
     }
 
     public boolean isBefore(String dateTime) {

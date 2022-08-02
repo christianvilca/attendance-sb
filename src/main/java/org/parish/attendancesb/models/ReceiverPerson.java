@@ -11,17 +11,15 @@ import java.util.List;
 @ToString
 @RequiredArgsConstructor
 @Entity
-@Table(name = "receiver_person")
 public class ReceiverPerson {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_receiver_person")
     private Integer id;
 
     private String code;
 
-    @Column(name = "id_group")
+    @Column(name = "group_id")
     private Integer idGroup;
 
     @Column(name = "first_name")

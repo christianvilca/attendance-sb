@@ -2,8 +2,6 @@ package org.parish.attendancesb.models;
 
 import lombok.*;
 import org.parish.attendancesb.models.datetime.Time;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -14,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Component
+@Embeddable
 public class Catequesis {
 
     @Id
@@ -24,10 +23,12 @@ public class Catequesis {
 
     private String day;
 
-    @Column(name = "hour_start")
+    @Embedded
+    @AttributeOverride(name = "localTime", column = @Column(name = "time_start", columnDefinition = "TEXT"))
     private Time timeStart;
 
-    @Column(name = "hour_end")
+    @Embedded
+    @AttributeOverride(name = "localTime", column = @Column(name = "time_end", columnDefinition = "TEXT"))
     private Time timeEnd;
 
     private int tolerance;

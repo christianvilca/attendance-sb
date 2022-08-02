@@ -60,9 +60,6 @@ class ResumeTest {
 
         attendanceList.add(new Attendance(new DateTime("2022-06-04T16:46:00"), catequesis));
 
-//        resume.setAttendanceDateList(attendanceDateList);
-//        resume.setAttendanceList(attendanceList);
-//        resume.setResumeDetails(new ArrayList<>());
         resume = new Resume(attendanceDateList, attendanceList);
         resume.generate();
     }
