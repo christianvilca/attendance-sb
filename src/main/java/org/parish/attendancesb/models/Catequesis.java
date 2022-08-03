@@ -39,6 +39,10 @@ public class Catequesis {
     @OneToMany(mappedBy = "catequesis")
     private List<Attendance> attendances;
 
+    public Catequesis(Integer id) {
+        this.id = id;
+    }
+
     public Catequesis(Time timeStart, Time timeEnd, int tolerance) {
         this.timeStart = timeStart;
         this.timeEnd = timeEnd;
