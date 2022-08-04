@@ -5,15 +5,16 @@ import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @ToString
 @RequiredArgsConstructor
-@Entity
+@Entity(name="group_catequesis")
 public class Group {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
 
     private String name;
@@ -21,4 +22,8 @@ public class Group {
     @ManyToOne()
     @JoinColumn(name="catequesis_id")
     private Catequesis catequesis;
+
+    @OneToMany(mappedBy = "group")
+    private List<ReceiverPerson> receiverPeople;
+
 }

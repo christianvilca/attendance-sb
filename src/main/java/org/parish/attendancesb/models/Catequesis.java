@@ -10,27 +10,33 @@ import java.util.List;
 @Data
 @ToString
 @NoArgsConstructor
+@RequiredArgsConstructor
 @Entity
 @Component
 @Embeddable
 public class Catequesis {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
 
+    @NonNull
     private String name;
 
+    @NonNull
     private String day;
 
+    @NonNull
     @Embedded
     @AttributeOverride(name = "localTime", column = @Column(name = "time_start", columnDefinition = "TEXT"))
     private Time timeStart;
 
+    @NonNull
     @Embedded
     @AttributeOverride(name = "localTime", column = @Column(name = "time_end", columnDefinition = "TEXT"))
     private Time timeEnd;
 
+    @NonNull
     private int tolerance;
 
     @OneToMany(mappedBy = "catequesis")

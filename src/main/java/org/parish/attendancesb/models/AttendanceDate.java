@@ -13,7 +13,7 @@ import javax.persistence.*;
 public class AttendanceDate {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
 
     @NonNull
@@ -26,6 +26,10 @@ public class AttendanceDate {
     @Embedded
     @AttributeOverride(name = "localDate", column = @Column(name = "date", columnDefinition = "TEXT"))
     private Date date;
+
+    public AttendanceDate(Integer id) {
+        this.id = id;
+    }
 
     public String getMonth() {
         return this.date.getMonth();

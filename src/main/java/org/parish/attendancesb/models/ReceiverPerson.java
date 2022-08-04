@@ -14,13 +14,14 @@ import java.util.List;
 public class ReceiverPerson {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
 
     private String code;
 
-    @Column(name = "group_id")
-    private Integer idGroup;
+    @ManyToOne()
+    @JoinColumn(name="group_id")
+    private Group group;
 
     @Column(name = "first_name")
     private String firstName;
