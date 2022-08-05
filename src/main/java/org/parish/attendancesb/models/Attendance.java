@@ -18,10 +18,12 @@ public class Attendance {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
 
+    @NonNull
     @Embedded
     @AttributeOverride(name = "localDateTime", column = @Column(name = "date_time", columnDefinition = "TEXT"))
     private DateTime dateTime;
 
+    @NonNull
     @ManyToOne()
     @JoinColumn(name = "catequesis_id")
     private Catequesis catequesis;
