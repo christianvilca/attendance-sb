@@ -4,8 +4,8 @@ import org.parish.attendancesb.models.ReceiverPerson;
 
 import java.util.Optional;
 
-public interface ReceiverPersonService {
+public interface ReceiverPersonService extends Service<Integer, ReceiverPerson> {
 
-    public Optional<ReceiverPerson> getByCode(String code);
-    public ReceiverPerson getById(Integer id);
+    public Optional<ReceiverPerson> findByCode(String code);
+
 }
