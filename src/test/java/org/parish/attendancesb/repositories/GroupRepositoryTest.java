@@ -70,7 +70,7 @@ class GroupRepositoryTest {
         Group gr3 = new Group("San Lucas", new Catequesis(1));
         entityManager.persist(gr3);
 
-        Iterable catequeses = repository.findByNameContaining("Ma");
+        Iterable catequeses = repository.findAllByNameContaining("Ma");
         assertThat(catequeses).hasSize(2).contains(gr1, gr2);
     }
 
@@ -83,7 +83,7 @@ class GroupRepositoryTest {
         Group gr3 = new Group("San Lucas", new Catequesis(1));
         entityManager.persist(gr3);
 
-        Iterable receiverPeople = repository.findByCatequesis(new Catequesis(1));
+        Iterable receiverPeople = repository.findAllByCatequesis(new Catequesis(1));
         assertThat(receiverPeople).hasSize(2).contains(gr1, gr3);
     }
 

@@ -10,8 +10,8 @@ import java.util.List;
 @Repository
 public interface GroupRepository extends JpaRepository<Group, Integer> {
 
-    public List<Group> findByNameContaining(String name);
+    public List<Group> findAllByNameContaining(String name);
 
-    public List<Group> findByCatequesis(Catequesis catequesis);
+    public List<Group> findAllByCatequesis(Catequesis catequesis);
 
 }
