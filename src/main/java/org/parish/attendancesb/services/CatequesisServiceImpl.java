@@ -11,40 +11,55 @@ import java.util.List;
 @Service
 public class CatequesisServiceImpl implements CatequesisService {
 
-    private CatequesisRepository catequesisRepository;
+    private CatequesisRepository repository;
 
-    public CatequesisServiceImpl(CatequesisRepository catequesisRepository) {
-        this.catequesisRepository = catequesisRepository;
+    public CatequesisServiceImpl(CatequesisRepository repository) {
+        this.repository = repository;
     }
 
     @Override
     public Catequesis get() {
-        return this.catequesisRepository.getById(SessionSingleton.instance().getIdCatequesis());
+        return this.getById(SessionSingleton.instance().getIdCatequesis());
     }
 
-    public List<Catequesis> getAllCatequesis() {
-        return catequesisRepository.findAll();
+    @Override
+    public List<Catequesis> findByName(String name) {
+        return repository.findByNameContaining(name);
     }
 
-    public Catequesis save(Catequesis newCatequesis) {
-        return catequesisRepository.save(newCatequesis);
+    @Override
+    public Catequesis getById(Integer id) {
+        return repository.getById(id);
     }
 
-    public void delete(int id) {
-        catequesisRepository.delete(new Catequesis(id));
+    @Override
+    public Catequesis save(Catequesis catequesis) {
+        return repository.save(catequesis);
     }
 
-    public Catequesis update(Catequesis newCatequesis, int id) {
-        return catequesisRepository.findById(id)
+    @Override
+    public void delete(Catequesis catequesis) {
+        repository.delete(catequesis);
+    }
+
+    @Override
+    public Catequesis update(Catequesis catequesis) {
+        return repository.findById(catequesis.getId())
                 .map(
-                        Catequesis -> {
-                            Catequesis.setName(newCatequesis.getName());
-                            Catequesis.setDay(newCatequesis.getDay());
-                            Catequesis.setTimeStart(newCatequesis.getTimeStart());
-                            Catequesis.setTimeEnd(newCatequesis.getTimeEnd());
-                            Catequesis.setTolerance(newCatequesis.getTolerance());
-                            return catequesisRepository.save(Catequesis);
+                        c -> {
+                            c.setName(catequesis.getName());
+                            c.setDay(catequesis.getDay());
+                            c.setTimeStart(catequesis.getTimeStart());
+                            c.setTimeEnd(catequesis.getTimeEnd());
+                            c.setTolerance(catequesis.getTolerance());
+                            return this.save(c);
                         }
                 ).orElse(null);
     }
+
+    @Override
+    public List<Catequesis> findAll() {
+        return repository.findAll();
+    }
+
 }
