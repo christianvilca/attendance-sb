@@ -22,36 +22,14 @@ public class AttendanceDateServiceImpl implements AttendanceDateService {
         return repository.findAllByCatequesis(catequesis);
     }
 
-    @Override
-    public AttendanceDate getById(Integer id) {
-        return repository.getById(id);
+    private Boolean hasDate(AttendanceDate attendanceDate) {
+        return repository.findByDate(attendanceDate.getDate()) != null;
     }
 
     @Override
-    public AttendanceDate save(AttendanceDate attendanceDate) {
-        return repository.save(attendanceDate);
-    }
-
-    @Override
-    public void delete(AttendanceDate attendanceDate) {
-        repository.delete(attendanceDate);
-    }
-
-    @Override
-    public AttendanceDate update(AttendanceDate attendanceDate) {
-        return repository.findById(attendanceDate.getId())
-                .map(
-                        ad -> {
-                            ad.setCatequesis(attendanceDate.getCatequesis());
-                            ad.setDate(attendanceDate.getDate());
-                            return repository.save(ad);
-                        }
-                ).orElse(null);
-    }
-
-    @Override
-    public List<AttendanceDate> findAll() {
-        return repository.findAll();
+    public void save(AttendanceDate attendanceDate) {
+        if (!hasDate(attendanceDate))
+            repository.save(attendanceDate);
     }
 
 }
