@@ -18,7 +18,7 @@ import java.util.Optional;
 
 @Service
 public class AttendanceServiceImpl implements AttendanceService {
-    private AttendanceRepository attendanceRepository;
+    private AttendanceRepository repository;
     private CatequesisService catequesisService;
     private ReceiverPersonService receiverPersonService;
     private AttendanceDateService attendanceDateService;
@@ -27,13 +27,22 @@ public class AttendanceServiceImpl implements AttendanceService {
     public AttendanceServiceImpl() {
     }
 
-    public AttendanceServiceImpl(AttendanceRepository attendanceRepository, ReceiverPersonService receiverPersonService) {
-        this.attendanceRepository = attendanceRepository;
+    public AttendanceServiceImpl(
+            AttendanceRepository repository,
+            CatequesisService catequesisService,
+            ReceiverPersonService receiverPersonService,
+            AttendanceDateService attendanceDateService,
+            AttendanceService attendanceService
+    ) {
+        this.repository = repository;
+        this.catequesisService = catequesisService;
         this.receiverPersonService = receiverPersonService;
+        this.attendanceDateService = attendanceDateService;
+        this.attendanceService = attendanceService;
     }
 
     public Optional<Attendance> register(String code, String dateTime) {
-        Optional<ReceiverPerson> optReceiverPerson = receiverPersonService.getByCode(code);
+        Optional<ReceiverPerson> optReceiverPerson = receiverPersonService.findByCode(code);
         ReceiverPerson receiverPerson = optReceiverPerson.get();
         Catequesis catequesis = this.catequesisService.get();
 
@@ -42,28 +51,37 @@ public class AttendanceServiceImpl implements AttendanceService {
         attendance.setCatequesis(catequesis);
         attendance.setDateTime(new DateTime(dateTime));
 
-        attendanceRepository.save(attendance);
-        //this.insert(attendance);
+        this.save(attendance);
 
         return Optional.of(attendance);
     }
 
-    public Resume resume(Integer id) {
-        ReceiverPerson receiverPerson = this.receiverPersonService.getById(id);
+    @Override
+    public Resume resume(ReceiverPerson receiverPerson) {
         Catequesis catequesis = this.catequesisService.get();
-        List<AttendanceDate> attendanceDateList = this.attendanceDateService.getAllByIdCatequesis(catequesis.getId());
-        List<Attendance> attendanceList = this.attendanceRepository.findByCatequesisAndReceiverPerson(receiverPerson.getId(), catequesis.getId());
+        List<AttendanceDate> attendanceDateList = this.attendanceDateService.findAllByCatequesis(catequesis);
+        List<Attendance> attendanceList = this.repository.findByCatequesisAndReceiverPerson(catequesis, receiverPerson);
 
         Resume resume = new Resume(attendanceDateList, attendanceList);
-
-        for (Attendance attendance1 : attendanceList) {
-            System.out.println("Attendance: " + attendance1);
-        }
-        for (AttendanceDate attendance2 : attendanceDateList) {
-            System.out.println("AttendanceDate: " + attendance2);
-        }
+        resume.generate();
 
         return resume;
+    }
+
+    @Override
+    public Attendance save(Attendance attendance) {
+        attendance.setDateTime(new DateTime());
+
+        this.attendanceDateService.save(this.getAttendanceDate(attendance));
+        return repository.save(attendance);
+    }
+
+    private AttendanceDate getAttendanceDate(Attendance attendance) {
+        AttendanceDate attendanceDate = new AttendanceDate();
+        attendanceDate.setCatequesis(this.catequesisService.get());
+        attendanceDate.setDate(attendance.getDateTime().getDate());
+
+        return attendanceDate;
     }
 
 }
