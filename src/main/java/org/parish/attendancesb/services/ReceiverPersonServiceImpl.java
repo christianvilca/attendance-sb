@@ -3,6 +3,8 @@ package org.parish.attendancesb.services;
 import org.parish.attendancesb.models.ReceiverPerson;
 import org.parish.attendancesb.repositories.ReceiverPersonRepository;
 import org.parish.attendancesb.services.interfaces.ReceiverPersonService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,6 +22,16 @@ public class ReceiverPersonServiceImpl implements ReceiverPersonService {
     @Override
     public Optional<ReceiverPerson> findByCode(String code) {
         return repository.findByCode(code);
+    }
+
+    @Override
+    public List<ReceiverPerson> findByName(String name) {
+        return repository.findByNameContaining(name);
+    }
+
+    @Override
+    public boolean contains(ReceiverPerson person) {
+        return repository.contains(person);
     }
 
     @Override

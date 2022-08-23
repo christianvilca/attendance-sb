@@ -1,21 +1,20 @@
 package org.parish.attendancesb.models;
 
-import lombok.Data;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Data
 @ToString
+@NoArgsConstructor
 @RequiredArgsConstructor
 @Entity
 public class ReceiverPerson {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @EqualsAndHashCode.Exclude
     private Integer id;
 
     @NonNull
@@ -32,12 +31,15 @@ public class ReceiverPerson {
     @NonNull
     @ManyToOne
     @JoinColumn(name = "group_id")
+    @EqualsAndHashCode.Exclude
     private Group group;
 
-    @OneToMany(mappedBy = "receiverPerson")
+    @EqualsAndHashCode.Exclude
+    @OneToMany(mappedBy = "receiverPerson", fetch = FetchType.EAGER)
     private List<Attendance> attendances;
 
     public ReceiverPerson(Integer id) {
         this.id = id;
     }
+
 }
