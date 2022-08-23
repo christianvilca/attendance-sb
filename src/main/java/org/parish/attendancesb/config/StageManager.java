@@ -5,6 +5,7 @@ import static org.slf4j.LoggerFactory.getLogger;
 import java.util.Objects;
 
 import javafx.stage.Modality;
+import org.parish.attendancesb.view.FxmlView;
 import org.slf4j.Logger;
 
 import javafx.application.Platform;

@@ -9,7 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
-import org.parish.attendancesb.config.FxmlView;
+import org.parish.attendancesb.view.FxmlView;
 import org.parish.attendancesb.config.StageManager;
 import org.parish.attendancesb.controllers.utils.Alert;
 import org.parish.attendancesb.models.ReceiverPerson;

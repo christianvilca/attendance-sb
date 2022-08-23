@@ -1,4 +1,4 @@
-package org.parish.attendancesb.config;
+package org.parish.attendancesb.view;
 
 import java.util.ResourceBundle;
 

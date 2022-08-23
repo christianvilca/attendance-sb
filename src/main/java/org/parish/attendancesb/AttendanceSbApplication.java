@@ -2,7 +2,7 @@ package org.parish.attendancesb;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import org.parish.attendancesb.config.FxmlView;
+import org.parish.attendancesb.view.FxmlView;
 import org.parish.attendancesb.config.StageManager;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
