@@ -5,28 +5,19 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-//import javafx.scene.control.Alert;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import org.parish.attendancesb.controllers.window.Alert;
-import org.parish.attendancesb.controllers.window.ParentWindow;
+import org.parish.attendancesb.config.FxmlView;
+import org.parish.attendancesb.config.StageManager;
+import org.parish.attendancesb.controllers.utils.Alert;
 import org.parish.attendancesb.models.ReceiverPerson;
-import org.parish.attendancesb.repositories.ReceiverPersonRepository;
-import org.parish.attendancesb.services.ReceiverPersonServiceImpl;
 import org.parish.attendancesb.services.interfaces.ReceiverPersonService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -48,13 +39,17 @@ public class ReceiverPersonListController implements Initializable {
     @FXML
     private TextField txtSearch;
 
+    @Lazy
+    @Autowired
+    private StageManager stageManager;
+
+    @Autowired
+    private ReceiverPersonController controller;
+
+    @Autowired
+    private ReceiverPersonService service;
+
     private ObservableList<ReceiverPerson> people;
-
-    ReceiverPersonService service;
-
-    public ReceiverPersonListController(ReceiverPersonService service) {
-        this.service = service;
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -65,51 +60,15 @@ public class ReceiverPersonListController implements Initializable {
             }
         });
 
-        //this.service = new ReceiverPersonServiceImpl();
-
         this.refleshTable();
-
-        this.setModelToColumn();
-
+        this.setColumnFromModel();
         this.dblClickTable();
-
-        //txtSearch.requestFocus();
     }
 
-    public ReceiverPersonController getController(String rootFxml) {
-
-        FXMLLoader loader = new FXMLLoader(this.getClass().getResource(rootFxml));
-
-        Parent root = null;
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            Alert.error(e.getMessage());
-        }
-
-        Scene scene = new Scene(root);
-        Stage stage = new Stage();
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.showAndWait();
-
-        return loader.getController();
-    }
-
-    private void setModelToColumn() {
-        // Se asocia con el modelo
+    private void setColumnFromModel() {
         this.colId.setCellValueFactory(new PropertyValueFactory("id"));
-        this.colApellidos.setCellValueFactory(new PropertyValueFactory("firstName"));
-        this.colNombres.setCellValueFactory(new PropertyValueFactory("lastName"));
-    }
-
-    private void refleshTable() {
-        //this.people = FXCollections.observableArrayList(this.service.findAll());
-        //this.filterPartidas = FXCollections.observableArrayList();
-
-        this.table.setItems(this.people);
-        this.table.refresh();
+        this.colApellidos.setCellValueFactory(new PropertyValueFactory("lastName"));
+        this.colNombres.setCellValueFactory(new PropertyValueFactory("firstName"));
     }
 
     private void dblClickTable() {
@@ -126,14 +85,17 @@ public class ReceiverPersonListController implements Initializable {
         });
     }
 
-    final String FXML = "/view/ReceiverPerson.fxml";
+    private void showModal() {
+        stageManager.sceneModal(FxmlView.RECEIVER_PEOPLE);
+
+        if (controller.getModel() != null)
+            this.refleshTable();
+    }
 
     @FXML
     void newRegistry(ActionEvent event) {
-        ReceiverPersonController controller = this.getController(FXML);
-
-        if (controller.getRegistry() != null)
-            this.refleshTable();
+        controller.setModel(null);
+        showModal();
     }
 
     @FXML
@@ -141,29 +103,28 @@ public class ReceiverPersonListController implements Initializable {
         ReceiverPerson person = this.table.getSelectionModel().getSelectedItem();
 
         if (person == null) {
-            Alert.error("Se debe seleccionar una partida");
-        } else {
-            ReceiverPersonController controller = this.getController(FXML);
-            controller.setRegistry(person);
-
-            if (controller.getRegistry() != null) {
-                this.table.refresh();
-            }
+            Alert.error("Debe seleccionar un registro!");
+            return;
         }
+
+        controller.setModel(person);
+        showModal();
     }
 
     @FXML
     void filter(KeyEvent event) {
-        String textSearch = this.txtSearch.getText().trim();
-
-        if (textSearch.isEmpty()) {
-            this.refleshTable();
-        } else {
-            //this.people = FXCollections.observableArrayList(this.service.list());
-            ObservableList<ReceiverPerson> people = FXCollections.observableArrayList(this.service.findByName(textSearch));
-
-            this.table.setItems(people);
-        }
+        refleshTable();
     }
 
+    private void refleshTable() {
+        String textSearch = this.txtSearch.getText().trim();
+
+        if (textSearch.isEmpty())
+            this.people = FXCollections.observableArrayList(this.service.findAll());
+        else
+            this.people = FXCollections.observableArrayList(this.service.findByName(textSearch));
+
+        this.table.setItems(this.people);
+        this.table.refresh();
+    }
 }
