@@ -4,6 +4,7 @@ import org.parish.attendancesb.models.Group;
 import org.parish.attendancesb.models.ReceiverPerson;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -21,5 +22,11 @@ public interface ReceiverPersonRepository extends JpaRepository<ReceiverPerson, 
     public List<ReceiverPerson> findByNameContaining(String name);
 
     public List<ReceiverPerson> findByGroup(Group group);
+
+    @Query("SELECT  case when count(r)> 0 then true else false end " +
+            " FROM ReceiverPerson r" +
+            " WHERE r.firstName = :#{#person.firstName} " +
+            " AND r.lastName = :#{#person.lastName} ")
+    boolean contains(@Param("person") ReceiverPerson person);
 
 }

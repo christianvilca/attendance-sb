@@ -132,4 +132,20 @@ class ReceiverPersonRepositoryTest {
         assertThat(repository.findAll()).isEmpty();
     }
 
+    @Test
+    public void contains_person() {
+        ReceiverPerson rp1 = new ReceiverPerson("Code 1", "first nombre 1", "second nombre 1", new Group(1));
+        entityManager.persist(rp1);
+        ReceiverPerson rp2 = new ReceiverPerson("Code 1", "first nombre 1", "second nombre 1", new Group(1));
+        //entityManager.persist(rp2);
+        ReceiverPerson rp3 = new ReceiverPerson("Code 3", "first nombre 3", "second nombre 3", new Group(1));
+        //entityManager.persist(rp3);
+
+        boolean exists1 = repository.contains(rp2);
+        assertThat(exists1).isTrue();
+
+        boolean exists2 = repository.contains(rp3);
+        assertThat(exists2).isFalse();
+    }
+
 }
