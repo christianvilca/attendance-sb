@@ -15,6 +15,28 @@ public enum FxmlView {
             return "/view/Sidebar.fxml";
         }
     },
+    CATEQUESIS_LIST {
+        @Override
+        public String getTitle() {
+            return getStringFromResourceBundle("main.title");
+        }
+
+        @Override
+        public String getFxmlFile() {
+            return "/view/CatequesisList.fxml";
+        }
+    },
+    CATEQUESIS {
+        @Override
+        public String getTitle() {
+            return getStringFromResourceBundle("main.title");
+        }
+
+        @Override
+        public String getFxmlFile() {
+            return "/view/Catequesis.fxml";
+        }
+    },
     RECEIVER_PEOPLE_LIST {
         @Override
         public String getTitle() {

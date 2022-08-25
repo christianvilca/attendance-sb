@@ -19,17 +19,17 @@
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" onMouseClicked="#page1" prefHeight="42.0" prefWidth="140.0" stylesheets="@../css/styles.css" text="Confirmantes" textFill="WHITE">
+            <Button mnemonicParsing="false" onMouseClicked="#page1" prefHeight="42.0" prefWidth="140.0" stylesheets="@../css/styles.css" text="Catequesis" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" onMouseClicked="#page2" prefHeight="42.0" prefWidth="140.0" stylesheets="@../css/styles.css" text="Reporte" textFill="WHITE">
+            <Button mnemonicParsing="false" onMouseClicked="#page2" prefHeight="42.0" prefWidth="140.0" stylesheets="@../css/styles.css" text="Grupos" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" onMouseClicked="#page3" prefHeight="42.0" prefWidth="140.0" stylesheets="@../css/styles.css" text="Page 03" textFill="WHITE" visible="false">
+            <Button mnemonicParsing="false" onMouseClicked="#page3" prefHeight="42.0" prefWidth="140.0" stylesheets="@../css/styles.css" text="Confirmantes" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>

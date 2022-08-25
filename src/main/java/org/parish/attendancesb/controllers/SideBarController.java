@@ -35,17 +35,17 @@ public class SideBarController implements Initializable {
 
     @FXML
     void page1(MouseEvent event) {
-        loadPage(stageManager.getParent(FxmlView.RECEIVER_PEOPLE_LIST));
+        loadPage(stageManager.getParent(FxmlView.CATEQUESIS_LIST));
     }
 
     @FXML
     void page2(MouseEvent event) {
-        //loadPage(stageManager.getParent(FxmlView.REPORT));
+        //loadPage(stageManager.getParent(FxmlView.GROUPS_LIST));
     }
 
     @FXML
     void page3(MouseEvent event) {
-        //loadPage(stageManager.getParent(FxmlView.ANOTHER));
+        loadPage(stageManager.getParent(FxmlView.RECEIVER_PEOPLE_LIST));
     }
 
     @Override

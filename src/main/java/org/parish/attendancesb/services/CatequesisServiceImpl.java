@@ -1,6 +1,7 @@
 package org.parish.attendancesb.services;
 
 import org.parish.attendancesb.models.Catequesis;
+import org.parish.attendancesb.models.ReceiverPerson;
 import org.parish.attendancesb.repositories.CatequesisRepository;
 import org.parish.attendancesb.services.catequesis.SessionSingleton;
 import org.parish.attendancesb.services.interfaces.CatequesisService;
@@ -25,6 +26,11 @@ public class CatequesisServiceImpl implements CatequesisService {
     @Override
     public List<Catequesis> findByName(String name) {
         return repository.findByNameContaining(name);
+    }
+
+    @Override
+    public boolean contains(Catequesis catequesis) {
+        return repository.contains(catequesis);
     }
 
     @Override
