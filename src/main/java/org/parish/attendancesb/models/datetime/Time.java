@@ -19,8 +19,7 @@ public class Time {
     private static final String FORMAT_TIME_AMPM = "hh:mm a";
 
     public Time() {
-        this.localTime = LocalTime.now();
-        this.localTime.format(DateTimeFormatter.ofPattern(FORMAT_TIME_AMPM));
+        this(LocalTime.now());
     }
 
     public Time(String time) {
