@@ -8,7 +8,6 @@ import javax.persistence.*;
 import java.util.List;
 
 @Data
-@ToString
 @NoArgsConstructor
 @RequiredArgsConstructor
 @Entity
@@ -62,5 +61,10 @@ public class Catequesis {
     public Time getTimeMiddle() {
         return this.timeStart.plusSeconds(this.timeStart.duration(this.timeEnd) / 2);
     }
-    
+
+    @Override
+    public String toString() {
+        return name;
+    }
+
 }

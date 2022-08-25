@@ -11,4 +11,5 @@ public interface GroupService extends Service<Integer, Group> {
 
     public List<Group> findAllByCatequesis(Catequesis catequesis);
 
+    boolean contains(Group group);
 }

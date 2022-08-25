@@ -27,6 +27,11 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
+    public boolean contains(Group group) {
+        return repository.contains(group);
+    }
+
+    @Override
     public Group getById(Integer id) {
         return repository.getById(id);
     }

@@ -1,15 +1,13 @@
 package org.parish.attendancesb.models;
 
-import lombok.Data;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Data
 @ToString
+@NoArgsConstructor
 @RequiredArgsConstructor
 @Entity(name = "group_catequesis")
 public class Group {

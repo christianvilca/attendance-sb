@@ -37,6 +37,28 @@ public enum FxmlView {
             return "/view/Catequesis.fxml";
         }
     },
+    GROUP_LIST {
+        @Override
+        public String getTitle() {
+            return getStringFromResourceBundle("main.title");
+        }
+
+        @Override
+        public String getFxmlFile() {
+            return "/view/GroupList.fxml";
+        }
+    },
+    GROUP {
+        @Override
+        public String getTitle() {
+            return getStringFromResourceBundle("main.title");
+        }
+
+        @Override
+        public String getFxmlFile() {
+            return "/view/Group.fxml";
+        }
+    },
     RECEIVER_PEOPLE_LIST {
         @Override
         public String getTitle() {
