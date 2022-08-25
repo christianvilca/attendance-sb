@@ -34,6 +34,9 @@ public class ReceiverPersonListController implements Initializable {
     private TableColumn<?, ?> colNombres;
 
     @FXML
+    private TableColumn<?, ?> group;
+
+    @FXML
     private TableView<ReceiverPerson> table;
 
     @FXML
@@ -69,6 +72,7 @@ public class ReceiverPersonListController implements Initializable {
         this.colId.setCellValueFactory(new PropertyValueFactory("id"));
         this.colApellidos.setCellValueFactory(new PropertyValueFactory("lastName"));
         this.colNombres.setCellValueFactory(new PropertyValueFactory("firstName"));
+        this.group.setCellValueFactory(new PropertyValueFactory("group"));
     }
 
     private void dblClickTable() {

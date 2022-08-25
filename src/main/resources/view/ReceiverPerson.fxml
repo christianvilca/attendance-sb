@@ -3,13 +3,14 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="150.0" prefWidth="312.0" spacing="8.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.parish.attendancesb.controllers.ReceiverPersonController">
+<VBox prefHeight="195.0" prefWidth="312.0" spacing="8.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.parish.attendancesb.controllers.ReceiverPersonController">
    <children>
       <HBox alignment="CENTER">
          <children>
@@ -26,13 +27,19 @@
                <children>
                   <HBox alignment="CENTER" spacing="8.0">
                      <children>
-                        <Label alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="55.0" text="Apellidos:" />
+                        <Label alignment="CENTER_RIGHT" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="17.0" prefWidth="72.0" text="Grupo:" textAlignment="RIGHT" />
+                        <ComboBox fx:id="group" prefHeight="25.0" prefWidth="285.0" promptText="--- SELECCIONAR ---" HBox.hgrow="ALWAYS" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" spacing="8.0">
+                     <children>
+                        <Label alignment="CENTER_RIGHT" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="72.0" text="Apellidos:" />
                         <TextField fx:id="txtLastName" HBox.hgrow="ALWAYS" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" spacing="8.0">
                      <children>
-                        <Label alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="55.0" text="Nombres:" />
+                        <Label alignment="CENTER_RIGHT" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="72.0" text="Nombres:" />
                         <TextField fx:id="txtFirstName" HBox.hgrow="ALWAYS" />
                      </children>
                   </HBox>

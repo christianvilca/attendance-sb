@@ -6,7 +6,6 @@ import javax.persistence.*;
 import java.util.List;
 
 @Data
-@ToString
 @NoArgsConstructor
 @RequiredArgsConstructor
 @Entity(name = "group_catequesis")
@@ -34,5 +33,10 @@ public class Group {
     public Group(Integer id, Catequesis catequesis) {
         this.id = id;
         this.catequesis = catequesis;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

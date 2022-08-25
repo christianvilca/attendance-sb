@@ -4,10 +4,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.parish.attendancesb.controllers.utils.Alert;
+import org.parish.attendancesb.models.Group;
 import org.parish.attendancesb.models.ReceiverPerson;
+import org.parish.attendancesb.services.interfaces.CatequesisService;
+import org.parish.attendancesb.services.interfaces.GroupService;
 import org.parish.attendancesb.services.interfaces.ReceiverPersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -22,6 +26,9 @@ public class ReceiverPersonController implements Initializable {
     private Button btnSave;
 
     @FXML
+    private ComboBox<Group> group;
+
+    @FXML
     private TextField txtFirstName;
 
     @FXML
@@ -29,6 +36,9 @@ public class ReceiverPersonController implements Initializable {
 
     @Autowired
     private ReceiverPersonService service;
+
+    @Autowired
+    private GroupService groupService;
 
     private ReceiverPerson person;
 
@@ -61,10 +71,16 @@ public class ReceiverPersonController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        fillGroups();
+
         if (person != null)
             setFieldsFromModel();
         else
             clearFields();
+    }
+
+    private void fillGroups() {
+        group.getItems().addAll(groupService.findAll());
     }
 
     public ReceiverPerson getModel() {
@@ -82,6 +98,7 @@ public class ReceiverPersonController implements Initializable {
 
     private ReceiverPerson getModelFromFields(ReceiverPerson person) {
         person.setCode("00");
+        person.setGroup(group.getSelectionModel().getSelectedItem());
         person.setFirstName(txtFirstName.getText());
         person.setLastName(txtLastName.getText());
 
@@ -89,11 +106,13 @@ public class ReceiverPersonController implements Initializable {
     }
 
     private void setFieldsFromModel() {
+        this.group.setValue(this.person.getGroup());
         this.txtFirstName.setText(this.person.getFirstName());
         this.txtLastName.setText(this.person.getLastName());
     }
 
     private void clearFields() {
+        group.setValue(null);
         txtFirstName.clear();
         txtLastName.clear();
     }
