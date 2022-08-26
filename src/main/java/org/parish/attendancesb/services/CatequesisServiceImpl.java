@@ -1,10 +1,12 @@
 package org.parish.attendancesb.services;
 
 import org.parish.attendancesb.models.Catequesis;
+import org.parish.attendancesb.models.Group;
 import org.parish.attendancesb.models.ReceiverPerson;
 import org.parish.attendancesb.repositories.CatequesisRepository;
 import org.parish.attendancesb.services.catequesis.SessionSingleton;
 import org.parish.attendancesb.services.interfaces.CatequesisService;
+import org.parish.attendancesb.services.interfaces.GroupService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,8 +16,11 @@ public class CatequesisServiceImpl implements CatequesisService {
 
     private CatequesisRepository repository;
 
-    public CatequesisServiceImpl(CatequesisRepository repository) {
+    private GroupService groupService;
+
+    public CatequesisServiceImpl(CatequesisRepository repository, GroupService groupService) {
         this.repository = repository;
+        this.groupService = groupService;
     }
 
     @Override
@@ -40,7 +45,13 @@ public class CatequesisServiceImpl implements CatequesisService {
 
     @Override
     public Catequesis save(Catequesis catequesis) {
-        return repository.save(catequesis);
+        Catequesis newCatequesis = repository.save(catequesis);
+        Group group = new Group();
+        group.setName("SIN GRUPO");
+        group.setCatequesis(newCatequesis);
+        groupService.save(group);
+
+        return newCatequesis;
     }
 
     @Override

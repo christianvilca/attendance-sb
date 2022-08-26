@@ -35,6 +35,11 @@ public class Group {
         this.catequesis = catequesis;
     }
 
+    public Group(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     @Override
     public String toString() {
         return name;

@@ -112,7 +112,7 @@ public class ReceiverPersonController implements Initializable {
     }
 
     private void clearFields() {
-        group.setValue(null);
+        group.getSelectionModel().selectFirst();
         txtFirstName.clear();
         txtLastName.clear();
     }
