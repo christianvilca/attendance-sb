@@ -57,6 +57,7 @@ public class ReceiverPersonServiceImpl implements ReceiverPersonService {
                             rp.setCode(receiverPerson.getCode());
                             rp.setFirstName(receiverPerson.getFirstName());
                             rp.setLastName(receiverPerson.getLastName());
+                            rp.setGroup(receiverPerson.getGroup());
                             return this.save(rp);
                         }
                 ).orElse(null);
