@@ -36,7 +36,8 @@ public class ReceiverPersonServiceImpl implements ReceiverPersonService {
 
     @Override
     public ReceiverPerson getById(Integer id) {
-        return repository.getById(id);
+        return repository.findById(id).get();
+    }
 
     @Override
     public boolean existsById(Integer integer) {
