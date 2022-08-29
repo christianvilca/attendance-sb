@@ -13,4 +13,6 @@ public interface ReceiverPersonService extends Service<Integer, ReceiverPerson> 
 
     public boolean contains(ReceiverPerson person);
 
+    boolean existsById(Integer integer);
+
 }

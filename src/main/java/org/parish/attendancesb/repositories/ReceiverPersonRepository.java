@@ -30,4 +30,6 @@ public interface ReceiverPersonRepository extends JpaRepository<ReceiverPerson, 
             " AND r.group = :#{#person.group} ")
     boolean contains(@Param("person") ReceiverPerson person);
 
+    @Override
+    boolean existsById(Integer integer);
 }
