@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 import javax.persistence.*;
 
 @Data
-@ToString
 @NoArgsConstructor
 @RequiredArgsConstructor
 @Entity
@@ -66,4 +65,8 @@ public class Attendance {
         return this.dateTime.getTime().toAMPM();
     }
 
+    @Override
+    public String toString() {
+        return dateTime.toString();
+    }
 }

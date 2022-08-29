@@ -8,7 +8,6 @@ import javax.persistence.Embeddable;
 import java.time.LocalDateTime;
 
 @Data
-@ToString
 @Component
 @Embeddable
 public class DateTime {
@@ -58,6 +57,11 @@ public class DateTime {
                 localDateTime.getMinute(),
                 localDateTime.getSecond()
         );
+    }
+
+    @Override
+    public String toString() {
+        return localDateTime.toString();
     }
 
     public static void main(String[] args) {

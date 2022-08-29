@@ -10,7 +10,6 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 @Data
-@ToString
 @Component
 @Embeddable
 public class Time {

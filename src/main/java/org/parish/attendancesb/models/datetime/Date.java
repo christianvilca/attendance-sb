@@ -10,7 +10,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 @Data
-@ToString
 @RequiredArgsConstructor
 @Component
 @Embeddable
@@ -67,6 +66,11 @@ public class Date {
     }
 
     public String getDate() {
+        return localDate.toString();
+    }
+
+    @Override
+    public String toString() {
         return localDate.toString();
     }
 
