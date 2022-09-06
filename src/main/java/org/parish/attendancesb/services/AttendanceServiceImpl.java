@@ -22,23 +22,17 @@ public class AttendanceServiceImpl implements AttendanceService {
     private CatequesisService catequesisService;
     private ReceiverPersonService receiverPersonService;
     private AttendanceDateService attendanceDateService;
-    private AttendanceService attendanceService;
-
-    public AttendanceServiceImpl() {
-    }
 
     public AttendanceServiceImpl(
             AttendanceRepository repository,
             CatequesisService catequesisService,
             ReceiverPersonService receiverPersonService,
-            AttendanceDateService attendanceDateService,
-            AttendanceService attendanceService
+            AttendanceDateService attendanceDateService
     ) {
         this.repository = repository;
         this.catequesisService = catequesisService;
         this.receiverPersonService = receiverPersonService;
         this.attendanceDateService = attendanceDateService;
-        this.attendanceService = attendanceService;
     }
 
     public Optional<Attendance> register(String code, String dateTime) {
@@ -51,6 +45,21 @@ public class AttendanceServiceImpl implements AttendanceService {
         attendance.setCatequesis(catequesis);
         attendance.setDateTime(new DateTime(dateTime));
 
+        this.save(attendance);
+
+        return Optional.of(attendance);
+    }
+
+    public Optional<Attendance> register(String code) {
+//        Optional<ReceiverPerson> optReceiverPerson = receiverPersonService.findByCode(code);
+//        ReceiverPerson receiverPerson = optReceiverPerson.get();
+        ReceiverPerson receiverPerson = receiverPersonService.getById(Integer.parseInt(code));
+        Catequesis catequesis = this.catequesisService.get();
+
+        Attendance attendance = new Attendance();
+        attendance.setReceiverPerson(receiverPerson);
+        attendance.setCatequesis(catequesis);
+        attendance.setDateTime(new DateTime());
         this.save(attendance);
 
         return Optional.of(attendance);
@@ -71,6 +80,7 @@ public class AttendanceServiceImpl implements AttendanceService {
     @Override
     public Attendance save(Attendance attendance) {
         attendance.setDateTime(new DateTime());
+        attendance.setCatequesis(this.catequesisService.get());
 
         this.attendanceDateService.save(this.getAttendanceDate(attendance));
         return repository.save(attendance);
