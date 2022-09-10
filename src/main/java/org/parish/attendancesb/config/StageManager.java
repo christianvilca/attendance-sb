@@ -65,7 +65,8 @@ public class StageManager {
         primaryStage.setScene(scene);
         primaryStage.sizeToScene();
         primaryStage.centerOnScreen();
-
+        primaryStage.setMinWidth(816);
+        primaryStage.setMinHeight(646);
         try {
             primaryStage.show();
         } catch (Exception exception) {
