@@ -6,23 +6,25 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
+import net.sf.jasperreports.engine.JRException;
 import org.parish.attendancesb.config.StageManager;
 import org.parish.attendancesb.controllers.utils.Alert;
 import org.parish.attendancesb.models.Group;
 import org.parish.attendancesb.models.ReceiverPerson;
+import org.parish.attendancesb.report.Jrxml;
+import org.parish.attendancesb.report.Report;
 import org.parish.attendancesb.services.interfaces.GroupService;
 import org.parish.attendancesb.view.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
+import java.io.FileNotFoundException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 @Component
@@ -41,6 +43,9 @@ public class GroupListController implements Initializable {
     private TextField search;
 
     @FXML
+    private Label total;
+
+    @FXML
     private TableView<Group> table;
 
     @Lazy
@@ -53,7 +58,10 @@ public class GroupListController implements Initializable {
     @Autowired
     private GroupService service;
 
-    private ObservableList<Group> groups;
+    @Autowired
+    private Report report;
+
+    private List<Group> groups;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -97,6 +105,17 @@ public class GroupListController implements Initializable {
     }
 
     @FXML
+    void export(ActionEvent event) {
+        try {
+            report.export(this.table.getItems(), Jrxml.GROUP_LIST);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (JRException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     void newRegistry(ActionEvent event) {
         controller.setModel(null);
         showModal();
@@ -124,11 +143,13 @@ public class GroupListController implements Initializable {
         String textSearch = this.search.getText().trim();
 
         if (textSearch.isEmpty())
-            this.groups = FXCollections.observableArrayList(this.service.findAll());
+            this.groups = this.service.findAll();
         else
-            this.groups = FXCollections.observableArrayList(this.service.findAllByName(textSearch));
+            this.groups = this.service.findAllByName(textSearch);
 
-        this.table.setItems(this.groups);
+        this.table.setItems(FXCollections.observableArrayList(this.groups));
         this.table.refresh();
+
+        this.total.setText(this.groups.size() + "");
     }
 }

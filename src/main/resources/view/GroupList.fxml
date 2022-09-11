@@ -7,6 +7,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -46,6 +47,22 @@
                   <TableColumn fx:id="name" minWidth="50.0" prefWidth="237.0" resizable="false" text="Grupo" />
                </columns>
             </TableView>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="946.0" spacing="8.0">
+         <children>
+            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#export" prefHeight="25.0" prefWidth="89.0" text="Exportar">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Pane prefHeight="25.0" prefWidth="812.0" HBox.hgrow="ALWAYS" />
+            <Label alignment="CENTER_RIGHT" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="40.0" text="Total:" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="total" alignment="CENTER" layoutX="619.0" layoutY="14.0" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="40.0" style="-fx-border-color: #B5B5B5; -fx-border-radius: 4px;" text="0" />
          </children>
       </HBox>
    </children>

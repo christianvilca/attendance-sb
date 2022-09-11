@@ -36,6 +36,22 @@ public enum Jrxml {
             return "/reports/CatequesisList.jrxml";
         }
     },
+    GROUP_LIST {
+        @Override
+        public String getTitle() {
+            return getStringFromResourceBundle("group_list.report.title");
+        }
+
+        @Override
+        public String getExport() {
+            return getStringFromResourceBundle("group_list.report.export");
+        }
+
+        @Override
+        public String getJrxmlFile() {
+            return "/reports/GroupList.jrxml";
+        }
+    },
     RECEIVER_PERSON_LIST {
         @Override
         public String getTitle() {
