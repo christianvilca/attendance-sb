@@ -55,17 +55,17 @@ public enum Jrxml {
     RECEIVER_PERSON_LIST {
         @Override
         public String getTitle() {
-            return getStringFromResourceBundle("main.title");
+            return getStringFromResourceBundle("receiver_person_list.report.title");
         }
 
         @Override
         public String getExport() {
-            return getStringFromResourceBundle("main.title");
+            return getStringFromResourceBundle("receiver_person_list.report.export");
         }
 
         @Override
         public String getJrxmlFile() {
-            return "/reports/ReceiverPerson.jrxml";
+            return "/reports/ReceiverPersonList.jrxml";
         }
     };
 

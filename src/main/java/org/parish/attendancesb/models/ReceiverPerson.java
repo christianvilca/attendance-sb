@@ -6,7 +6,6 @@ import javax.persistence.*;
 import java.util.List;
 
 @Data
-@ToString
 @NoArgsConstructor
 @RequiredArgsConstructor
 @Entity
@@ -42,4 +41,8 @@ public class ReceiverPerson {
         this.id = id;
     }
 
+    @Override
+    public String toString() {
+        return firstName + ", " + lastName;
+    }
 }

@@ -9,6 +9,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
+import net.sf.jasperreports.engine.JRException;
+import org.parish.attendancesb.report.Jrxml;
+import org.parish.attendancesb.report.Report;
+import org.parish.attendancesb.services.report.AttendanceReportService;
 import org.parish.attendancesb.view.FxmlView;
 import org.parish.attendancesb.config.StageManager;
 import org.parish.attendancesb.controllers.utils.Alert;
@@ -18,7 +22,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
+import java.io.FileNotFoundException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 @Component
@@ -42,6 +48,9 @@ public class ReceiverPersonListController implements Initializable {
     @FXML
     private TextField txtSearch;
 
+    @FXML
+    private Label total;
+
     @Lazy
     @Autowired
     private StageManager stageManager;
@@ -52,7 +61,10 @@ public class ReceiverPersonListController implements Initializable {
     @Autowired
     private ReceiverPersonService service;
 
-    private ObservableList<ReceiverPerson> people;
+    @Autowired
+    private Report report;
+
+    private List<ReceiverPerson> people;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -97,6 +109,17 @@ public class ReceiverPersonListController implements Initializable {
     }
 
     @FXML
+    void export(ActionEvent event) {
+        try {
+            report.export(this.table.getItems(), Jrxml.RECEIVER_PERSON_LIST);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (JRException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     void newRegistry(ActionEvent event) {
         controller.setModel(null);
         showModal();
@@ -124,11 +147,13 @@ public class ReceiverPersonListController implements Initializable {
         String textSearch = this.txtSearch.getText().trim();
 
         if (textSearch.isEmpty())
-            this.people = FXCollections.observableArrayList(this.service.findAll());
+            this.people = this.service.findAll();
         else
-            this.people = FXCollections.observableArrayList(this.service.findByName(textSearch));
+            this.people = this.service.findByName(textSearch);
 
-        this.table.setItems(this.people);
+        this.table.setItems(FXCollections.observableArrayList(this.people));
         this.table.refresh();
+
+        this.total.setText(this.people.size() + "");
     }
 }
