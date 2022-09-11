@@ -42,7 +42,7 @@ public class AttendanceReportService {
         reportList.add(attendanceReport);
 
         try {
-            reportService.export(reportList, Jrxml.ATTENDANCE, Format.PDF, getParameters());
+            reportService.export(reportList, Jrxml.ATTENDANCE, getParameters());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (JRException e) {

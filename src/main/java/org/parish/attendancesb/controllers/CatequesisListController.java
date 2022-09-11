@@ -2,28 +2,27 @@ package org.parish.attendancesb.controllers;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
+import net.sf.jasperreports.engine.JRException;
 import org.parish.attendancesb.config.StageManager;
 import org.parish.attendancesb.controllers.utils.Alert;
 import org.parish.attendancesb.models.Catequesis;
-import org.parish.attendancesb.models.Catequesis;
+import org.parish.attendancesb.report.Jrxml;
+import org.parish.attendancesb.report.Report;
 import org.parish.attendancesb.services.interfaces.CatequesisService;
-import org.parish.attendancesb.services.interfaces.ReceiverPersonService;
 import org.parish.attendancesb.view.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
+import java.io.FileNotFoundException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 @Component
@@ -40,6 +39,9 @@ public class CatequesisListController implements Initializable {
 
     @FXML
     private TextField search;
+
+    @FXML
+    private Label total;
 
     @FXML
     private TableView<Catequesis> table;
@@ -63,7 +65,10 @@ public class CatequesisListController implements Initializable {
     @Autowired
     private CatequesisService service;
 
-    private ObservableList<Catequesis> catequeses;
+    @Autowired
+    private Report report;
+
+    private List<Catequesis> catequeses;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -110,6 +115,17 @@ public class CatequesisListController implements Initializable {
     }
 
     @FXML
+    void export(ActionEvent event) {
+        try {
+            report.export(this.table.getItems(), Jrxml.CATEQUESIS_LIST);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (JRException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     void newRegistry(ActionEvent event) {
         controller.setModel(null);
         showModal();
@@ -137,11 +153,13 @@ public class CatequesisListController implements Initializable {
         String textSearch = this.search.getText().trim();
 
         if (textSearch.isEmpty())
-            this.catequeses = FXCollections.observableArrayList(this.service.findAll());
+            this.catequeses = this.service.findAll();
         else
-            this.catequeses = FXCollections.observableArrayList(this.service.findByName(textSearch));
+            this.catequeses = this.service.findByName(textSearch);
 
-        this.table.setItems(this.catequeses);
+        this.table.setItems(FXCollections.observableArrayList(this.catequeses));
         this.table.refresh();
+
+        this.total.setText(this.catequeses.size() + "");
     }
 }

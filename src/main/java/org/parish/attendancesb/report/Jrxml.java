@@ -11,6 +11,11 @@ public enum Jrxml {
         }
 
         @Override
+        public String getExport() {
+            return getStringFromResourceBundle("main.title");
+        }
+
+        @Override
         public String getJrxmlFile() {
             return "/reports/Attendance.jrxml";
         }
@@ -18,7 +23,12 @@ public enum Jrxml {
     CATEQUESIS_LIST {
         @Override
         public String getTitle() {
-            return getStringFromResourceBundle("main.title");
+            return getStringFromResourceBundle("catequesis_list.report.title");
+        }
+
+        @Override
+        public String getExport() {
+            return getStringFromResourceBundle("catequesis_list.report.export");
         }
 
         @Override
@@ -33,6 +43,11 @@ public enum Jrxml {
         }
 
         @Override
+        public String getExport() {
+            return getStringFromResourceBundle("main.title");
+        }
+
+        @Override
         public String getJrxmlFile() {
             return "/reports/ReceiverPerson.jrxml";
         }
@@ -40,7 +55,10 @@ public enum Jrxml {
 
     public abstract String getTitle();
 
+    public abstract String getExport();
+
     public abstract String getJrxmlFile();
+
 
     String getStringFromResourceBundle(String key) {
         return ResourceBundle.getBundle("Bundle").getString(key);
