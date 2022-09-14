@@ -47,6 +47,11 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
+    public List<Group> findByName(String name) {
+        return repository.findAllByNameContaining(name);
+    }
+
+    @Override
     public Group update(Group group) {
         return repository.findById(group.getId())
                 .map(
