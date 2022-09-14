@@ -35,17 +35,17 @@
                </font>
             </Button>
             <Label maxWidth="-Infinity" minWidth="-Infinity" prefWidth="40.0" text="Buscar:" />
-            <TextField fx:id="txtSearch" onKeyReleased="#filter" prefHeight="25.0" prefWidth="598.0" HBox.hgrow="ALWAYS" />
+            <TextField fx:id="search" onKeyReleased="#filter" prefHeight="25.0" prefWidth="598.0" HBox.hgrow="ALWAYS" />
          </children>
       </HBox>
       <HBox VBox.vgrow="ALWAYS">
          <children>
             <TableView fx:id="table" HBox.hgrow="ALWAYS">
                <columns>
-                  <TableColumn fx:id="colId" prefWidth="50.0" text="Id" />
+                  <TableColumn fx:id="id" prefWidth="50.0" text="Id" />
                   <TableColumn fx:id="group" minWidth="200.0" prefWidth="200.0" text="Grupo" />
-                  <TableColumn fx:id="colApellidos" minWidth="200.0" prefWidth="120.0" resizable="false" text="Apellidos" />
-                  <TableColumn fx:id="colNombres" minWidth="200.0" prefWidth="200.0" text="Nombres" />
+                  <TableColumn fx:id="lastName" minWidth="200.0" prefWidth="120.0" resizable="false" text="Apellidos" />
+                  <TableColumn fx:id="firstName" minWidth="200.0" prefWidth="200.0" text="Nombres" />
                </columns>
             </TableView>
          </children>

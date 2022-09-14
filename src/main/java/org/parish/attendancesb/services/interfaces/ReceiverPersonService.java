@@ -9,10 +9,6 @@ public interface ReceiverPersonService extends Service<Integer, ReceiverPerson> 
 
     public Optional<ReceiverPerson> findByCode(String code);
 
-    public List<ReceiverPerson> findByName(String name);
-
-    public boolean contains(ReceiverPerson person);
-
     boolean existsById(Integer integer);
 
 }
