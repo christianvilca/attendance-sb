@@ -19,13 +19,10 @@ public class GroupController extends RegistryController<Group> {
     @FXML
     private TextField name;
 
-    private GroupService service;
-
     private CatequesisService catequesisService;
 
     public GroupController(GroupService service, CatequesisService catequesisService) {
         super(service);
-        this.service = service;
         this.catequesisService = catequesisService;
     }
 

@@ -24,11 +24,8 @@ public class ReceiverPersonController extends RegistryController<ReceiverPerson>
 
     private GroupService groupService;
 
-    private ReceiverPersonService service;
-
     public ReceiverPersonController(ReceiverPersonService service, GroupService groupService) {
         super(service);
-        this.service = service;
         this.groupService = groupService;
     }
 

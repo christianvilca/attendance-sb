@@ -2,26 +2,15 @@ package org.parish.attendancesb.controllers;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import org.parish.attendancesb.controllers.abstractions.RegistryController;
-import org.parish.attendancesb.controllers.utils.Alert;
 import org.parish.attendancesb.models.Catequesis;
-import org.parish.attendancesb.models.ReceiverPerson;
 import org.parish.attendancesb.services.interfaces.CatequesisService;
-import org.parish.attendancesb.services.interfaces.Service;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import org.parish.attendancesb.models.datetime.Time;
 import org.springframework.stereotype.Component;
-
-import java.net.URL;
-import java.util.ResourceBundle;
 
 @Component
 public class CatequesisController extends RegistryController<Catequesis> {
@@ -41,14 +30,8 @@ public class CatequesisController extends RegistryController<Catequesis> {
     @FXML
     private ComboBox<Integer> tolerance;
 
-    private ObservableList<Time> timeList;
-
-    @Autowired
-    private CatequesisService service;
-
     public CatequesisController(CatequesisService service) {
         super(service);
-        this.service = service;
     }
 
     @Override
@@ -63,15 +46,17 @@ public class CatequesisController extends RegistryController<Catequesis> {
     }
 
     private void fillTimes() {
-        this.timeList = FXCollections.observableArrayList();
+        ObservableList<Time> timeList;
+
+        timeList = FXCollections.observableArrayList();
         for (int i = 5; i <= 22; i++) {
             for (int j = 0; j <= 30; j += 30) {
-                this.timeList.add(new Time(i, j));
+                timeList.add(new Time(i, j));
             }
         }
 
-        timeStart.getItems().addAll(this.timeList);
-        timeEnd.getItems().addAll(this.timeList);
+        timeStart.getItems().addAll(timeList);
+        timeEnd.getItems().addAll(timeList);
     }
 
     private void fillTolerance() {

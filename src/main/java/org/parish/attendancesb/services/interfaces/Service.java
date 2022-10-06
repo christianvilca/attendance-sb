@@ -1,7 +1,5 @@
 package org.parish.attendancesb.services.interfaces;
 
-import org.parish.attendancesb.models.ReceiverPerson;
-
 import java.util.List;
 
 public interface Service<K, O> {

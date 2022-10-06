@@ -2,7 +2,6 @@ package org.parish.attendancesb.repositories;
 
 import org.junit.jupiter.api.Test;
 import org.parish.attendancesb.models.Catequesis;
-import org.parish.attendancesb.models.Group;
 import org.parish.attendancesb.models.ReceiverPerson;
 import org.parish.attendancesb.models.datetime.Time;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 class CatequesisRepositoryTest {
