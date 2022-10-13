@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="270.0" prefWidth="440.0" spacing="8.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.parish.attendancesb.controllers.ReceiverPersonSearchController">
+   <children>
+      <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="946.0" spacing="8.0">
+         <children>
+            <Label maxWidth="-Infinity" minWidth="-Infinity" prefWidth="40.0" text="Buscar:" />
+            <TextField fx:id="search" onKeyReleased="#filter" prefHeight="25.0" prefWidth="598.0" HBox.hgrow="ALWAYS" />
+         </children>
+      </HBox>
+      <HBox VBox.vgrow="ALWAYS">
+         <children>
+            <TableView fx:id="table" onKeyReleased="#select" HBox.hgrow="ALWAYS">
+               <columns>
+                  <TableColumn fx:id="id" prefWidth="50.0" text="Id" />
+                  <TableColumn fx:id="lastName" minWidth="170.0" prefWidth="170.0" resizable="false" text="Apellidos" />
+                  <TableColumn fx:id="firstName" minWidth="170.0" prefWidth="170.0" text="Nombres" />
+               </columns>
+            </TableView>
+         </children>
+      </HBox>
+   </children>
+   <padding>
+      <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+   </padding>
+</VBox>
