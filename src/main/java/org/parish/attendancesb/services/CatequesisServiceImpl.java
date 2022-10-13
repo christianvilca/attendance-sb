@@ -18,14 +18,21 @@ public class CatequesisServiceImpl implements CatequesisService {
 
     private GroupService groupService;
 
+    private Catequesis catequesis;
+
     public CatequesisServiceImpl(CatequesisRepository repository, GroupService groupService) {
         this.repository = repository;
         this.groupService = groupService;
     }
 
     @Override
-    public Catequesis get() {
-        return this.getById(SessionSingleton.instance().getIdCatequesis());
+    public Catequesis getCatequesis() {
+        return this.catequesis;
+    }
+
+    @Override
+    public void setCatequesis(Catequesis catequesis) {
+        this.catequesis = catequesis;
     }
 
     @Override

@@ -38,7 +38,7 @@ public class AttendanceServiceImpl implements AttendanceService {
     public Optional<Attendance> register(String code, String dateTime) {
         Optional<ReceiverPerson> optReceiverPerson = receiverPersonService.findByCode(code);
         ReceiverPerson receiverPerson = optReceiverPerson.get();
-        Catequesis catequesis = this.catequesisService.get();
+        Catequesis catequesis = this.catequesisService.getCatequesis();
 
         Attendance attendance = new Attendance();
         attendance.setReceiverPerson(receiverPerson);
@@ -54,7 +54,7 @@ public class AttendanceServiceImpl implements AttendanceService {
 //        Optional<ReceiverPerson> optReceiverPerson = receiverPersonService.findByCode(code);
 //        ReceiverPerson receiverPerson = optReceiverPerson.get();
         ReceiverPerson receiverPerson = receiverPersonService.getById(Integer.parseInt(code));
-        Catequesis catequesis = this.catequesisService.get();
+        Catequesis catequesis = this.catequesisService.getCatequesis();
 
         Attendance attendance = new Attendance();
         attendance.setReceiverPerson(receiverPerson);
@@ -67,7 +67,7 @@ public class AttendanceServiceImpl implements AttendanceService {
 
     @Override
     public Resume resume(ReceiverPerson receiverPerson) {
-        Catequesis catequesis = this.catequesisService.get();
+        Catequesis catequesis = this.catequesisService.getCatequesis();
         List<AttendanceDate> attendanceDateList = this.attendanceDateService.findAllByCatequesis(catequesis);
         List<Attendance> attendanceList = this.repository.findByCatequesisAndReceiverPerson(catequesis, receiverPerson);
 
@@ -80,7 +80,7 @@ public class AttendanceServiceImpl implements AttendanceService {
     @Override
     public Attendance save(Attendance attendance) {
         attendance.setDateTime(new DateTime());
-        attendance.setCatequesis(this.catequesisService.get());
+        attendance.setCatequesis(this.catequesisService.getCatequesis());
 
         this.attendanceDateService.save(this.getAttendanceDate(attendance));
         return repository.save(attendance);
@@ -88,7 +88,7 @@ public class AttendanceServiceImpl implements AttendanceService {
 
     private AttendanceDate getAttendanceDate(Attendance attendance) {
         AttendanceDate attendanceDate = new AttendanceDate();
-        attendanceDate.setCatequesis(this.catequesisService.get());
+        attendanceDate.setCatequesis(this.catequesisService.getCatequesis());
         attendanceDate.setDate(attendance.getDateTime().getDate());
 
         return attendanceDate;
