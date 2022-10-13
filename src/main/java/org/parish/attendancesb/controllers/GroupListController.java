@@ -8,9 +8,9 @@ import org.parish.attendancesb.models.Group;
 import org.parish.attendancesb.report.Jrxml;
 import org.parish.attendancesb.services.interfaces.GroupService;
 import org.parish.attendancesb.view.FxmlView;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 
-@Component
+@Controller
 public class GroupListController extends RegistryListController<Group> {
 
     @FXML
@@ -22,14 +22,8 @@ public class GroupListController extends RegistryListController<Group> {
     @FXML
     private TableColumn<?, ?> name;
 
-    private GroupController controller;
-
-    private GroupService service;
-
     public GroupListController(GroupController controller, GroupService service) {
         super(controller, service);
-        this.controller = controller;
-        this.service = service;
     }
 
     @Override
@@ -40,9 +34,9 @@ public class GroupListController extends RegistryListController<Group> {
 
     @Override
     public void setColumnFromModel() {
-        this.id.setCellValueFactory(new PropertyValueFactory("id"));
-        this.catequesis.setCellValueFactory(new PropertyValueFactory("catequesis"));
-        this.name.setCellValueFactory(new PropertyValueFactory("name"));
+        this.id.setCellValueFactory(new PropertyValueFactory<>("id"));
+        this.catequesis.setCellValueFactory(new PropertyValueFactory<>("catequesis"));
+        this.name.setCellValueFactory(new PropertyValueFactory<>("name"));
     }
 
 }

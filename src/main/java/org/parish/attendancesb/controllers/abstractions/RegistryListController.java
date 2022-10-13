@@ -47,23 +47,18 @@ public abstract class RegistryListController<T> implements Initializable {
     @Autowired
     private StageManager stageManager;
 
-    protected RegistryController controller;
+    protected RegistryController<T> controller;
 
     protected Service service;
 
-    public RegistryListController(RegistryController controller, Service service) {
+    protected RegistryListController(RegistryController<T> controller, Service service) {
         this.controller = controller;
         this.service = service;
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                search.requestFocus();
-            }
-        });
+        Platform.runLater(() -> search.requestFocus());
 
         this.initializeObjects();
         this.refleshTable();
@@ -76,7 +71,7 @@ public abstract class RegistryListController<T> implements Initializable {
             TableRow<T> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (!row.isEmpty())) {
-                    T rowData = row.getItem();
+                    row.getItem();
                     this.edit(null);
                 }
             });
@@ -96,9 +91,7 @@ public abstract class RegistryListController<T> implements Initializable {
     void export(ActionEvent event) {
         try {
             reportService.export(this.table.getItems(), report);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (JRException e) {
+        } catch (FileNotFoundException | JRException e) {
             e.printStackTrace();
         }
     }
@@ -137,16 +130,16 @@ public abstract class RegistryListController<T> implements Initializable {
     public void refleshTable() {
         String textSearch = this.search.getText().trim();
 
-        List<T> people;
+        List<T> registryList;
         if (textSearch.isEmpty())
-            people = this.service.findAll();
+            registryList = this.service.findAll();
         else
-            people = this.service.findByName(textSearch);
+            registryList = this.service.findByName(textSearch);
 
-        this.table.setItems(FXCollections.observableArrayList(people));
+        this.table.setItems(FXCollections.observableArrayList(registryList));
         this.table.refresh();
 
-        this.total.setText(people.size() + "");
+        this.total.setText(registryList.size() + "");
     }
 
     protected abstract void initializeObjects();

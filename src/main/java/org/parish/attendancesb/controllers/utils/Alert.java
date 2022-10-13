@@ -2,6 +2,9 @@ package org.parish.attendancesb.controllers.utils;
 
 public class Alert {
 
+    private Alert() {
+    }
+
     public static void information(String description) {
         final String INFORMATION = "Información";
 

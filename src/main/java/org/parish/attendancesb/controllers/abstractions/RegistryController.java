@@ -35,14 +35,14 @@ public abstract class RegistryController<T> implements Initializable {
 
     @FXML
     void save(ActionEvent event) {
-        T registry = this.getModelFromFields();
+        T newRegistry = this.getModelFromFields();
 
-        if (this.service.contains(registry)) {
+        if (this.service.contains(newRegistry)) {
             Alert.error("El registro ya existe!");
             return;
         }
 
-        saveRegistry(registry);
+        saveRegistry(newRegistry);
 
         Alert.information("Se ha guardado correctamente!");
 
