@@ -8,6 +8,7 @@ import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
 import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 import net.sf.jasperreports.export.SimpleXlsxReportConfiguration;
+import org.parish.attendancesb.controllers.utils.Alert;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ResourceUtils;
 
@@ -24,7 +25,6 @@ public class Report {
     public void export(
             List<?> list,
             Jrxml jrxml,
-            Format format,
             Map<String, Object> parameters
     ) throws FileNotFoundException, JRException {
         //Report.class.getResource(jrxml.getJrxmlFile() -> Si el metodo es estatico
@@ -33,12 +33,13 @@ public class Report {
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
 
         parameters.put("SUBREPORT_DIR", getClass().getResource("/reports/").toString());
+        parameters.put("Title", jrxml.getTitle());
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
 
         FileChooser fileChooser = new FileChooser();
         //fileChooser.setInitialDirectory(new File("."));
         fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
-        fileChooser.setInitialFileName(jrxml.getTitle());
+        fileChooser.setInitialFileName(jrxml.getExport());
 
         Arrays.stream(Format.values()).forEach(f ->
                 fileChooser.getExtensionFilters().add(
@@ -54,6 +55,12 @@ public class Report {
         if (file1 == null)
             return;
 
+        setFormat(jasperPrint, fileChooser, file1);
+
+        Alert.information("Archivo exportado!");
+    }
+
+    private void setFormat(JasperPrint jasperPrint, FileChooser fileChooser, File file1) throws JRException {
         String formatReport = fileChooser.getSelectedExtensionFilter().getDescription().split(" ")[0];
 
         if (formatReport.equals(Format.HTML.name())) {
@@ -65,6 +72,13 @@ public class Report {
         if (formatReport.equals(Format.XLSX.name())) {
             excelFormat(jasperPrint, file1.getAbsolutePath());
         }
+    }
+
+    public void export(
+            List<?> list,
+            Jrxml jrxml
+    ) throws FileNotFoundException, JRException {
+        this.export(list, jrxml, new HashMap<>());
     }
 
     private void excelFormat(JasperPrint jasperPrint, String path) throws JRException {

@@ -1,13 +1,10 @@
 package org.parish.attendancesb.services.report;
 
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.engine.data.JRMapArrayDataSource;
 import org.parish.attendancesb.models.ReceiverPerson;
 import org.parish.attendancesb.models.report.AttendanceChartReport;
 import org.parish.attendancesb.models.report.AttendanceDetailReport;
 import org.parish.attendancesb.models.report.AttendanceReport;
-import org.parish.attendancesb.report.Format;
 import org.parish.attendancesb.report.Jrxml;
 import org.parish.attendancesb.report.Report;
 import org.parish.attendancesb.services.attendance.Resume;
@@ -32,6 +29,8 @@ public class AttendanceReportService {
 
     private AttendanceReport attendanceReport;
 
+    private List<AttendanceDetailReport> details;
+
     public void exportReport(ReceiverPerson person) {
         setAttendanceReport(person);
         generate();
@@ -50,7 +49,7 @@ public class AttendanceReportService {
         }
     }
 
-    private void setAttendanceReport(ReceiverPerson person) {
+    public void setAttendanceReport(ReceiverPerson person) {
         Resume resume = service.resume(person);
         attendanceReport = new AttendanceReport();
         attendanceReport.setCode(person.getCode());
@@ -68,17 +67,26 @@ public class AttendanceReportService {
         return parameters;
     }
 
+
+    int number = 0;
     private void setDetails(Resume resume) {
         List<AttendanceDetailReport> list = new ArrayList<>();
         resume.getResumeDetails().forEach(d -> {
+
             AttendanceDetailReport detail = new AttendanceDetailReport();
+            detail.setNumber(++number + "");
             detail.setMonth(d.getMonth());
             detail.setDay(d.getDay() + "");
             detail.setTimeStart(d.getTimeFirst());
             detail.setTimeEnd(d.getTimeLast());
             list.add(detail);
         });
+        details = list;
         attendanceReport.setDetail(list);
+    }
+
+    public List<AttendanceDetailReport> getDetails() {
+        return details;
     }
 
     private void setChart(Resume resume) {
