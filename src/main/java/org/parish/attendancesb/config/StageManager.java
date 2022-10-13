@@ -34,6 +34,10 @@ public class StageManager {
         return viewRootNodeHierarchy;
     }
 
+    public Stage getStage() {
+        return primaryStage;
+    }
+
     public void sceneModal(final FxmlView view) {
         Parent viewRootNodeHierarchy = loadViewNodeHierarchy(view.getFxmlFile());
         showModal(viewRootNodeHierarchy, view.getTitle());
@@ -65,8 +69,8 @@ public class StageManager {
         primaryStage.setScene(scene);
         primaryStage.sizeToScene();
         primaryStage.centerOnScreen();
-        primaryStage.setMinWidth(816);
-        primaryStage.setMinHeight(646);
+//        primaryStage.setMinWidth(816);
+//        primaryStage.setMinHeight(646);
         try {
             primaryStage.show();
         } catch (Exception exception) {

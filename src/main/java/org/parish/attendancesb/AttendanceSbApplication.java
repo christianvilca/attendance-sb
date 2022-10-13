@@ -31,7 +31,7 @@ public class AttendanceSbApplication extends Application {
     }
 
     protected void displayInitialScene() {
-        stageManager.switchScene(FxmlView.MAIN);
+        stageManager.switchScene(FxmlView.LOGIN);
     }
 
     private ConfigurableApplicationContext springBootApplicationContext() {

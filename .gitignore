@@ -34,4 +34,7 @@ build/
 
 ### Others ###
 *.db
+*.puml
+bin/
+
 memory

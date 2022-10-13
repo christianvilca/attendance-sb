@@ -1,32 +1,119 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 
 <BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.parish.attendancesb.controllers.SideBarController">
    <left>
-      <VBox prefHeight="400.0" prefWidth="126.0" style="-fx-background-color: #001824;" BorderPane.alignment="CENTER">
+      <VBox fx:id="sideBarMenu" prefHeight="400.0" prefWidth="126.0" style="-fx-background-color: #212121;" BorderPane.alignment="CENTER">
          <children>
-            <Pane prefHeight="84.0" prefWidth="126.0" />
-            <Button fx:id="btnAttendance" mnemonicParsing="false" onMouseClicked="#home" prefHeight="42.0" prefWidth="126.0" stylesheets="@../css/styles.css" text="Asistencia" textFill="WHITE">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Button>
-            <Button fx:id="btnCatequesis" mnemonicParsing="false" onMouseClicked="#page1" prefHeight="42.0" prefWidth="140.0" stylesheets="@../css/styles.css" text="Catequesis" textFill="WHITE">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Button>
-            <Button fx:id="btnGroups" mnemonicParsing="false" onMouseClicked="#page2" prefHeight="42.0" prefWidth="140.0" stylesheets="@../css/styles.css" text="Grupos" textFill="WHITE">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Button>
-            <Button fx:id="btnReceiverPerson" mnemonicParsing="false" onMouseClicked="#page3" prefHeight="42.0" prefWidth="140.0" stylesheets="@../css/styles.css" text="Confirmantes" textFill="WHITE">
+            <Pane prefHeight="92.0" prefWidth="126.0">
+               <children>
+                  <ImageView fitHeight="52.0" fitWidth="52.0" layoutX="37.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/dove.png" />
+                     </image>
+                  </ImageView>
+               </children></Pane>
+            <VBox fx:id="boxManager">
+               <children>
+                  <Label maxWidth="1.7976931348623157E308" prefHeight="40.0" styleClass="menu-label-header" stylesheets="@../css/styles.css" text="Administrador" textFill="#5e5e5e">
+                     <font>
+                        <Font name="Arial Bold" size="15.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                     </padding>
+                  </Label>
+                  <Button fx:id="btnCatequesis" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#pageCatequesis" prefHeight="40.0" prefWidth="140.0" styleClass="btn-menu" stylesheets="@../css/styles.css" text="Catequesis" textFill="WHITE">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <padding>
+                        <Insets left="16.0" />
+                     </padding>
+                  </Button>
+               </children>
+            </VBox>
+            <VBox fx:id="boxCoordinator">
+               <children>
+                  <Label maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="126.0" styleClass="menu-label-header" stylesheets="@../css/styles.css" text="Coordinador" textFill="#5e5e5e">
+                     <font>
+                        <Font name="Arial Bold" size="15.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                     </padding>
+                  </Label>
+                  <Button fx:id="btnGroups" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#pageGroup" prefHeight="40.0" prefWidth="140.0" styleClass="btn-menu" stylesheets="@../css/styles.css" text="Grupos" textFill="WHITE">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <padding>
+                        <Insets left="16.0" />
+                     </padding>
+                  </Button>
+                  <Button fx:id="btnCatequistas" alignment="BASELINE_LEFT" layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#pageCatequista" prefHeight="40.0" prefWidth="140.0" styleClass="btn-menu" stylesheets="@../css/styles.css" text="Catequistas" textFill="WHITE">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <padding>
+                        <Insets left="16.0" />
+                     </padding>
+                  </Button>
+               </children>
+            </VBox>
+            <VBox fx:id="boxCatequista" layoutX="10.0" layoutY="164.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <Label maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="126.0" styleClass="menu-label-header" stylesheets="@../css/styles.css" text="Catequista" textFill="#5e5e5e">
+                     <font>
+                        <Font name="Arial Bold" size="15.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                     </padding>
+                  </Label>
+                  <Button fx:id="btnAttendance" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#pageAttendance" prefHeight="40.0" prefWidth="126.0" styleClass="btn-menu" stylesheets="@../css/styles.css" text="Asistencia" textFill="WHITE">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <padding>
+                        <Insets left="16.0" />
+                     </padding>
+                  </Button>
+                  <Button fx:id="btnReceiverPerson" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#pageReceiverPerson" prefHeight="40.0" prefWidth="140.0" styleClass="btn-menu" stylesheets="@../css/styles.css" text="Confirmantes" textFill="WHITE">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <padding>
+                        <Insets left="16.0" />
+                     </padding>
+                  </Button>
+                  <Button fx:id="btnReport" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#pageAttendanceReport" prefHeight="40.0" prefWidth="140.0" styleClass="btn-menu" stylesheets="@../css/styles.css" text="Reporte" textFill="WHITE">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <padding>
+                        <Insets left="16.0" />
+                     </padding>
+                  </Button>
+               </children>
+            </VBox>
+            <Pane layoutX="10.0" layoutY="10.0" prefWidth="126.0" VBox.vgrow="ALWAYS" />
+            <Button fx:id="btnLogOut" layoutX="10.0" layoutY="262.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="140.0" styleClass="btn-menu" stylesheets="@../css/styles.css" text="Cerrar sesión" textFill="WHITE" visible="false">
                <font>
                   <Font size="15.0" />
                </font>
@@ -34,4 +121,56 @@
          </children>
       </VBox>
    </left>
+   <bottom>
+      <HBox prefHeight="12.0" prefWidth="800.0" style="-fx-background-color: #282828;" styleClass="h-box" stylesheets="@../css/styles.css" BorderPane.alignment="CENTER">
+         <children>
+            <Label maxWidth="1.7976931348623157E308" styleClass="sbCatequesis" stylesheets="@../css/styles.css" text="Catequesis:" textFill="#909090">
+               <font>
+                  <Font name="Arial Bold" size="12.0" />
+               </font>
+               <padding>
+                  <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+               </padding>
+            </Label>
+            <Label fx:id="lblCatequesis" layoutX="11.0" layoutY="11.0" maxWidth="1.7976931348623157E308" onMouseClicked="#changeLabelCatequesis" styleClass="sbCatequesis" stylesheets="@../css/styles.css" text="--- Catequesis ---" textFill="#909090">
+               <font>
+                  <Font name="Arial Bold" size="12.0" />
+               </font>
+               <padding>
+                  <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+               </padding>
+            </Label>
+            <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+            <Button alignment="BOTTOM_CENTER" mnemonicParsing="false" prefHeight="25.0" styleClass="btn-log-out" text="Cerrar sesión" textFill="WHITE" visible="false">
+               <graphic>
+                  <FontIcon iconColor="WHITE" iconLiteral="fas-power-off" />
+               </graphic></Button>
+         </children>
+      </HBox>
+   </bottom>
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="Usuario">
+            <items>
+                  <MenuItem mnemonicParsing="false" text="Perfil" />
+                  <MenuItem mnemonicParsing="false" onAction="#logOut" text="Cerrar sesión" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" text="Salir" />
+            </items>
+          </Menu>
+            <Menu mnemonicParsing="false" text="Catequesis">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Información" />
+                  <MenuItem fx:id="mnuCatequesisCambiar" mnemonicParsing="false" onAction="#changeCatequesis" text="Cambiar" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Acerca de.">
+               <items>
+              <MenuItem mnemonicParsing="false" text="Institución" />
+               </items>
+            </Menu>
+        </menus>
+      </MenuBar>
+   </top>
 </BorderPane>

@@ -1,34 +1,38 @@
-.btn-menu {
-    -fx-background-color : #212121;
-    -fx-background-radius: 0;
+.button
+{
+-fx-background-color : #FFF;
+-fx-border-color: #355ECE;
+-fx-text-fill:  #0C3988;
+-fx-background-radius: 0;
+}
+.button:hover
+{
+-fx-background-color : #355ECE ;
+-fx-text-fill:  #FFF;
+}
+.button:pressed
+{
+-fx-background-color : #0C39FF ;
+-fx-text-fill: #FFF;
 }
 
-.btn-menu:hover {
-    -fx-background-color : #383838;
+.button2
+{
+-fx-background-color :  #0C39FF;
+-fx-border-color: #FFF;
+-fx-text-fill:  #FFF;
+}
+.button2:hover
+{
+-fx-background-color : #0C3988 ;
+-fx-text-fill:   #FFF;
+}
+.button2:pressed
+{
+-fx-background-color : #0C3400 ;
+-fx-text-fill: #FFF;
 }
 
-.button:pressed {
-    -fx-background-color : #383838;
-}
-
-.button-pressed {
-    -fx-background-color : #383838;
-
-    -fx-border-width: 0 0 0 2px;
-    -fx-border-color: #212121 #212121 #212121 #FDC93E;
-}
-
-.menu-label-header {
-    -fx-border-color: #383838 #212121 #212121;
-}
-
-.h-box {
-    -fx-border-color: #282828 #282828 #383838;
-}
-
-.btn-log-out{
-    -fx-background-color : #212121;
-}
 
 .table-view .column-header,
 .table-view .column-header-background .filler {
@@ -36,47 +40,50 @@
     -fx-background-color:   #2D75E8;
 }
 .table-view .column-header .label{
-    -fx-text-fill: white;
-    -fx-font-weight: bold;
-    -fx-alignment: CENTER_LEFT;
+
+   -fx-text-fill: white;
+   -fx-font-weight: bold;
+   -fx-alignment: CENTER_LEFT;
 }
 .table-view .cell{
-    -fx-cell-size: 30;
-    -fx-alignment: center-left;
-    -fx-text-fill: #000000;
-    -fx-alignment: CENTER_LEFT;
+   -fx-cell-size: 30;
+  -fx-alignment: center-left;
+  -fx-text-fill: #000000;
+  -fx-alignment: CENTER_LEFT;
 }
 
 .table-row-cell:selected {
     -fx-background-color:  rgb(127, 172, 243);
-}
+ }
+ .table-row-cell:selected .text {
+        -fx-fill : white ;
 
-.table-row-cell:selected .text {
-    -fx-fill : white ;
-}
+ }
 /* scroll bar starts here */
 
 /* The increment and decrement button CSS class of scrollbar */
 .table-view .increment-button ,.table-view .decrement-button {
     -fx-background-color:transparent;
-    -fx-background-radius: 2em;
+	-fx-background-radius: 2em;
+
 }
 
 /* The main scrollbar **track** CSS class  */
 .table-view .scroll-bar:horizontal .track,
 .table-view .scroll-bar:vertical .track{
-    -fx-background-color: transparent;
-    -fx-border-color:derive(  #2D75E8,80%);
-    -fx-background-radius: 2em;
-    -fx-border-radius:2em;
+	-fx-background-color: transparent;
+	-fx-border-color:derive(  #2D75E8,80%);
+	-fx-background-radius: 2em;
+	-fx-border-radius:2em;
 }
 
 /* The main scrollbar **thumb** CSS class which we drag every time (movable) */
 .table-view .scroll-bar:horizontal .thumb,
 .table-view .scroll-bar:vertical .thumb {
     -fx-background-color:derive( #2D75E8,90%);
-    -fx-background-insets: 2, 0, 0;
-    -fx-background-radius: 2em;
+	-fx-background-insets: 2, 0, 0;
+	-fx-background-radius: 2em;
+
 }
 
 /* chart properties */
@@ -86,7 +93,6 @@
     -fx-background-color: transparent;
     -fx-legend-visible: false;
 }
-
 .chart-plot-background {
     -fx-background-color:transparent;
 }
