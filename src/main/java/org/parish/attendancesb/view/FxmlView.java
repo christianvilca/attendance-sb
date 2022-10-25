@@ -29,12 +29,23 @@ public enum FxmlView {
     USER {
         @Override
         public String getTitle() {
-            return getStringFromResourceBundle("main.title");
+            return getStringFromResourceBundle("user.title");
         }
 
         @Override
         public String getFxmlFile() {
             return "/view/User.fxml";
+        }
+    },
+    USER_LIST {
+        @Override
+        public String getTitle() {
+            return getStringFromResourceBundle("user_list.title");
+        }
+
+        @Override
+        public String getFxmlFile() {
+            return "/view/UserList.fxml";
         }
     },
     CATEQUESIS_LIST {

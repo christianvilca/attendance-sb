@@ -125,6 +125,12 @@ public class SideBarController implements Initializable {
     }
 
     @FXML
+    void pageUser(MouseEvent event) {
+        loadPage(stageManager.getParent(FxmlView.USER_LIST));
+        setStyleButton((Button) event.getSource());
+    }
+
+    @FXML
     void logOut(ActionEvent event) {
         stageManager.switchScene(FxmlView.LOGIN);
     }

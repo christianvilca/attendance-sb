@@ -80,9 +80,6 @@ public class UserServiceImpl implements UserService {
         return repository.findById(user.getId())
                 .map(
                         u -> {
-                            u.setGroup(user.getGroup());
-                            u.setLastName(user.getLastName());
-                            u.setFirstName(user.getFirstName());
                             u.setUsername(user.getUsername());
                             u.setPassword(user.getPassword());
                             u.setRoles(user.getRoles());
@@ -103,7 +100,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> findByName(String name) {
-        return repository.findByNameContaining(name);
+        return repository.findByUsernameContaining(name);
     }
 
     @Override

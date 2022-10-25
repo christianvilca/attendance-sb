@@ -46,6 +46,14 @@
                         <Insets left="16.0" />
                      </padding>
                   </Button>
+                  <Button fx:id="btnUsers" alignment="BASELINE_LEFT" layoutX="10.0" layoutY="50.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#pageUser" prefHeight="40.0" prefWidth="140.0" styleClass="btn-menu" stylesheets="@../css/styles.css" text="Usuarios" textFill="WHITE">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <padding>
+                        <Insets left="16.0" />
+                     </padding>
+                  </Button>
                </children>
             </VBox>
             <VBox fx:id="boxCoordinator">

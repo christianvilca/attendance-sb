@@ -3,11 +3,14 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 
 <VBox prefWidth="312.0" spacing="8.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.parish.attendancesb.controllers.UserController">
    <children>
@@ -30,16 +33,19 @@
                         <TextField fx:id="username" HBox.hgrow="ALWAYS" />
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" layoutX="10.0" layoutY="109.0" spacing="8.0">
+                  <HBox fx:id="boxPassword" alignment="CENTER" spacing="8.0">
                      <children>
                         <Label alignment="CENTER_RIGHT" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="17.0" prefWidth="72.0" text="Contraseña:" />
-                        <TextField fx:id="password" HBox.hgrow="ALWAYS" />
+                        <PasswordField fx:id="password" HBox.hgrow="ALWAYS" />
+                        <TextField fx:id="passwordShow" HBox.hgrow="ALWAYS" />
+                        <FontIcon fx:id="eyeOpen" iconColor="#515151" iconLiteral="fas-eye" onMouseClicked="#show" />
+                        <FontIcon fx:id="eyeClose" iconColor="#515151" iconLiteral="fas-eye-slash" layoutX="292.0" layoutY="28.0" onMouseClicked="#hire" />
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" layoutX="10.0" layoutY="43.0" spacing="8.0">
+                  <HBox alignment="CENTER_LEFT" spacing="8.0">
                      <children>
-                        <Label alignment="CENTER_RIGHT" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="17.0" prefWidth="72.0" text="Confirmar:" />
-                        <TextField fx:id="passwordConfirm" HBox.hgrow="ALWAYS" />
+                        <Label alignment="CENTER_RIGHT" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="17.0" prefWidth="72.0" text="Administrar:" />
+                        <CheckBox fx:id="manager" mnemonicParsing="false" prefHeight="25.0" prefWidth="0.0" />
                      </children>
                   </HBox>
                </children>

@@ -19,27 +19,11 @@ public class User {
     private Integer id;
 
     @NonNull
-    @Column(name = "first_name")
-    private String firstName;
-
-    @NonNull
-    @Column(name = "last_name")
-    private String lastName;
-
-    @NonNull
     private String username;
 
     @EqualsAndHashCode.Exclude
     @NonNull
     private String password;
-//
-//    @NonNull
-//    private Boolean coordinator;
-
-    @NonNull
-    @ManyToOne
-    @JoinColumn(name = "group_id")
-    private Group group;
 
     //@EqualsAndHashCode.Exclude
     @ManyToMany(fetch = FetchType.EAGER)
