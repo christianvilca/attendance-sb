@@ -53,10 +53,12 @@ public class CatequesisServiceImpl implements CatequesisService {
     @Override
     public Catequesis save(Catequesis catequesis) {
         Catequesis newCatequesis = repository.save(catequesis);
+
         Group group = new Group();
         group.setName("SIN GRUPO");
         group.setCatequesis(newCatequesis);
-        groupService.save(group);
+        if (!groupService.contains(group))
+            groupService.save(group);
 
         return newCatequesis;
     }
