@@ -1,34 +1,32 @@
 package org.parish.attendancesb.controllers;
 
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
-import org.kordamp.ikonli.javafx.FontIcon;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 import org.parish.attendancesb.controllers.abstractions.RegistryController;
-import org.parish.attendancesb.models.Catequesis;
+import org.parish.attendancesb.controllers.utils.BooleanCell;
+import org.parish.attendancesb.controllers.utils.GroupsCatequista;
+import org.parish.attendancesb.models.Catequista;
 import org.parish.attendancesb.models.Group;
-import org.parish.attendancesb.models.access.Role;
 import org.parish.attendancesb.models.access.User;
 import org.parish.attendancesb.services.interfaces.CatequesisService;
+import org.parish.attendancesb.services.interfaces.CatequistaService;
 import org.parish.attendancesb.services.interfaces.RoleService;
-import org.parish.attendancesb.services.interfaces.UserService;
 import org.parish.attendancesb.services.interfaces.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Component
-public class CatequistaController extends RegistryController<User> {
-
-    @FXML
-    private ComboBox<Catequesis> catequesis;
-
-    @FXML
-    private ComboBox<Group> group;
+public class CatequistaController extends RegistryController<Catequista> {
 
     @FXML
     private TextField firstName;
@@ -37,27 +35,22 @@ public class CatequistaController extends RegistryController<User> {
     private TextField lastName;
 
     @FXML
-    private TextField username;
+    private ComboBox<User> user;
 
     @FXML
-    private PasswordField password;
+    private ComboBox<Group> group;
 
     @FXML
-    private TextField passwordShow;
+    private TableView<GroupsCatequista> tableGroups;
 
     @FXML
-    private HBox boxPassword;
-    @FXML
-    private FontIcon eyeClose;
+    private TableColumn<?, ?> id;
 
     @FXML
-    private FontIcon eyeOpen;
+    private TableColumn<?, ?> groupColumn;
 
     @FXML
-    private CheckBox coordinator;
-
-    @FXML
-    private CheckBox manager;
+    private TableColumn<GroupsCatequista, Boolean> coordinator;
 
     @Autowired
     private RoleService roleService;
@@ -66,7 +59,7 @@ public class CatequistaController extends RegistryController<User> {
 
     private final GroupService groupService;
 
-    public CatequistaController(UserService service, CatequesisService catequesisService, GroupService groupService) {
+    public CatequistaController(CatequistaService service, CatequesisService catequesisService, GroupService groupService) {
         super(service);
         this.catequesisService = catequesisService;
         this.groupService = groupService;
@@ -74,46 +67,14 @@ public class CatequistaController extends RegistryController<User> {
 
     @Override
     public void initializeObjects() {
-        catequesis.getItems().addAll(catequesisService.findAll());
-
-        boxPassword.getChildren().removeAll(passwordShow, eyeClose);
-        passwordShow.textProperty().bindBidirectional(password.textProperty());
-    }
-
-    @FXML
-    void changeCatequesis(ActionEvent event) {
+//        group.getItems().add(new Group("- NINGUNO -"));
+//        group.getItems().addAll(groupService.findAll());
         fillGroup();
-    }
 
-    @FXML
-    void changeManager(ActionEvent event) {
-        if (manager.isSelected())
-            coordinator.setSelected(true);
+        Set<GroupsCatequista> groupsCatequistas = new HashSet<>();
+        this.tableGroups.setItems(FXCollections.observableArrayList(groupsCatequistas));
 
-        coordinator.setDisable(manager.isSelected());
-    }
-    @FXML
-    void show(MouseEvent event) {
-        password.setVisible(false);
-        passwordShow.setVisible(true);
-        eyeOpen.setVisible(false);
-        eyeClose.setVisible(true);
-
-        boxPassword.getChildren().removeAll(password, eyeOpen);
-        boxPassword.getChildren().addAll(passwordShow, eyeClose);
-        passwordShow.requestFocus();
-    }
-
-    @FXML
-    void hire(MouseEvent event) {
-        password.setVisible(true);
-        passwordShow.setVisible(false);
-        eyeOpen.setVisible(true);
-        eyeClose.setVisible(false);
-
-        boxPassword.getChildren().removeAll(passwordShow, eyeClose);
-        boxPassword.getChildren().addAll(password, eyeOpen);
-        password.requestFocus();
+        setColumnFromModel();
     }
 
     private void fillGroup() {
@@ -133,78 +94,123 @@ public class CatequistaController extends RegistryController<User> {
             }
         });
 
+        group.getItems().add(new Group("- NINGUNO -"));
         group.getItems().addAll(
                 groupService.findAllByCatequesis(
-                        catequesis.getSelectionModel().getSelectedItem()
+                        catequesisService.getCatequesis()
                 ));
     }
 
     @Override
-    public User getModelFromFields() {
-        User user = getUser();
+    public Catequista getModelFromFields() {
+        Catequista catequista = getCatequista();
 
-        System.out.println(user.getGroup());
-        user.setGroup(group.getSelectionModel().getSelectedItem());
-        System.out.println(user.getGroup());
+//        System.out.println(catequista.getGroup());
+//        catequista.setGroup(group.getSelectionModel().getSelectedItem());
+//        System.out.println(catequista.getGroup());
 
-        user.setLastName(lastName.getText());
-        user.setFirstName(firstName.getText());
-        user.setUsername(username.getText());
-        user.setPassword(password.getText());
+        catequista.setLastName(lastName.getText());
+        catequista.setFirstName(firstName.getText());
+        catequista.setUser(user.getSelectionModel().getSelectedItem());
 
-        Set<Role> roles = new HashSet<>();
-        if (coordinator.isSelected())
-            roles.add(roleService.findByName(org.parish.attendancesb.services.Role.COORDINATOR.name()));
-        if (manager.isSelected())
-            roles.add(roleService.findByName(org.parish.attendancesb.services.Role.MANAGER.name()));
+        List<Group> groups = new ArrayList<>();
+        //tableGroups.getItems().get(1)..forEach(g -> g.);
+        catequista.setGroups(groups);
 
-        user.setRoles(roles);
+//        catequista.setCatequistaname(username.getText());
+//        catequista.setPassword(password.getText());
 
-        return user;
+//        Set<Role> roles = new HashSet<>();
+//        if (coordinator.isSelected())
+//            roles.add(roleService.findByName(org.parish.attendancesb.services.Role.COORDINATOR.name()));
+//        if (manager.isSelected())
+//            roles.add(roleService.findByName(org.parish.attendancesb.services.Role.MANAGER.name()));
+
+//        catequista.setRoles(roles);
+
+        return catequista;
     }
 
-    private User getUser() {
+    private Catequista getCatequista() {
         if (registry == null)
-            return new User();
+            return new Catequista();
 
         return registry;
     }
 
     @Override
     public void setFieldsFromModel() {
-        this.catequesis.setValue(this.registry.getGroup().getCatequesis());
-        fillGroup();
-        this.group.setValue(this.registry.getGroup());
-        this.group.setDisable(false);
+//        this.catequesis.setValue(this.registry.getGroup().getCatequesis());
+
+//        this.group.setValue(this.registry.getGroup());
+//        this.group.setDisable(false);
         this.lastName.setText(this.registry.getLastName());
         this.firstName.setText(this.registry.getFirstName());
-        this.username.setText(this.registry.getUsername());
-        this.password.setText(this.registry.getPassword());
-        this.passwordShow.setText(this.registry.getPassword());
-        this.coordinator.setSelected(
-                this.registry.getRoles().contains(
-                        roleService.findByName(org.parish.attendancesb.services.Role.COORDINATOR.name())
-                )
-        );
-        this.manager.setSelected(
-                this.registry.getRoles().contains(
-                        roleService.findByName(org.parish.attendancesb.services.Role.MANAGER.name())
-                )
-        );
-        coordinator.setDisable(manager.isSelected());
+
+//        this.tableGroups.setItems(FXCollections.observableArrayList(service.ge));
+//        this.tableGroups.refresh();
+
+//        this.username.setText(this.registry.getCatequistaname());
+//        this.password.setText(this.registry.getPassword());
+//        this.passwordShow.setText(this.registry.getPassword());
+//        this.coordinator.setSelected(
+//                this.registry.getRoles().contains(
+//                        roleService.findByName(org.parish.attendancesb.services.Role.COORDINATOR.name())
+//                )
+//        );
+//        this.manager.setSelected(
+//                this.registry.getRoles().contains(
+//                        roleService.findByName(org.parish.attendancesb.services.Role.MANAGER.name())
+//                )
+//        );
+//        coordinator.setDisable(manager.isSelected());
     }
 
     @Override
     public void clearFields() {
-        catequesis.setValue(null);
+//        catequesis.setValue(null);
         group.setValue(null);
-        group.setDisable(true);
+        //group.setDisable(true);
         firstName.clear();
         lastName.clear();
-        username.clear();
-        password.clear();
-        passwordShow.clear();
-        coordinator.setSelected(false);
-        manager.setSelected(false);
+//        username.clear();
+//        password.clear();
+//        passwordShow.clear();
+//        coordinator.setSelected(false);
+//        manager.setSelected(false);
+    }
+
+    @FXML
+    void add(ActionEvent event) {
+        GroupsCatequista groupsCatequista = new GroupsCatequista();
+        groupsCatequista.setId(group.getSelectionModel().getSelectedItem().getId());
+        groupsCatequista.setGroup(group.getSelectionModel().getSelectedItem());
+        groupsCatequista.setCoordinator(true
+                /*this.registry.getUser().getRoles().contains(
+                        roleService.findByName(org.parish.attendancesb.services.Role.COORDINATOR.name())
+                )*/
+        );
+        this.tableGroups.getItems().add(groupsCatequista);
+        this.tableGroups.refresh();
+    }
+
+    @FXML
+    void remove(ActionEvent event) {
+
+    }
+
+    public void setColumnFromModel() {
+        this.id.setCellValueFactory(new PropertyValueFactory<>("id"));
+        this.groupColumn.setCellValueFactory(new PropertyValueFactory<>("group"));
+
+        Callback<TableColumn<GroupsCatequista, Boolean>, TableCell<GroupsCatequista, Boolean>> booleanCellFactory =
+                new Callback<TableColumn<GroupsCatequista, Boolean>, TableCell<GroupsCatequista, Boolean>>() {
+                    @Override
+                    public TableCell<GroupsCatequista, Boolean> call(TableColumn<GroupsCatequista, Boolean> p) {
+                        return new BooleanCell<GroupsCatequista>();
+                    }
+                };
+        coordinator.setCellValueFactory(new PropertyValueFactory<>("coordinator"));
+        coordinator.setCellFactory(booleanCellFactory);
     }
 }

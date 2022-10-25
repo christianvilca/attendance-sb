@@ -54,7 +54,7 @@ public class CatequistaServiceImpl implements CatequistaService {
                         c -> {
                             c.setFirstName(catequista.getFirstName());
                             c.setLastName(catequista.getLastName());
-                            c.setGroup(catequista.getGroup());
+                            c.setGroups(catequista.getGroups());
                             return this.save(c);
                         }
                 ).orElse(null);

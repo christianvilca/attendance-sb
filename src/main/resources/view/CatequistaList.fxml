@@ -43,8 +43,6 @@
             <TableView fx:id="table" HBox.hgrow="ALWAYS">
                <columns>
                   <TableColumn fx:id="id" prefWidth="50.0" text="Id" />
-                  <TableColumn fx:id="catequesis" minWidth="150.0" prefWidth="150.0" resizable="false" text="Catequesis" visible="false" />
-                  <TableColumn fx:id="group" minWidth="150.0" prefWidth="150.0" resizable="false" text="Grupo" />
                   <TableColumn fx:id="lastName" minWidth="200.0" prefWidth="200.0" resizable="false" text="Apellidos" />
                   <TableColumn fx:id="firstName" minWidth="200.0" prefWidth="200.0" resizable="false" text="Nombres" />
                </columns>

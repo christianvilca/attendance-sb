@@ -28,21 +28,11 @@ public class Catequista {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
-    @NonNull
-    @ManyToOne
-    @JoinColumn(name = "group_id")
-    private Group group;
-
-    @OneToMany(mappedBy = "group")
-    private List<ReceiverPerson> receiverPeople;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<Group> groups;
 
     public Catequista(Integer id) {
         this.id = id;
-    }
-
-    public Catequista(Integer id, Group group) {
-        this.id = id;
-        this.group = group;
     }
 
     @Override

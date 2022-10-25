@@ -15,13 +15,13 @@ public interface CatequistaRepository extends JpaRepository<Catequista, Integer>
             " OR r.lastName like %?1% ")
     List<Catequista> findByNameContaining(String name);
 
-    List<Catequista> findByGroup(Group group);
+    //List<Catequista> findByGroup(Group group);
 
     @Query("SELECT  case when count(r)> 0 then true else false end " +
             " FROM Catequista r" +
             " WHERE r.firstName = :#{#person.firstName} " +
             " AND r.lastName = :#{#person.lastName} " +
-            " AND r.group = :#{#person.group} ")
+            " AND r.groups = :#{#person.groups} ")
     boolean contains(@Param("person") Catequista person);
 
     @Override
