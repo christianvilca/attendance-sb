@@ -6,13 +6,12 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Data
 @NoArgsConstructor
 @Entity
-//@EqualsAndHashCode(exclude="credentials")
 public class Role {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @EqualsAndHashCode.Exclude
@@ -20,10 +19,6 @@ public class Role {
 
     @NonNull
     private String name;
-
-    @EqualsAndHashCode.Exclude
-    @OneToMany(mappedBy = "role",fetch = FetchType.EAGER)
-    private Set<Credential> credentials;
 
     @Override
     public String toString() {

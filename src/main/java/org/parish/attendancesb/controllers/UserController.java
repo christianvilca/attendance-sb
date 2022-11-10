@@ -1,5 +1,6 @@
 package org.parish.attendancesb.controllers;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
@@ -10,24 +11,20 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.parish.attendancesb.controllers.abstractions.RegistryController;
-import org.parish.attendancesb.models.Catequesis;
-import org.parish.attendancesb.models.access.Credential;
 import org.parish.attendancesb.models.access.User;
-import org.parish.attendancesb.services.Role;
-import org.parish.attendancesb.services.interfaces.CatequistaService;
-import org.parish.attendancesb.services.interfaces.CredentialService;
+import org.parish.attendancesb.models.access.Role;
+import org.parish.attendancesb.models.access.RoleType;
 import org.parish.attendancesb.services.interfaces.RoleService;
 import org.parish.attendancesb.services.interfaces.UserService;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Component
 public class UserController extends RegistryController<User> {
 
-    private final Logger LOGGER = LogManager.getLogger(this.getClass());
+    final Logger logger = LogManager.getLogger(this.getClass());
 
     @FXML
     private TextField username;
@@ -50,21 +47,13 @@ public class UserController extends RegistryController<User> {
     @FXML
     private CheckBox manager;
 
-    private RoleService roleService;
+    @FXML
+    private CheckBox coordinator;
+    private final RoleService roleService;
 
-    private CredentialService credentialService;
-
-    private CatequistaService catequistaService;
-
-    private UserService service;
-
-    public UserController(UserService service, RoleService roleService, CredentialService credentialService, CatequistaService catequistaService) {
+    public UserController(UserService service, RoleService roleService) {
         super(service);
-
-        this.service = service;
-        this.credentialService = credentialService;
         this.roleService = roleService;
-        this.catequistaService = catequistaService;
     }
 
     @Override
@@ -103,35 +92,16 @@ public class UserController extends RegistryController<User> {
 
         user.setUsername(username.getText());
 
-        Set<Credential> credentials = new HashSet<>();
+        Set<Role> roles = new HashSet<>();
 
-        if (user.getCredentials() != null) {
-            credentials.addAll(
-                    user.getCredentials().stream().filter(credential ->
-                            credential.getRole().getName() == Role.COORDINATOR.name() &&
-                                    credential.getCatequesis() != null
-                    ).collect(Collectors.toList())
-            );
-        }
-        LOGGER.info(roleService.findByName(org.parish.attendancesb.services.Role.MANAGER.name()));
-        if (manager.isSelected()) {
-            Credential credential = new Credential(
-                    user,
-                    roleService.findByName(org.parish.attendancesb.services.Role.MANAGER.name())
-            );
-            credentialService.save(credential);
-            credentials.add(credential);
-            credential = new Credential(
-                    user,
-                    roleService.findByName(org.parish.attendancesb.services.Role.COORDINATOR.name())
-            );
-            credentials.add(credential);
-            credentialService.save(credential);
-        }
-        //credentialService.save(credentials);
-        user.setCredentials(credentials);
-        LOGGER.info(credentials);
-        LOGGER.info(user.getCredentials());
+        if (manager.isSelected())
+            roles.add(roleService.findByName(RoleType.MANAGER.name()));
+
+        if (coordinator.isSelected())
+            roles.add(roleService.findByName(RoleType.COORDINATOR.name()));
+
+
+        user.setRoles(roles);
 
         if (password.getText().trim().equals("")) {
             user.setPassword(username.getText());
@@ -155,8 +125,17 @@ public class UserController extends RegistryController<User> {
         this.password.setText(this.registry.getPassword());
 
         this.manager.setSelected(
-                //service.authorize(Role.MANAGER.name())
-                this.registry.getCredentials().stream().anyMatch(credential -> credential.getRole().getName().contains(Role.MANAGER.name()))
+                this.registry.getRoles().contains(
+                        roleService.findByName(RoleType.MANAGER.name())
+                )
+        );
+
+        coordinator.setDisable(manager.isSelected());
+
+        this.coordinator.setSelected(
+                this.registry.getRoles().contains(
+                        roleService.findByName(RoleType.COORDINATOR.name())
+                )
         );
     }
 
@@ -166,5 +145,12 @@ public class UserController extends RegistryController<User> {
         password.clear();
         passwordShow.clear();
         manager.setSelected(false);
+    }
+
+    @FXML
+    void changeManager(ActionEvent event) {
+        if (manager.isSelected())
+            coordinator.setSelected(true);
+        coordinator.setDisable(manager.isSelected());
     }
 }

@@ -45,7 +45,13 @@
                   <HBox alignment="CENTER_LEFT" spacing="8.0">
                      <children>
                         <Label alignment="CENTER_RIGHT" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="17.0" prefWidth="72.0" text="Administrar:" />
-                        <CheckBox fx:id="manager" mnemonicParsing="false" prefHeight="25.0" prefWidth="0.0" />
+                        <CheckBox fx:id="manager" mnemonicParsing="false" onAction="#changeManager" prefHeight="25.0" prefWidth="0.0" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="76.0" spacing="8.0">
+                     <children>
+                        <Label alignment="CENTER_RIGHT" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="17.0" prefWidth="72.0" text="Coordinar" />
+                        <CheckBox fx:id="coordinator" mnemonicParsing="false" prefHeight="25.0" prefWidth="0.0" />
                      </children>
                   </HBox>
                </children>

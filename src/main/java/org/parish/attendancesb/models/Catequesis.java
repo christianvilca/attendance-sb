@@ -1,12 +1,13 @@
 package org.parish.attendancesb.models;
 
 import lombok.*;
-import org.parish.attendancesb.models.access.Credential;
+import org.parish.attendancesb.models.access.User;
 import org.parish.attendancesb.models.datetime.Time;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -40,8 +41,8 @@ public class Catequesis {
     private int tolerance;
 
     @EqualsAndHashCode.Exclude
-    @OneToMany(mappedBy = "catequesis")
-    private List<Credential> credentials;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<User> users;
 
     @OneToMany(mappedBy = "catequesis")
     private List<Group> groups;

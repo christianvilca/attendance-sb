@@ -4,13 +4,13 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import org.parish.attendancesb.models.Catequesis;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Data
 @NoArgsConstructor
-//@EqualsAndHashCode(exclude="credentials")
 @Entity
 public class User {
     @Id
@@ -25,9 +25,12 @@ public class User {
     @NonNull
     private String password;
 
-    //@EqualsAndHashCode.Exclude
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
-    private Set<Credential> credentials;
+    @EqualsAndHashCode.Exclude
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Role> roles;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Catequesis> catequeses;
 
     @Override
     public String toString() {
