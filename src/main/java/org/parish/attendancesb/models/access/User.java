@@ -4,13 +4,13 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
-import org.parish.attendancesb.models.Group;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Data
 @NoArgsConstructor
+//@EqualsAndHashCode(exclude="credentials")
 @Entity
 public class User {
     @Id
@@ -26,8 +26,8 @@ public class User {
     private String password;
 
     //@EqualsAndHashCode.Exclude
-    @ManyToMany(fetch = FetchType.EAGER)
-    private Set<Role> roles;
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    private Set<Credential> credentials;
 
     @Override
     public String toString() {

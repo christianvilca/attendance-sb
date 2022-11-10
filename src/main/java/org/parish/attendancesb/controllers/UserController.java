@@ -6,19 +6,28 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.parish.attendancesb.controllers.abstractions.RegistryController;
-import org.parish.attendancesb.models.access.Role;
+import org.parish.attendancesb.models.Catequesis;
+import org.parish.attendancesb.models.access.Credential;
 import org.parish.attendancesb.models.access.User;
+import org.parish.attendancesb.services.Role;
+import org.parish.attendancesb.services.interfaces.CatequistaService;
+import org.parish.attendancesb.services.interfaces.CredentialService;
 import org.parish.attendancesb.services.interfaces.RoleService;
 import org.parish.attendancesb.services.interfaces.UserService;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Component
 public class UserController extends RegistryController<User> {
+
+    private final Logger LOGGER = LogManager.getLogger(this.getClass());
 
     @FXML
     private TextField username;
@@ -43,9 +52,19 @@ public class UserController extends RegistryController<User> {
 
     private RoleService roleService;
 
-    public UserController(UserService service, RoleService roleService) {
+    private CredentialService credentialService;
+
+    private CatequistaService catequistaService;
+
+    private UserService service;
+
+    public UserController(UserService service, RoleService roleService, CredentialService credentialService, CatequistaService catequistaService) {
         super(service);
+
+        this.service = service;
+        this.credentialService = credentialService;
         this.roleService = roleService;
+        this.catequistaService = catequistaService;
     }
 
     @Override
@@ -84,11 +103,35 @@ public class UserController extends RegistryController<User> {
 
         user.setUsername(username.getText());
 
-        Set<Role> roles = new HashSet<>();
-        if (manager.isSelected())
-            roles.add(roleService.findByName(org.parish.attendancesb.services.Role.MANAGER.name()));
+        Set<Credential> credentials = new HashSet<>();
 
-        user.setRoles(roles);
+        if (user.getCredentials() != null) {
+            credentials.addAll(
+                    user.getCredentials().stream().filter(credential ->
+                            credential.getRole().getName() == Role.COORDINATOR.name() &&
+                                    credential.getCatequesis() != null
+                    ).collect(Collectors.toList())
+            );
+        }
+        LOGGER.info(roleService.findByName(org.parish.attendancesb.services.Role.MANAGER.name()));
+        if (manager.isSelected()) {
+            Credential credential = new Credential(
+                    user,
+                    roleService.findByName(org.parish.attendancesb.services.Role.MANAGER.name())
+            );
+            credentialService.save(credential);
+            credentials.add(credential);
+            credential = new Credential(
+                    user,
+                    roleService.findByName(org.parish.attendancesb.services.Role.COORDINATOR.name())
+            );
+            credentials.add(credential);
+            credentialService.save(credential);
+        }
+        //credentialService.save(credentials);
+        user.setCredentials(credentials);
+        LOGGER.info(credentials);
+        LOGGER.info(user.getCredentials());
 
         if (password.getText().trim().equals("")) {
             user.setPassword(username.getText());
@@ -112,9 +155,8 @@ public class UserController extends RegistryController<User> {
         this.password.setText(this.registry.getPassword());
 
         this.manager.setSelected(
-                this.registry.getRoles().contains(
-                        roleService.findByName(org.parish.attendancesb.services.Role.MANAGER.name())
-                )
+                //service.authorize(Role.MANAGER.name())
+                this.registry.getCredentials().stream().anyMatch(credential -> credential.getRole().getName().contains(Role.MANAGER.name()))
         );
     }
 

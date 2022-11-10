@@ -1,6 +1,7 @@
 package org.parish.attendancesb.models;
 
 import lombok.*;
+import org.parish.attendancesb.models.access.Credential;
 import org.parish.attendancesb.models.datetime.Time;
 import org.springframework.stereotype.Component;
 
@@ -37,6 +38,10 @@ public class Catequesis {
 
     @NonNull
     private int tolerance;
+
+    @EqualsAndHashCode.Exclude
+    @OneToMany(mappedBy = "catequesis")
+    private List<Credential> credentials;
 
     @OneToMany(mappedBy = "catequesis")
     private List<Group> groups;

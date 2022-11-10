@@ -11,6 +11,7 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @Entity
+//@EqualsAndHashCode(exclude="credentials")
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -21,10 +22,14 @@ public class Role {
     private String name;
 
     @EqualsAndHashCode.Exclude
-    @ManyToMany(fetch = FetchType.EAGER)
-    private Set<User> users;
+    @OneToMany(mappedBy = "role",fetch = FetchType.EAGER)
+    private Set<Credential> credentials;
 
-    @EqualsAndHashCode.Exclude
-    @OneToMany(mappedBy = "role", fetch = FetchType.EAGER)
-    private Set<Permission> permissions;
+    @Override
+    public String toString() {
+        return "Role{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }
