@@ -25,4 +25,14 @@ public class Alert {
         alert.showAndWait();
     }
 
+    public static void warning(String description) {
+        final String WARNING = "Warning";
+
+        javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.WARNING);
+        alert.setHeaderText(null);
+        alert.setTitle(WARNING);
+        alert.setContentText(description);
+        alert.showAndWait();
+    }
+
 }

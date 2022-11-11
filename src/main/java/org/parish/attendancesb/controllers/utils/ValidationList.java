@@ -5,11 +5,13 @@ import java.util.Optional;
 
 public class ValidationList {
 
+    private ValidationList() {}
+
     public static boolean isValid(Validation... validations) {
         Optional<Validation> fieldInvalid = Arrays
                 .stream(validations)
-                .findAny()
-                .filter(validation -> !validation.getValid());
+                .filter(validation ->!validation.getValid())
+                .findAny();
 
         if (fieldInvalid.isEmpty())
             return true;
