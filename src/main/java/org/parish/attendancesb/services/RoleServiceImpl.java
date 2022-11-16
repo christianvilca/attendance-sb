@@ -1,6 +1,5 @@
 package org.parish.attendancesb.services;
 
-import org.parish.attendancesb.models.access.Permission;
 import org.parish.attendancesb.models.access.Role;
 import org.parish.attendancesb.repositories.RoleRepository;
 import org.parish.attendancesb.services.interfaces.RoleService;
@@ -12,11 +11,6 @@ public class RoleServiceImpl implements RoleService {
 
     @Autowired
     private RoleRepository repository;
-
-    @Override
-    public Role findByPermissions(Permission permissions) {
-        return repository.findByPermissions(permissions);
-    }
 
     @Override
     public Role findByName(String name) {
