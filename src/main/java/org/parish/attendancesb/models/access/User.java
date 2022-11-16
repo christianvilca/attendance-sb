@@ -4,7 +4,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import org.parish.attendancesb.exceptions.RemoveException;
 import org.parish.attendancesb.models.Catequesis;
+import org.parish.attendancesb.models.Catequista;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -32,11 +34,19 @@ public class User {
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Catequesis> catequeses;
 
+    @EqualsAndHashCode.Exclude
+    @OneToOne(mappedBy = "user")
+    private Catequista catequista;
+
+    @PreRemove
+    public void preRemove() {
+        if (catequista != null && catequista.getUser() != null) {
+            throw new RemoveException("No puedes eliminar un Usuario asociado a un Catequista!");
+        }
+    }
+
     @Override
     public String toString() {
-        return "User{" +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                '}';
+        return username;
     }
 }
