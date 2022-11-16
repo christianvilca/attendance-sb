@@ -11,6 +11,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.parish.attendancesb.controllers.abstractions.RegistryController;
+import org.parish.attendancesb.controllers.utils.Validation;
+import org.parish.attendancesb.controllers.utils.ValidationList;
+import org.parish.attendancesb.controllers.utils.ValidationTextField;
+import org.parish.attendancesb.controllers.utils.ValidationType;
 import org.parish.attendancesb.models.access.User;
 import org.parish.attendancesb.models.access.Role;
 import org.parish.attendancesb.models.access.RoleType;
@@ -54,6 +58,13 @@ public class UserController extends RegistryController<User> {
     public UserController(UserService service, RoleService roleService) {
         super(service);
         this.roleService = roleService;
+    }
+
+    @Override
+    protected boolean isValid() {
+        return ValidationList.isValid(
+                new ValidationTextField("Usuario", username, ValidationType.TEXT)
+        );
     }
 
     @Override

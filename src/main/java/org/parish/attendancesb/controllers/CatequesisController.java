@@ -6,6 +6,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import org.parish.attendancesb.controllers.abstractions.RegistryController;
+import org.parish.attendancesb.controllers.utils.ValidationComboBox;
+import org.parish.attendancesb.controllers.utils.ValidationList;
+import org.parish.attendancesb.controllers.utils.ValidationTextField;
+import org.parish.attendancesb.controllers.utils.ValidationType;
 import org.parish.attendancesb.models.Catequesis;
 import org.parish.attendancesb.services.interfaces.CatequesisService;
 
@@ -16,16 +20,16 @@ import org.springframework.stereotype.Component;
 public class CatequesisController extends RegistryController<Catequesis> {
 
     @FXML
-    private ComboBox<String> day;
-
-    @FXML
     private TextField name;
 
     @FXML
-    private ComboBox<Time> timeEnd;
+    private ComboBox<String> day;
 
     @FXML
     private ComboBox<Time> timeStart;
+
+    @FXML
+    private ComboBox<Time> timeEnd;
 
     @FXML
     private ComboBox<Integer> tolerance;
@@ -81,6 +85,17 @@ public class CatequesisController extends RegistryController<Catequesis> {
             return new Catequesis();
 
         return registry;
+    }
+
+    @Override
+    public boolean isValid() {
+        return ValidationList.isValid(
+                new ValidationTextField("Nombre", name, ValidationType.TEXT),
+                new ValidationComboBox("Día", day),
+                new ValidationComboBox("Hora Inicial", timeStart),
+                new ValidationComboBox("Hora Final", timeEnd),
+                new ValidationComboBox("Tolerancia", tolerance)
+        );
     }
 
     @Override

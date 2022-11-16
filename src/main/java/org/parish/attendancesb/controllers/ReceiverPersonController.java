@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import org.parish.attendancesb.controllers.abstractions.RegistryController;
+import org.parish.attendancesb.controllers.utils.*;
 import org.parish.attendancesb.models.Group;
 import org.parish.attendancesb.models.ReceiverPerson;
 import org.parish.attendancesb.services.interfaces.GroupService;
@@ -46,11 +47,21 @@ public class ReceiverPersonController extends RegistryController<ReceiverPerson>
         return person;
     }
 
+
     private ReceiverPerson getPerson() {
         if (registry == null)
             return new ReceiverPerson();
 
         return registry;
+    }
+
+    @Override
+    public boolean isValid() {
+        return ValidationList.isValid(
+                new ValidationComboBox("Grupo", group),
+                new ValidationTextField("Nombres", txtFirstName, ValidationType.TEXT),
+                new ValidationTextField("Apellidos", txtLastName, ValidationType.TEXT)
+        );
     }
 
     @Override

@@ -35,6 +35,9 @@ public abstract class RegistryController<T> implements Initializable {
 
     @FXML
     void save(ActionEvent event) {
+        if (!this.isValid())
+            return;
+
         T newRegistry = this.getModelFromFields();
 
         if (this.service.contains(newRegistry)) {
@@ -65,6 +68,8 @@ public abstract class RegistryController<T> implements Initializable {
         Stage stage = (Stage) button.getScene().getWindow();
         stage.close();
     }
+
+    protected abstract boolean isValid();
 
     public T getModel() {
         return this.registry;
