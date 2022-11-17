@@ -19,18 +19,18 @@ import java.util.Optional;
 @Service
 public class AttendanceServiceImpl implements AttendanceService {
     private AttendanceRepository repository;
-    private CatequesisService catequesisService;
+    private SessionService sessionService;
     private ReceiverPersonService receiverPersonService;
     private AttendanceDateService attendanceDateService;
 
     public AttendanceServiceImpl(
             AttendanceRepository repository,
-            CatequesisService catequesisService,
+            SessionService sessionService,
             ReceiverPersonService receiverPersonService,
             AttendanceDateService attendanceDateService
     ) {
         this.repository = repository;
-        this.catequesisService = catequesisService;
+        this.sessionService = sessionService;
         this.receiverPersonService = receiverPersonService;
         this.attendanceDateService = attendanceDateService;
     }
@@ -38,7 +38,7 @@ public class AttendanceServiceImpl implements AttendanceService {
     public Optional<Attendance> register(String code, String dateTime) {
         Optional<ReceiverPerson> optReceiverPerson = receiverPersonService.findByCode(code);
         ReceiverPerson receiverPerson = optReceiverPerson.get();
-        Catequesis catequesis = this.catequesisService.getCatequesis();
+        Catequesis catequesis = this.sessionService.getCatequesis();
 
         Attendance attendance = new Attendance();
         attendance.setReceiverPerson(receiverPerson);
@@ -54,7 +54,7 @@ public class AttendanceServiceImpl implements AttendanceService {
 //        Optional<ReceiverPerson> optReceiverPerson = receiverPersonService.findByCode(code);
 //        ReceiverPerson receiverPerson = optReceiverPerson.get();
         ReceiverPerson receiverPerson = receiverPersonService.getById(Integer.parseInt(code));
-        Catequesis catequesis = this.catequesisService.getCatequesis();
+        Catequesis catequesis = this.sessionService.getCatequesis();
 
         Attendance attendance = new Attendance();
         attendance.setReceiverPerson(receiverPerson);
@@ -67,7 +67,7 @@ public class AttendanceServiceImpl implements AttendanceService {
 
     @Override
     public Resume resume(ReceiverPerson receiverPerson) {
-        Catequesis catequesis = this.catequesisService.getCatequesis();
+        Catequesis catequesis = this.sessionService.getCatequesis();
         List<AttendanceDate> attendanceDateList = this.attendanceDateService.findAllByCatequesis(catequesis);
         List<Attendance> attendanceList = this.repository.findByCatequesisAndReceiverPerson(catequesis, receiverPerson);
 
@@ -80,7 +80,7 @@ public class AttendanceServiceImpl implements AttendanceService {
     @Override
     public Attendance save(Attendance attendance) {
         attendance.setDateTime(new DateTime());
-        attendance.setCatequesis(this.catequesisService.getCatequesis());
+        attendance.setCatequesis(this.sessionService.getCatequesis());
 
         this.attendanceDateService.save(this.getAttendanceDate(attendance));
         return repository.save(attendance);
@@ -88,7 +88,7 @@ public class AttendanceServiceImpl implements AttendanceService {
 
     private AttendanceDate getAttendanceDate(Attendance attendance) {
         AttendanceDate attendanceDate = new AttendanceDate();
-        attendanceDate.setCatequesis(this.catequesisService.getCatequesis());
+        attendanceDate.setCatequesis(this.sessionService.getCatequesis());
         attendanceDate.setDate(attendance.getDateTime().getDate());
 
         return attendanceDate;

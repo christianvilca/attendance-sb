@@ -26,16 +26,6 @@ public class CatequesisServiceImpl implements CatequesisService {
     }
 
     @Override
-    public Catequesis getCatequesis() {
-        return this.catequesis;
-    }
-
-    @Override
-    public void setCatequesis(Catequesis catequesis) {
-        this.catequesis = catequesis;
-    }
-
-    @Override
     public List<Catequesis> findByName(String name) {
         return repository.findByNameContaining(name);
     }
