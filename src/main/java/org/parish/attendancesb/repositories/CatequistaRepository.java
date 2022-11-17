@@ -2,6 +2,7 @@ package org.parish.attendancesb.repositories;
 
 import org.parish.attendancesb.models.Catequista;
 import org.parish.attendancesb.models.Group;
+import org.parish.attendancesb.models.access.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -21,7 +22,7 @@ public interface CatequistaRepository extends JpaRepository<Catequista, Integer>
             " FROM Catequista r" +
             " WHERE r.firstName = :#{#person.firstName} " +
             " AND r.lastName = :#{#person.lastName} " +
-            " AND r.groups = :#{#person.groups} ")
+            " AND r.user = :#{#person.user} ")
     boolean contains(@Param("person") Catequista person);
 
     @Override
