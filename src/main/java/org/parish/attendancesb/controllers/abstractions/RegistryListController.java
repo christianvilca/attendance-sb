@@ -5,14 +5,17 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableRow;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.geometry.Bounds;
+import javafx.geometry.Side;
+import javafx.scene.Node;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import net.sf.jasperreports.engine.JRException;
 import org.parish.attendancesb.config.StageManager;
 import org.parish.attendancesb.controllers.utils.Alert;
+import org.parish.attendancesb.exceptions.RemoveException;
 import org.parish.attendancesb.report.Jrxml;
 import org.parish.attendancesb.report.Report;
 import org.parish.attendancesb.services.interfaces.Service;
@@ -23,7 +26,9 @@ import org.springframework.context.annotation.Lazy;
 import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 public abstract class RegistryListController<T> implements Initializable {
 
@@ -39,6 +44,8 @@ public abstract class RegistryListController<T> implements Initializable {
     protected FxmlView view;
 
     protected Jrxml report;
+
+    private ContextMenu contextMenu;
 
     @Autowired
     private Report reportService;
@@ -60,10 +67,77 @@ public abstract class RegistryListController<T> implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Platform.runLater(() -> search.requestFocus());
 
+        this.contextMenu = new ContextMenu();
+        this.addAllMenu(
+                getMenuEditar(),
+                getMenuEliminar()
+        );
+
         this.initializeObjects();
+        this.setMenu();
         this.refleshTable();
         this.setColumnFromModel();
         this.dblClickTable();
+    }
+
+    private void setMenu() {
+        table.addEventHandler(MouseEvent.MOUSE_CLICKED, t -> {
+            if (t.getButton() == MouseButton.SECONDARY) {
+                Set<Node> rows = table.lookupAll(".table-row-cell");
+                Optional<Cell> n = rows.stream().map(Cell.class::cast).filter(Cell::isSelected).findFirst();
+
+                if (n.isPresent()) {
+                    Optional<Node> node = n.get().getChildrenUnmodifiable().stream()
+                            .filter(TableCell.class::isInstance)
+                            .findFirst();
+
+                    if (node.isPresent()) {
+                        Node cell = node.get();
+                        Bounds b = cell.getLayoutBounds();
+                        getContextMenu().show(cell, Side.BOTTOM, t.getX(), b.getHeight() / -2);
+                    }
+                }
+                return;
+            }
+            getContextMenu().hide();
+        });
+    }
+
+    private ContextMenu getContextMenu() {
+        return contextMenu;
+    }
+
+    protected void setContextMenu(ContextMenu contextMenu) {
+        this.contextMenu = contextMenu;
+    }
+
+    protected void addAllMenu(MenuItem... menuItems) {
+        this.contextMenu.getItems().addAll(menuItems);
+    }
+
+    private MenuItem getMenuEditar() {
+        MenuItem menu = new MenuItem("Editar");
+        menu.setOnAction((ActionEvent e) -> {
+            this.edit(null);
+        });
+        return menu;
+    }
+
+    private MenuItem getMenuEliminar() {
+        MenuItem menu = new MenuItem("Eliminar");
+        menu.setOnAction((ActionEvent e) -> {
+            if (Alert.yesno("¿Realmente desea eliminar el registro?")) {
+                T registry = this.table.getSelectionModel().getSelectedItem();
+                try {
+                    service.delete(registry);
+                    refleshTable();
+                    Alert.information("Registro eliminado!");
+                } catch (RemoveException re){
+                    Alert.error(re.getMessage());
+                }
+            }
+        });
+        return menu;
     }
 
     public void dblClickTable() {
@@ -125,6 +199,10 @@ public abstract class RegistryListController<T> implements Initializable {
 
         controller.setModel(registry);
         showModal();
+    }
+
+    protected T getRow() {
+        return this.table.getSelectionModel().getSelectedItem();
     }
 
     public void refleshTable() {
