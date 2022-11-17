@@ -1,5 +1,6 @@
 package org.parish.attendancesb.repositories;
 
+import org.parish.attendancesb.models.Catequista;
 import org.parish.attendancesb.models.access.Role;
 import org.parish.attendancesb.models.access.User;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,11 +19,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     @Query("SELECT  case when count(r)> 0 then true else false end " +
             " FROM User r" +
-            " WHERE  r.username = :#{#user.username} " +
-            " AND r.password = :#{#user.password} ")
+            " WHERE  r.username = :#{#user.username} " )
     boolean contains(@Param("user") User user);
-
-    boolean existsByRoles(Role roles);
 
     boolean existsByUsername(String username);
 

@@ -43,6 +43,9 @@ public class User {
         if (catequista != null && catequista.getUser() != null) {
             throw new RemoveException("No puedes eliminar un Usuario asociado a un Catequista!");
         }
+        if (!this.catequeses.isEmpty()) {
+            throw new RemoveException("No puede eliminar un Usuario que tiene Catequesis.");
+        }
     }
 
     @Override

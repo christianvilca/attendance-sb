@@ -1,17 +1,15 @@
 package org.parish.attendancesb.services;
 
+
 import org.parish.attendancesb.models.access.User;
 import org.parish.attendancesb.repositories.RoleRepository;
 import org.parish.attendancesb.repositories.UserRepository;
-import org.parish.attendancesb.services.interfaces.PermissionService;
 import org.parish.attendancesb.services.interfaces.RoleService;
 import org.parish.attendancesb.services.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -25,20 +23,16 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private RoleService roleService;
 
-    @Autowired
-    private PermissionService permissionService;
-
     private User user;
 
     @Override
     public boolean authenticate(String username, String password) {
         User userFound = this.findByUsername(username);
-        System.out.println(userFound);
+
         if (userFound == null)
             return false;
 
         this.user = userFound;
-        System.out.println(user.getRoles());
 
         return password.equals(userFound.getPassword());
     }
@@ -49,17 +43,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean isAuthorize(String permissionName) {
-        return user.getRoles().contains(
-                roleService.findByPermissions(
-                        permissionService.findByName(permissionName)
-                )
-        );
-    }
-
-    @Override
     public boolean authorize(String role) {
-        System.out.println(user.getRoles());
         return user.getRoles().contains(
                 roleService.findByName(role)
         );
