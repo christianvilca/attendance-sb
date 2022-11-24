@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="270.0" prefWidth="440.0" spacing="8.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.parish.attendancesb.controllers.CatequesisSearchController">
+<VBox prefHeight="270.0" prefWidth="440.0" spacing="8.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.parish.attendancesb.controllers.CatequistaSearchController">
    <children>
       <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="946.0" spacing="8.0">
          <children>
@@ -21,7 +21,8 @@
             <TableView fx:id="table" onKeyReleased="#select" HBox.hgrow="ALWAYS">
                <columns>
                   <TableColumn fx:id="id" prefWidth="50.0" text="Id" />
-                  <TableColumn fx:id="name" minWidth="340.0" prefWidth="340.0" resizable="false" text="Catequista" />
+                  <TableColumn fx:id="lastName" minWidth="170.0" prefWidth="170.0" resizable="false" text="Apellidos" />
+                  <TableColumn fx:id="firstName" minWidth="170.0" prefWidth="170.0" resizable="false" text="Nombres" />
                </columns>
             </TableView>
          </children>

@@ -90,7 +90,6 @@ public class CatequesisController extends RegistryController<Catequesis> {
     @Override
     public boolean isValid() {
         return ValidationList.isValid(
-                new ValidationTextField("Nombre", name, ValidationType.TEXT),
                 new ValidationComboBox("Día", day),
                 new ValidationComboBox("Hora Inicial", timeStart),
                 new ValidationComboBox("Hora Final", timeEnd),

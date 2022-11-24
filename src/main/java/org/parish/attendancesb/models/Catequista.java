@@ -28,6 +28,7 @@ public class Catequista {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @EqualsAndHashCode.Exclude
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Group> groups;
 

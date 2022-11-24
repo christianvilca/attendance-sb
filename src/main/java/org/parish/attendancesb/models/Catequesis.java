@@ -1,6 +1,7 @@
 package org.parish.attendancesb.models;
 
 import lombok.*;
+import org.parish.attendancesb.exceptions.RemoveException;
 import org.parish.attendancesb.models.access.User;
 import org.parish.attendancesb.models.datetime.Time;
 import org.springframework.stereotype.Component;
@@ -44,11 +45,31 @@ public class Catequesis {
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<User> users;
 
+    @EqualsAndHashCode.Exclude
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Catequista> catequistas;
+
     @OneToMany(mappedBy = "catequesis")
     private List<Group> groups;
 
     @OneToMany(mappedBy = "catequesis")
     private List<Attendance> attendances;
+
+    @PreRemove
+    public void preRemove() {
+        if (!this.users.isEmpty()) {
+            throw new RemoveException("No puede eliminar una Catequesis que tiene Usuario.");
+        }
+        if (!this.catequistas.isEmpty()) {
+            throw new RemoveException("No puede eliminar una Catequesis que tiene Catequista.");
+        }
+        if (!this.groups.isEmpty()) {
+            throw new RemoveException("No puede eliminar un Catequesis que tiene Grupo.");
+        }
+        if (!this.attendances.isEmpty()) {
+            throw new RemoveException("No puede eliminar un Catequesis que tiene Asistencias.");
+        }
+    }
 
     public Catequesis(Integer id) {
         this.id = id;
