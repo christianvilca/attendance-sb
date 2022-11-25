@@ -1,12 +1,13 @@
 package org.parish.attendancesb.controllers;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import org.parish.attendancesb.controllers.abstractions.RegistryController;
-import org.parish.attendancesb.models.Catequesis;
+import org.parish.attendancesb.controllers.utils.ValidationList;
+import org.parish.attendancesb.controllers.utils.ValidationTextField;
+import org.parish.attendancesb.controllers.utils.ValidationType;
 import org.parish.attendancesb.models.Group;
-import org.parish.attendancesb.services.interfaces.CatequesisService;
+import org.parish.attendancesb.services.SessionService;
 import org.parish.attendancesb.services.interfaces.GroupService;
 import org.springframework.stereotype.Component;
 
@@ -14,28 +15,24 @@ import org.springframework.stereotype.Component;
 public class GroupController extends RegistryController<Group> {
 
     @FXML
-    private ComboBox<Catequesis> catequesis;
-
-    @FXML
     private TextField name;
 
-    private CatequesisService catequesisService;
+    private final SessionService sessionService;
 
-    public GroupController(GroupService service, CatequesisService catequesisService) {
+    public GroupController(GroupService service, SessionService sessionService) {
         super(service);
-        this.catequesisService = catequesisService;
+        this.sessionService = sessionService;
     }
 
     @Override
     public void initializeObjects() {
-        catequesis.getItems().addAll(catequesisService.findAll());
     }
 
     @Override
     public Group getModelFromFields() {
         Group group = getGroup();
 
-        group.setCatequesis(catequesis.getSelectionModel().getSelectedItem());
+        group.setCatequesis(sessionService.getCatequesis());
         group.setName(name.getText());
 
         return group;
@@ -49,14 +46,19 @@ public class GroupController extends RegistryController<Group> {
     }
 
     @Override
+    protected boolean isValid() {
+        return ValidationList.isValid(
+                new ValidationTextField("Nombre", name, ValidationType.TEXT)
+        );
+    }
+
+    @Override
     public void setFieldsFromModel() {
-        this.catequesis.setValue(this.registry.getCatequesis());
         this.name.setText(this.registry.getName());
     }
 
     @Override
     public void clearFields() {
-        catequesis.setValue(null);
         name.clear();
     }
 }

@@ -12,8 +12,11 @@ import java.util.List;
 public class GroupServiceImpl implements GroupService {
     private GroupRepository repository;
 
-    public GroupServiceImpl(GroupRepository repository) {
+    private SessionService sessionService;
+
+    public GroupServiceImpl(GroupRepository repository, SessionService sessionService) {
         this.repository = repository;
+        this.sessionService = sessionService;
     }
 
     @Override
@@ -48,7 +51,7 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     public List<Group> findByName(String name) {
-        return repository.findAllByNameContaining(name);
+        return repository.findByCatequesisAndNameContains(sessionService.getCatequesis(), name);
     }
 
     @Override
@@ -58,6 +61,7 @@ public class GroupServiceImpl implements GroupService {
                         g -> {
                             g.setName(group.getName());
                             g.setCatequesis(group.getCatequesis());
+                            g.setCatequistas(group.getCatequistas());
                             return repository.save(g);
                         }
                 ).orElse(null);
@@ -65,6 +69,6 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     public List<Group> findAll() {
-        return repository.findAll();
+        return repository.findAllByCatequesis(sessionService.getCatequesis());
     }
 }

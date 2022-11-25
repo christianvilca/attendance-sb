@@ -12,9 +12,11 @@ import java.util.List;
 @Repository
 public interface GroupRepository extends JpaRepository<Group, Integer> {
 
-    public List<Group> findAllByNameContaining(String name);
+    List<Group> findByCatequesisAndNameContains(Catequesis catequesis, String name);
 
-    public List<Group> findAllByCatequesis(Catequesis catequesis);
+    List<Group> findAllByNameContaining(String name);
+
+    List<Group> findAllByCatequesis(Catequesis catequesis);
 
     @Query("SELECT  case when count(r)> 0 then true else false end " +
             " FROM group_catequesis r" +

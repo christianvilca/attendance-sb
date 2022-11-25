@@ -3,14 +3,13 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="161.0" prefWidth="312.0" spacing="8.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.parish.attendancesb.controllers.GroupController">
+<VBox prefHeight="125.0" prefWidth="325.0" spacing="8.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.parish.attendancesb.controllers.GroupController">
    <children>
       <HBox alignment="CENTER">
          <children>
@@ -25,12 +24,6 @@
          <children>
             <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="8.0" HBox.hgrow="ALWAYS">
                <children>
-                  <HBox alignment="CENTER" spacing="8.0">
-                     <children>
-                        <Label alignment="CENTER_RIGHT" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="17.0" prefWidth="72.0" text="Catequesis:" textAlignment="RIGHT" />
-                        <ComboBox fx:id="catequesis" prefHeight="25.0" prefWidth="285.0" promptText="--- SELECCIONAR ---" HBox.hgrow="ALWAYS" />
-                     </children>
-                  </HBox>
                   <HBox alignment="CENTER" spacing="8.0">
                      <children>
                         <Label alignment="CENTER_RIGHT" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="17.0" prefWidth="72.0" text="Nombre:" />

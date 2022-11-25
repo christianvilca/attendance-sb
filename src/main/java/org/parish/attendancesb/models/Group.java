@@ -3,7 +3,7 @@ package org.parish.attendancesb.models;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -23,8 +23,13 @@ public class Group {
     @JoinColumn(name = "catequesis_id")
     private Catequesis catequesis;
 
+    @EqualsAndHashCode.Exclude
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Catequista> catequistas;
+
+    @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "group")
-    private List<ReceiverPerson> receiverPeople;
+    private Set<ReceiverPerson> receiverPeople;
 
     public Group(Integer id) {
         this.id = id;
@@ -37,6 +42,10 @@ public class Group {
 
     public Group(Integer id, String name) {
         this.id = id;
+        this.name = name;
+    }
+
+    public Group(String name) {
         this.name = name;
     }
 
