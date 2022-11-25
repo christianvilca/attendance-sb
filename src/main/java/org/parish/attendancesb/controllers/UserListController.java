@@ -1,12 +1,9 @@
 package org.parish.attendancesb.controllers;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.util.Callback;
 import org.parish.attendancesb.controllers.abstractions.RegistryListController;
-import org.parish.attendancesb.controllers.utils.BooleanCell;
 import org.parish.attendancesb.models.access.User;
 import org.parish.attendancesb.report.Jrxml;
 import org.parish.attendancesb.services.interfaces.UserService;

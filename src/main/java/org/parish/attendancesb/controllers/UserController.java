@@ -11,7 +11,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.parish.attendancesb.controllers.abstractions.RegistryController;
-import org.parish.attendancesb.controllers.utils.Validation;
 import org.parish.attendancesb.controllers.utils.ValidationList;
 import org.parish.attendancesb.controllers.utils.ValidationTextField;
 import org.parish.attendancesb.controllers.utils.ValidationType;

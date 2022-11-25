@@ -1,6 +1,5 @@
 package org.parish.attendancesb.services.interfaces;
 
-import org.parish.attendancesb.models.Catequesis;
 import org.parish.attendancesb.models.access.User;
 
 public interface UserService extends Service<Integer, User> {

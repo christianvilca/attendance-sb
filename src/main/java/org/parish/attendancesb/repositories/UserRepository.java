@@ -1,7 +1,5 @@
 package org.parish.attendancesb.repositories;
 
-import org.parish.attendancesb.models.Catequista;
-import org.parish.attendancesb.models.access.Role;
 import org.parish.attendancesb.models.access.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
