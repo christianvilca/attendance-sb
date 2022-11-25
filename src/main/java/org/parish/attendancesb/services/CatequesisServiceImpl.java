@@ -2,9 +2,7 @@ package org.parish.attendancesb.services;
 
 import org.parish.attendancesb.models.Catequesis;
 import org.parish.attendancesb.models.Group;
-import org.parish.attendancesb.models.ReceiverPerson;
 import org.parish.attendancesb.repositories.CatequesisRepository;
-import org.parish.attendancesb.services.catequesis.SessionSingleton;
 import org.parish.attendancesb.services.interfaces.CatequesisService;
 import org.parish.attendancesb.services.interfaces.GroupService;
 import org.springframework.stereotype.Service;
@@ -17,8 +15,6 @@ public class CatequesisServiceImpl implements CatequesisService {
     private CatequesisRepository repository;
 
     private GroupService groupService;
-
-    private Catequesis catequesis;
 
     public CatequesisServiceImpl(CatequesisRepository repository, GroupService groupService) {
         this.repository = repository;

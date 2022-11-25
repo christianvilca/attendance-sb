@@ -77,7 +77,7 @@ public class CatequesisCatequistaListController implements Initializable {
     @FXML
     void add(ActionEvent event) {
         if (this.tableCatequistas.getItems() != null)
-            controller.addAllRegistry(this.tableCatequistas.getItems());
+            controller.removeAllRegistry(this.tableCatequistas.getItems());
 
         stageManager.sceneModal(FxmlView.CATEQUISTA_SEARCH);
 

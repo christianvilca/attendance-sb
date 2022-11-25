@@ -2,7 +2,6 @@ package org.parish.attendancesb.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.parish.attendancesb.controllers.abstractions.RegistrySearchController;
 import org.parish.attendancesb.models.Catequesis;

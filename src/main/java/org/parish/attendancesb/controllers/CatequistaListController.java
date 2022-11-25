@@ -7,7 +7,6 @@ import org.parish.attendancesb.controllers.abstractions.RegistryListController;
 import org.parish.attendancesb.models.Catequista;
 import org.parish.attendancesb.report.Jrxml;
 import org.parish.attendancesb.services.interfaces.CatequistaService;
-import org.parish.attendancesb.services.interfaces.UserService;
 import org.parish.attendancesb.view.FxmlView;
 import org.springframework.stereotype.Controller;
 

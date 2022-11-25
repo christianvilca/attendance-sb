@@ -1,7 +1,6 @@
 package org.parish.attendancesb.services.interfaces;
 
 import org.parish.attendancesb.models.Catequesis;
-import org.parish.attendancesb.models.ReceiverPerson;
 
 import java.util.List;
 

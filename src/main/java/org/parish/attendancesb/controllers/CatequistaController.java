@@ -3,7 +3,6 @@ package org.parish.attendancesb.controllers;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import org.parish.attendancesb.controllers.abstractions.RegistryController;
-import org.parish.attendancesb.controllers.utils.ValidationComboBox;
 import org.parish.attendancesb.controllers.utils.ValidationList;
 import org.parish.attendancesb.controllers.utils.ValidationTextField;
 import org.parish.attendancesb.controllers.utils.ValidationType;
@@ -11,10 +10,6 @@ import org.parish.attendancesb.models.Catequista;
 import org.parish.attendancesb.models.access.User;
 import org.parish.attendancesb.services.interfaces.*;
 import org.springframework.stereotype.Component;
-
-import java.util.Comparator;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class CatequistaController extends RegistryController<Catequista> {
@@ -57,7 +52,9 @@ public class CatequistaController extends RegistryController<Catequista> {
             }
         });
 
-        service.addUser(this.registry.getUser());
+        if (this.registry != null) {
+            service.addUser(this.registry.getUser());
+        }
         user.getItems().addAll(
                 service.getUserList()
         );

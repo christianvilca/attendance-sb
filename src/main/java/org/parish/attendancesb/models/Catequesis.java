@@ -49,9 +49,11 @@ public class Catequesis {
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Catequista> catequistas;
 
+    @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "catequesis")
     private List<Group> groups;
 
+    @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "catequesis")
     private List<Attendance> attendances;
 

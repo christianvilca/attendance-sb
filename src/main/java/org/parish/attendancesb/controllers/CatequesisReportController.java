@@ -77,11 +77,11 @@ public class CatequesisReportController implements Initializable {
     }
 
     public void setColumnFromModel() {
-        this.number.setCellValueFactory(new PropertyValueFactory("number"));
-        this.month.setCellValueFactory(new PropertyValueFactory("month"));
-        this.day.setCellValueFactory(new PropertyValueFactory("day"));
-        this.timeStart.setCellValueFactory(new PropertyValueFactory("timeStart"));
-        this.timeEnd.setCellValueFactory(new PropertyValueFactory("timeEnd"));
+        this.number.setCellValueFactory(new PropertyValueFactory<>("number"));
+        this.month.setCellValueFactory(new PropertyValueFactory<>("month"));
+        this.day.setCellValueFactory(new PropertyValueFactory<>("day"));
+        this.timeStart.setCellValueFactory(new PropertyValueFactory<>("timeStart"));
+        this.timeEnd.setCellValueFactory(new PropertyValueFactory<>("timeEnd"));
     }
 
     @FXML

@@ -8,8 +8,6 @@ import javafx.scene.control.TextField;
 import org.parish.attendancesb.controllers.abstractions.RegistryController;
 import org.parish.attendancesb.controllers.utils.ValidationComboBox;
 import org.parish.attendancesb.controllers.utils.ValidationList;
-import org.parish.attendancesb.controllers.utils.ValidationTextField;
-import org.parish.attendancesb.controllers.utils.ValidationType;
 import org.parish.attendancesb.models.Catequesis;
 import org.parish.attendancesb.services.interfaces.CatequesisService;
 
