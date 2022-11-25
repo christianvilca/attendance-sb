@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -22,7 +21,10 @@ public class CatequistaServiceImpl implements CatequistaService {
 
     private UserService userService;
 
-    public CatequistaServiceImpl(CatequistaRepository repository, UserService userService) {
+    public CatequistaServiceImpl(
+            CatequistaRepository repository,
+            UserService userService
+    ) {
         this.repository = repository;
         this.userService = userService;
         userList = new ArrayList<>();
@@ -40,7 +42,10 @@ public class CatequistaServiceImpl implements CatequistaService {
 
     @Override
     public Catequista getById(Integer id) {
-        return repository.findById(id).get();
+        if (repository.findById(id).isPresent()) {
+            return repository.findById(id).get();
+        }
+        return null;
     }
 
     @Override

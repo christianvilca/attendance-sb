@@ -1,8 +1,6 @@
 package org.parish.attendancesb.repositories;
 
 import org.parish.attendancesb.models.Catequista;
-import org.parish.attendancesb.models.Group;
-import org.parish.attendancesb.models.access.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -15,8 +13,6 @@ public interface CatequistaRepository extends JpaRepository<Catequista, Integer>
             " WHERE r.firstName like %?1% " +
             " OR r.lastName like %?1% ")
     List<Catequista> findByNameContaining(String name);
-
-    //List<Catequista> findByGroup(Group group);
 
     @Query("SELECT  case when count(r)> 0 then true else false end " +
             " FROM Catequista r" +

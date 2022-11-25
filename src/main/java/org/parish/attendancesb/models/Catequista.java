@@ -32,10 +32,6 @@ public class Catequista {
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Group> groups;
 
-    public Catequista(Integer id) {
-        this.id = id;
-    }
-
     @Override
     public String toString() {
         return firstName + ", " + lastName;
