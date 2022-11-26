@@ -38,7 +38,7 @@
                         <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                      </padding>
                   </Label>
-                  <Button fx:id="btnCatequesis" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#pageCatequesis" prefHeight="40.0" prefWidth="140.0" styleClass="btn-menu" stylesheets="@../css/styles.css" text="Catequesis" textFill="WHITE">
+                  <Button fx:id="btnUsers" alignment="BASELINE_LEFT" layoutX="10.0" layoutY="50.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#pageUser" prefHeight="40.0" prefWidth="140.0" styleClass="btn-menu" stylesheets="@../css/styles.css" text="Usuarios" textFill="WHITE">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -46,7 +46,15 @@
                         <Insets left="16.0" />
                      </padding>
                   </Button>
-                  <Button fx:id="btnUsers" alignment="BASELINE_LEFT" layoutX="10.0" layoutY="50.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#pageUser" prefHeight="40.0" prefWidth="140.0" styleClass="btn-menu" stylesheets="@../css/styles.css" text="Usuarios" textFill="WHITE">
+                  <Button fx:id="btnCatequistas" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#pageCatequista" prefHeight="40.0" prefWidth="140.0" styleClass="btn-menu" stylesheets="@../css/styles.css" text="Catequistas" textFill="WHITE">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <padding>
+                        <Insets left="16.0" />
+                     </padding>
+                  </Button>
+                  <Button fx:id="btnCatequesis" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#pageCatequesis" prefHeight="40.0" prefWidth="140.0" styleClass="btn-menu" stylesheets="@../css/styles.css" text="Catequesis" textFill="WHITE">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -67,14 +75,6 @@
                      </padding>
                   </Label>
                   <Button fx:id="btnGroups" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#pageGroup" prefHeight="40.0" prefWidth="140.0" styleClass="btn-menu" stylesheets="@../css/styles.css" text="Grupos" textFill="WHITE">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                     <padding>
-                        <Insets left="16.0" />
-                     </padding>
-                  </Button>
-                  <Button fx:id="btnCatequistas" alignment="BASELINE_LEFT" layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#pageCatequista" prefHeight="40.0" prefWidth="140.0" styleClass="btn-menu" stylesheets="@../css/styles.css" text="Catequistas" textFill="WHITE">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -103,14 +103,6 @@
                      </padding>
                   </Button>
                   <Button fx:id="btnReceiverPerson" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#pageReceiverPerson" prefHeight="40.0" prefWidth="140.0" styleClass="btn-menu" stylesheets="@../css/styles.css" text="Confirmantes" textFill="WHITE">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                     <padding>
-                        <Insets left="16.0" />
-                     </padding>
-                  </Button>
-                  <Button fx:id="btnReport" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#pageAttendanceReport" prefHeight="40.0" prefWidth="140.0" styleClass="btn-menu" stylesheets="@../css/styles.css" text="Reporte" textFill="WHITE">
                      <font>
                         <Font size="15.0" />
                      </font>
