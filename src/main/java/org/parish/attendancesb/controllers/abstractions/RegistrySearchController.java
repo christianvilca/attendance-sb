@@ -11,12 +11,15 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import org.parish.attendancesb.services.interfaces.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.URL;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public abstract class RegistrySearchController<T> implements Initializable {
+
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     protected T registry;
     @FXML
@@ -27,7 +30,13 @@ public abstract class RegistrySearchController<T> implements Initializable {
 
     protected Service service;
 
+    protected List<T> registryList;
+
     protected RegistrySearchController(Service service) {
+        this.service = service;
+    }
+
+    public void setService(Service service){
         this.service = service;
     }
 
@@ -83,6 +92,12 @@ public abstract class RegistrySearchController<T> implements Initializable {
         else
             registryList = this.service.findByName(textSearch);
 
+        logger.info(">> {}", registryList);
+        logger.info(">> {}", this.registryList);
+        if (this.registryList != null) {
+            registryList.removeAll(this.registryList);
+        }
+        logger.info(">> {}", registryList);
         this.table.setItems(FXCollections.observableArrayList(registryList));
         this.table.refresh();
     }
@@ -96,6 +111,10 @@ public abstract class RegistrySearchController<T> implements Initializable {
             Stage stage = (Stage) tableView.getScene().getWindow();
             stage.close();
         }
+    }
+
+    public void removeAllRegistry(List<T> registryList) {
+        this.registryList = new ArrayList<>(registryList);
     }
 
     public T getModel() {

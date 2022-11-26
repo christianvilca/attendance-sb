@@ -117,9 +117,7 @@ public abstract class RegistryListController<T> implements Initializable {
 
     private MenuItem getMenuEditar() {
         MenuItem menu = new MenuItem("Editar");
-        menu.setOnAction((ActionEvent e) -> {
-            this.edit(null);
-        });
+        menu.setOnAction((ActionEvent e) -> this.edit(null));
         return menu;
     }
 
