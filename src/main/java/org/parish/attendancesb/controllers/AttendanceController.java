@@ -18,6 +18,7 @@ import org.parish.attendancesb.controllers.utils.Alert;
 import org.parish.attendancesb.models.Attendance;
 import org.parish.attendancesb.services.interfaces.AttendanceService;
 import org.parish.attendancesb.services.interfaces.ReceiverPersonService;
+import org.parish.attendancesb.services.report.AttendanceReportService;
 import org.parish.attendancesb.view.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -47,6 +48,8 @@ public class AttendanceController implements Initializable {
     @FXML
     private Text checkIn;
 
+    private String codePerson;
+
     @Lazy
     @Autowired
     private StageManager stageManager;
@@ -57,14 +60,12 @@ public class AttendanceController implements Initializable {
     @Autowired
     private ReceiverPersonService receiverPersonService;
 
+    @Autowired
+    private AttendanceReportController attendanceReportController;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                code.requestFocus();
-            }
-        });
+        Platform.runLater(() -> code.requestFocus());
         bindToTime();
     }
 
@@ -74,10 +75,10 @@ public class AttendanceController implements Initializable {
         if (!event.getCode().equals(KeyCode.ENTER))
             return;
 
-        String codePerson = code.getText();
+        codePerson = code.getText();
         code.setText("");
 
-        if (codePerson.trim().equals("")){
+        if (codePerson == null || codePerson.trim().equals("")) {
             Alert.information("Debe ingresar un codigo!");
             return;
         }
@@ -95,7 +96,14 @@ public class AttendanceController implements Initializable {
 
     @FXML
     void report(ActionEvent event) {
+        if (codePerson == null || codePerson.trim().equals("")) {
+            Alert.information("Debe ingresar un codigo!");
+            code.requestFocus();
+            return;
+        }
+
         showModal();
+        code.requestFocus();
     }
 
     private void bindToTime() {
@@ -117,6 +125,7 @@ public class AttendanceController implements Initializable {
     }
 
     private void showModal() {
+        attendanceReportController.setPerson(receiverPersonService.getById(Integer.valueOf(codePerson)));
         stageManager.sceneModal(FxmlView.ATTENDANCE_REPORT);
 
 //        if (controller.getModel() != null)

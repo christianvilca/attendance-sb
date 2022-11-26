@@ -1,5 +1,6 @@
 package org.parish.attendancesb.repositories;
 
+import org.parish.attendancesb.models.Catequesis;
 import org.parish.attendancesb.models.Group;
 import org.parish.attendancesb.models.ReceiverPerson;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -22,6 +23,8 @@ public interface ReceiverPersonRepository extends JpaRepository<ReceiverPerson, 
     List<ReceiverPerson> findByNameContaining(String name);
 
     List<ReceiverPerson> findByGroup(Group group);
+
+    List<ReceiverPerson> findByGroup_Catequesis(Catequesis catequesis);
 
     @Query("SELECT  case when count(r)> 0 then true else false end " +
             " FROM ReceiverPerson r" +

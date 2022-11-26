@@ -13,8 +13,11 @@ public class ReceiverPersonServiceImpl implements ReceiverPersonService {
 
     private ReceiverPersonRepository repository;
 
-    public ReceiverPersonServiceImpl(ReceiverPersonRepository repository) {
+    private SessionService sessionService;
+
+    public ReceiverPersonServiceImpl(ReceiverPersonRepository repository, SessionService sessionService) {
         this.repository = repository;
+        this.sessionService = sessionService;
     }
 
     @Override
@@ -68,7 +71,7 @@ public class ReceiverPersonServiceImpl implements ReceiverPersonService {
 
     @Override
     public List<ReceiverPerson> findAll() {
-        return repository.findAll();
+        return repository.findByGroup_Catequesis(sessionService.getCatequesis());
     }
 
 }

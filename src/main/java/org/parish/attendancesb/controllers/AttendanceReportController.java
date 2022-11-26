@@ -4,10 +4,12 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import org.parish.attendancesb.config.StageManager;
 import org.parish.attendancesb.models.ReceiverPerson;
 import org.parish.attendancesb.models.report.AttendanceDetailReport;
@@ -15,6 +17,8 @@ import org.parish.attendancesb.services.attendance.Resume;
 import org.parish.attendancesb.services.interfaces.AttendanceService;
 import org.parish.attendancesb.services.report.AttendanceReportService;
 import org.parish.attendancesb.view.FxmlView;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
@@ -23,7 +27,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 @Component
-public class CatequesisReportController implements Initializable {
+public class AttendanceReportController implements Initializable {
+
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @FXML
     private Label person;
@@ -58,12 +64,11 @@ public class CatequesisReportController implements Initializable {
     @FXML
     private TableView<AttendanceDetailReport> table;
 
+    private ReceiverPerson receiverPerson;
+
     @Lazy
     @Autowired
     private StageManager stageManager;
-
-    @Autowired
-    private ReceiverPersonSearchController controller;
 
     @Autowired
     private AttendanceService service;
@@ -74,6 +79,7 @@ public class CatequesisReportController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.setColumnFromModel();
+        this.setReport();
     }
 
     public void setColumnFromModel() {
@@ -84,19 +90,18 @@ public class CatequesisReportController implements Initializable {
         this.timeEnd.setCellValueFactory(new PropertyValueFactory<>("timeEnd"));
     }
 
-    @FXML
-    void btnSearch(ActionEvent event) {
-        stageManager.sceneModal(FxmlView.RECEIVER_PEOPLE_SEARCH);
-
-        if (controller.getModel() != null)
-            this.setPerson(controller.getModel());
+    public void setPerson(ReceiverPerson person) {
+        this.receiverPerson = person;
+        logger.info("{}", person.getFirstName());
+        logger.info("{}", person.getCode());
     }
 
-    private void setPerson(ReceiverPerson person) {
-        this.person.setText(person.toString());
-        attendanceReportService.setAttendanceReport(person);
+    private void setReport(){
 
-        Resume resume = service.resume(person);
+        this.person.setText(receiverPerson.toString());
+        attendanceReportService.setAttendanceReport(receiverPerson);
+
+        Resume resume = service.resume(receiverPerson);
         attendances.setText(resume.getPresents() + "");
         lates.setText(resume.getLates() + "");
         absents.setText(resume.getAbsents() + "");
@@ -108,11 +113,13 @@ public class CatequesisReportController implements Initializable {
 
     @FXML
     void exit(ActionEvent event) {
-
+        Button button = (Button) event.getSource();
+        Stage stage = (Stage) button.getScene().getWindow();
+        stage.close();
     }
 
     @FXML
     void export(ActionEvent event) {
-        attendanceReportService.exportReport(controller.getModel());
+        attendanceReportService.exportReport(receiverPerson);
     }
 }
