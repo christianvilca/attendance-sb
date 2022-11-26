@@ -26,17 +26,6 @@ public enum FxmlView {
             return "/view/Login.fxml";
         }
     },
-    USER {
-        @Override
-        public String getTitle() {
-            return getStringFromResourceBundle("user.title");
-        }
-
-        @Override
-        public String getFxmlFile() {
-            return "/view/User.fxml";
-        }
-    },
     USER_LIST {
         @Override
         public String getTitle() {
@@ -48,87 +37,21 @@ public enum FxmlView {
             return "/view/UserList.fxml";
         }
     },
-    CATEQUESIS_LIST {
+    USER {
         @Override
         public String getTitle() {
-            return getStringFromResourceBundle("main.title");
+            return getStringFromResourceBundle("user.title");
         }
 
         @Override
         public String getFxmlFile() {
-            return "/view/CatequesisList.fxml";
-        }
-    },
-    CATEQUESIS_SEARCH {
-        @Override
-        public String getTitle() {
-            return ""; //getStringFromResourceBundle("login.title");
-        }
-
-        @Override
-        public String getFxmlFile() {
-            return "/view/CatequesisSearch.fxml";
-        }
-    },
-    CATEQUESIS {
-        @Override
-        public String getTitle() {
-            return getStringFromResourceBundle("main.title");
-        }
-
-        @Override
-        public String getFxmlFile() {
-            return "/view/Catequesis.fxml";
-        }
-    },
-    COORDINATOR_LIST {
-        @Override
-        public String getTitle() {
-            return getStringFromResourceBundle("main.title");
-        }
-
-        @Override
-        public String getFxmlFile() {
-            return "/view/CoordinatorList.fxml";
-        }
-    },
-    COORDINATOR {
-        @Override
-        public String getTitle() {
-            return getStringFromResourceBundle("main.title");
-        }
-
-        @Override
-        public String getFxmlFile() {
-            return "/view/Coordinator.fxml";
-        }
-    },
-    GROUP_LIST {
-        @Override
-        public String getTitle() {
-            return getStringFromResourceBundle("main.title");
-        }
-
-        @Override
-        public String getFxmlFile() {
-            return "/view/GroupList.fxml";
-        }
-    },
-    GROUP {
-        @Override
-        public String getTitle() {
-            return getStringFromResourceBundle("main.title");
-        }
-
-        @Override
-        public String getFxmlFile() {
-            return "/view/Group.fxml";
+            return "/view/User.fxml";
         }
     },
     CATEQUISTA_LIST {
         @Override
         public String getTitle() {
-            return getStringFromResourceBundle("main.title");
+            return getStringFromResourceBundle("catequista_list.title");
         }
 
         @Override
@@ -139,7 +62,7 @@ public enum FxmlView {
     CATEQUISTA {
         @Override
         public String getTitle() {
-            return getStringFromResourceBundle("main.title");
+            return getStringFromResourceBundle("catequista.title");
         }
 
         @Override
@@ -147,10 +70,98 @@ public enum FxmlView {
             return "/view/Catequista.fxml";
         }
     },
-    RECEIVER_PEOPLE_LIST {
+    CATEQUISTA_SEARCH {
         @Override
         public String getTitle() {
-            return ""; //getStringFromResourceBundle("login.title");
+            return getStringFromResourceBundle("catequista_search.title");
+        }
+
+        @Override
+        public String getFxmlFile() {
+            return "/view/CatequistaSearch.fxml";
+        }
+    },
+    CATEQUESIS_LIST {
+        @Override
+        public String getTitle() {
+            return getStringFromResourceBundle("catequesis_list.title");
+        }
+
+        @Override
+        public String getFxmlFile() {
+            return "/view/CatequesisList.fxml";
+        }
+    },
+    CATEQUESIS {
+        @Override
+        public String getTitle() {
+            return getStringFromResourceBundle("catequesis.title");
+        }
+
+        @Override
+        public String getFxmlFile() {
+            return "/view/Catequesis.fxml";
+        }
+    },
+    CATEQUESIS_SEARCH {
+        @Override
+        public String getTitle() {
+            return getStringFromResourceBundle("catequesis_search.title");
+        }
+
+        @Override
+        public String getFxmlFile() {
+            return "/view/CatequesisSearch.fxml";
+        }
+    },
+    CATEQUESIS_CATEQUISTA_LIST {
+        @Override
+        public String getTitle() {
+            return getStringFromResourceBundle("catequesis_catequista_search.title");
+        }
+
+        @Override
+        public String getFxmlFile() {
+            return "/view/CatequesisCatequistaList.fxml";
+        }
+    },
+    GROUP_LIST {
+        @Override
+        public String getTitle() {
+            return getStringFromResourceBundle("group_list.title");
+        }
+
+        @Override
+        public String getFxmlFile() {
+            return "/view/GroupList.fxml";
+        }
+    },
+    GROUP {
+        @Override
+        public String getTitle() {
+            return getStringFromResourceBundle("group.title");
+        }
+
+        @Override
+        public String getFxmlFile() {
+            return "/view/Group.fxml";
+        }
+    },
+    GROUP_CATEQUISTA_LIST {
+        @Override
+        public String getTitle() {
+            return getStringFromResourceBundle("group_catequista_search.title");
+        }
+
+        @Override
+        public String getFxmlFile() {
+            return "/view/GroupCatequistaList.fxml";
+        }
+    },
+    RECEIVER_PERSON_LIST {
+        @Override
+        public String getTitle() {
+            return getStringFromResourceBundle("receiver_person_list.title");
         }
 
         @Override
@@ -158,21 +169,10 @@ public enum FxmlView {
             return "/view/ReceiverPersonList.fxml";
         }
     },
-    RECEIVER_PEOPLE_SEARCH {
-        @Override
-        public String getTitle() {
-            return ""; //getStringFromResourceBundle("login.title");
-        }
-
-        @Override
-        public String getFxmlFile() {
-            return "/view/ReceiverPersonSearch.fxml";
-        }
-    },
     RECEIVER_PEOPLE {
         @Override
         public String getTitle() {
-            return ""; //getStringFromResourceBundle("login.title");
+            return getStringFromResourceBundle("receiver_person.title");
         }
 
         @Override
@@ -183,7 +183,7 @@ public enum FxmlView {
     ATTENDANCE {
         @Override
         public String getTitle() {
-            return ""; //getStringFromResourceBundle("login.title");
+            return getStringFromResourceBundle("attendance.title");
         }
 
         @Override
@@ -194,7 +194,7 @@ public enum FxmlView {
     ATTENDANCE_REPORT {
         @Override
         public String getTitle() {
-            return ""; //getStringFromResourceBundle("login.title");
+            return getStringFromResourceBundle("attendance.report.title");
         }
 
         @Override

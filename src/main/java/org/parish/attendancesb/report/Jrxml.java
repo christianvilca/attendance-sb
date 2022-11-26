@@ -4,20 +4,20 @@ import java.util.ResourceBundle;
 
 public enum Jrxml {
 
-    ATTENDANCE {
+    USER_LIST {
         @Override
         public String getTitle() {
-            return getStringFromResourceBundle("main.title");
+            return getStringFromResourceBundle("user_list.report.title");
         }
 
         @Override
         public String getExport() {
-            return getStringFromResourceBundle("main.title");
+            return getStringFromResourceBundle("user_list.report.export");
         }
 
         @Override
         public String getJrxmlFile() {
-            return "/reports/Attendance.jrxml";
+            return "/reports/UserList.jrxml";
         }
     },
     CATEQUESIS_LIST {
@@ -34,22 +34,6 @@ public enum Jrxml {
         @Override
         public String getJrxmlFile() {
             return "/reports/CatequesisList.jrxml";
-        }
-    },
-    USER_LIST {
-        @Override
-        public String getTitle() {
-            return getStringFromResourceBundle("user_list.report.title");
-        }
-
-        @Override
-        public String getExport() {
-            return getStringFromResourceBundle("user_list.report.export");
-        }
-
-        @Override
-        public String getJrxmlFile() {
-            return "/reports/UserList.jrxml";
         }
     },
     GROUP_LIST {
@@ -82,6 +66,22 @@ public enum Jrxml {
         @Override
         public String getJrxmlFile() {
             return "/reports/ReceiverPersonList.jrxml";
+        }
+    },
+    ATTENDANCE {
+        @Override
+        public String getTitle() {
+            return getStringFromResourceBundle("attendance.report.title");
+        }
+
+        @Override
+        public String getExport() {
+            return getStringFromResourceBundle("attendance.report.export");
+        }
+
+        @Override
+        public String getJrxmlFile() {
+            return "/reports/Attendance.jrxml";
         }
     };
 

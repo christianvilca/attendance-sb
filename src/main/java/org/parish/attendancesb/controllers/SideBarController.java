@@ -14,7 +14,6 @@ import javafx.scene.layout.VBox;
 import org.parish.attendancesb.controllers.utils.Alert;
 import org.parish.attendancesb.models.access.RoleType;
 import org.parish.attendancesb.services.SessionService;
-import org.parish.attendancesb.services.interfaces.CatequesisService;
 import org.parish.attendancesb.services.interfaces.UserService;
 import org.parish.attendancesb.view.FxmlView;
 import org.parish.attendancesb.config.StageManager;
@@ -123,7 +122,7 @@ public class SideBarController implements Initializable {
 
     @FXML
     void pageReceiverPerson(MouseEvent event) {
-        loadPage(stageManager.getParent(FxmlView.RECEIVER_PEOPLE_LIST));
+        loadPage(stageManager.getParent(FxmlView.RECEIVER_PERSON_LIST));
         setStyleButton((Button) event.getSource());
     }
 

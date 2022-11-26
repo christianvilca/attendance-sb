@@ -59,7 +59,7 @@ public class GroupListController extends RegistryListController<Group> {
         MenuItem menu = new MenuItem("Catequistas");
         menu.setOnAction((ActionEvent e) -> {
             groupCatequistaListController.setGroup(getRow());
-            stageManager.sceneModal(FxmlView.GROUP_CATEQUUISTA_LIST);
+            stageManager.sceneModal(FxmlView.GROUP_CATEQUISTA_LIST);
         });
         return menu;
     }
