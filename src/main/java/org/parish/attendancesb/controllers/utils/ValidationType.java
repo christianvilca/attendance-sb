@@ -5,13 +5,19 @@ public enum ValidationType {
     TEXT {
         @Override
         public String getPattern() {
-            return "[a-zA-Z]+";
+            return "[a-zA-Z ]+";
         }
     },
     NUMBER {
         @Override
         public String getPattern() {
             return "[0-9]+";
+        }
+    },
+    ALPHANUMERIC {
+        @Override
+        public String getPattern() {
+            return "[a-zA-Z0-9 ]+";
         }
     },
     EMAIL {

@@ -8,6 +8,8 @@ import javafx.scene.control.TextField;
 import org.parish.attendancesb.controllers.abstractions.RegistryController;
 import org.parish.attendancesb.controllers.utils.ValidationComboBox;
 import org.parish.attendancesb.controllers.utils.ValidationList;
+import org.parish.attendancesb.controllers.utils.ValidationTextField;
+import org.parish.attendancesb.controllers.utils.ValidationType;
 import org.parish.attendancesb.models.Catequesis;
 import org.parish.attendancesb.services.interfaces.CatequesisService;
 
@@ -88,6 +90,7 @@ public class CatequesisController extends RegistryController<Catequesis> {
     @Override
     public boolean isValid() {
         return ValidationList.isValid(
+                new ValidationTextField("Nombre", name, ValidationType.ALPHANUMERIC),
                 new ValidationComboBox("Día", day),
                 new ValidationComboBox("Hora Inicial", timeStart),
                 new ValidationComboBox("Hora Final", timeEnd),
