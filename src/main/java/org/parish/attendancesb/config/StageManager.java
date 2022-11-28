@@ -4,6 +4,7 @@ import static org.slf4j.LoggerFactory.getLogger;
 
 import java.util.Objects;
 
+import javafx.scene.input.KeyCode;
 import javafx.stage.Modality;
 import org.parish.attendancesb.view.FxmlView;
 import org.slf4j.Logger;
@@ -46,6 +47,13 @@ public class StageManager {
     private void showModal(final Parent rootnode, String title) {
         Scene scene = new Scene(rootnode);
         Stage stage = new Stage();
+
+        scene.setOnKeyPressed(t -> {
+            KeyCode key = t.getCode();
+            if (key == KeyCode.ESCAPE){
+                stage.close();
+            }
+        });
 
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle(title);
