@@ -71,6 +71,7 @@ public class AttendanceReportService {
     int number = 0;
     private void setDetails(Resume resume) {
         List<AttendanceDetailReport> list = new ArrayList<>();
+        number = 0;
         resume.getResumeDetails().forEach(d -> {
 
             AttendanceDetailReport detail = new AttendanceDetailReport();
