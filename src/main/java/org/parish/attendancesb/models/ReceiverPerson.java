@@ -3,7 +3,7 @@ package org.parish.attendancesb.models;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -35,7 +35,7 @@ public class ReceiverPerson {
 
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "receiverPerson", fetch = FetchType.EAGER)
-    private List<Attendance> attendances;
+    private Set<Attendance> attendances;
 
     public ReceiverPerson(Integer id) {
         this.id = id;
