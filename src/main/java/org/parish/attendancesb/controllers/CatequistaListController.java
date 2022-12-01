@@ -17,6 +17,9 @@ public class CatequistaListController extends RegistryListController<Catequista>
     private TableColumn<?, ?> id;
 
     @FXML
+    private TableColumn<?, ?> user;
+
+    @FXML
     private TableColumn<?, ?> lastName;
 
     @FXML
@@ -35,6 +38,7 @@ public class CatequistaListController extends RegistryListController<Catequista>
     @Override
     public void setColumnFromModel() {
         this.id.setCellValueFactory(new PropertyValueFactory<>("id"));
+        this.user.setCellValueFactory(new PropertyValueFactory<>("user"));
         this.lastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         this.firstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
     }
