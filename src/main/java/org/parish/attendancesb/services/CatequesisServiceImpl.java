@@ -65,6 +65,7 @@ public class CatequesisServiceImpl implements CatequesisService {
                             c.setTimeEnd(catequesis.getTimeEnd());
                             c.setTolerance(catequesis.getTolerance());
                             c.setCatequistas(catequesis.getCatequistas());
+                            c.setReceiverPersonType(catequesis.getReceiverPersonType());
                             return this.save(c);
                         }
                 ).orElse(null);

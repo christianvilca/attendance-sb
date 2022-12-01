@@ -15,7 +15,12 @@
    <children>
       <HBox alignment="CENTER">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" text="Lista de {ReceiverPerson}" textAlignment="CENTER">
+            <Label alignment="CENTER" contentDisplay="CENTER" text="Lista de " textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblTitle" alignment="CENTER" contentDisplay="CENTER" layoutX="341.0" layoutY="10.0" text="{ReceiverPerson}" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>

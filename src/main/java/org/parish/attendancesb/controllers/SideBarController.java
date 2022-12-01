@@ -87,18 +87,21 @@ public class SideBarController implements Initializable {
 
     @FXML
     void pageUser(MouseEvent event) {
+        sessionService.setCatequesis(null);
         loadPage(stageManager.getParent(FxmlView.USER_LIST));
         setStyleButton((Button) event.getSource());
     }
 
     @FXML
     void pageCatequesis(MouseEvent event) {
+        sessionService.setCatequesis(null);
         loadPage(stageManager.getParent(FxmlView.CATEQUESIS_LIST));
         setStyleButton((Button) event.getSource());
     }
 
     @FXML
     void pageCatequista(MouseEvent event) {
+        sessionService.setCatequesis(null);
         loadPage(stageManager.getParent(FxmlView.CATEQUISTA_LIST));
         setStyleButton((Button) event.getSource());
     }
@@ -115,6 +118,9 @@ public class SideBarController implements Initializable {
 
     @FXML
     void pageAttendance(MouseEvent event) {
+        if (sessionService.getCatequesis() == null) {
+            this.changeCatequesis(null);
+        }
         loadPage(stageManager.getParent(FxmlView.ATTENDANCE));
         setStyleButton((Button) event.getSource());
     }
@@ -122,6 +128,9 @@ public class SideBarController implements Initializable {
 
     @FXML
     void pageReceiverPerson(MouseEvent event) {
+        if (sessionService.getCatequesis() == null) {
+            this.changeCatequesis(null);
+        }
         loadPage(stageManager.getParent(FxmlView.RECEIVER_PERSON_LIST));
         setStyleButton((Button) event.getSource());
     }
@@ -138,6 +147,7 @@ public class SideBarController implements Initializable {
         if (controller.getModel() != null) {
             sessionService.setCatequesis(controller.getModel());
             lblCatequesis.setText(controller.getModel().getName());
+            btnReceiverPerson.setText(sessionService.getReceiverPersonTypePlural());
             loadPage(stageManager.getParent(FxmlView.ATTENDANCE));
             setStyleButton(btnAttendance);
         }

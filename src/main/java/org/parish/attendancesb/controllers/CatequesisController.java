@@ -10,11 +10,15 @@ import org.parish.attendancesb.controllers.utils.ValidationComboBox;
 import org.parish.attendancesb.controllers.utils.ValidationList;
 import org.parish.attendancesb.controllers.utils.ValidationTextField;
 import org.parish.attendancesb.controllers.utils.ValidationType;
+import org.parish.attendancesb.models.ReceiverPersonType;
 import org.parish.attendancesb.models.Catequesis;
 import org.parish.attendancesb.services.interfaces.CatequesisService;
 
 import org.parish.attendancesb.models.datetime.Time;
 import org.springframework.stereotype.Component;
+
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 @Component
 public class CatequesisController extends RegistryController<Catequesis> {
@@ -34,6 +38,9 @@ public class CatequesisController extends RegistryController<Catequesis> {
     @FXML
     private ComboBox<Integer> tolerance;
 
+    @FXML
+    private ComboBox<String> receiverPersonType;
+
     public CatequesisController(CatequesisService service) {
         super(service);
     }
@@ -43,6 +50,7 @@ public class CatequesisController extends RegistryController<Catequesis> {
         fillDays();
         fillTimes();
         fillTolerance();
+        fillAddressed();
     }
 
     private void fillDays() {
@@ -67,6 +75,12 @@ public class CatequesisController extends RegistryController<Catequesis> {
         tolerance.getItems().addAll(5, 10, 15, 20, 25);
     }
 
+    private void fillAddressed() {
+        receiverPersonType.getItems().addAll(
+                Arrays.stream(ReceiverPersonType.values()).map(ReceiverPersonType::getPlural).collect(Collectors.toList())
+        );
+    }
+
     @Override
     public Catequesis getModelFromFields() {
         Catequesis catequesis = getCatequesis();
@@ -76,6 +90,7 @@ public class CatequesisController extends RegistryController<Catequesis> {
         catequesis.setTimeStart(timeStart.getSelectionModel().getSelectedItem());
         catequesis.setTimeEnd(timeEnd.getSelectionModel().getSelectedItem());
         catequesis.setTolerance(Integer.parseInt(tolerance.getValue().toString()));
+        catequesis.setReceiverPersonType(receiverPersonType.getSelectionModel().getSelectedItem());
 
         return catequesis;
     }
@@ -94,7 +109,8 @@ public class CatequesisController extends RegistryController<Catequesis> {
                 new ValidationComboBox("Día", day),
                 new ValidationComboBox("Hora Inicial", timeStart),
                 new ValidationComboBox("Hora Final", timeEnd),
-                new ValidationComboBox("Tolerancia", tolerance)
+                new ValidationComboBox("Tolerancia", tolerance),
+                new ValidationComboBox("Dirigido a", receiverPersonType)
         );
     }
 
@@ -105,6 +121,7 @@ public class CatequesisController extends RegistryController<Catequesis> {
         this.timeStart.setValue(this.registry.getTimeStart());
         this.timeEnd.setValue(this.registry.getTimeEnd());
         this.tolerance.setValue(this.registry.getTolerance());
+        this.receiverPersonType.setValue(this.registry.getReceiverPersonType());
     }
 
     @Override
@@ -114,5 +131,6 @@ public class CatequesisController extends RegistryController<Catequesis> {
         timeStart.setValue(null);
         timeEnd.setValue(null);
         tolerance.setValue(null);
+        receiverPersonType.setValue(null);
     }
 }

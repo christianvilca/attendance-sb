@@ -2,17 +2,22 @@ package org.parish.attendancesb.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import org.parish.attendancesb.controllers.abstractions.RegistryController;
 import org.parish.attendancesb.controllers.utils.*;
 import org.parish.attendancesb.models.Group;
 import org.parish.attendancesb.models.ReceiverPerson;
+import org.parish.attendancesb.services.SessionService;
 import org.parish.attendancesb.services.interfaces.GroupService;
 import org.parish.attendancesb.services.interfaces.ReceiverPersonService;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ReceiverPersonController extends RegistryController<ReceiverPerson> {
+
+    @FXML
+    private Label lblTitle;
 
     @FXML
     private ComboBox<Group> group;
@@ -25,14 +30,22 @@ public class ReceiverPersonController extends RegistryController<ReceiverPerson>
 
     private GroupService groupService;
 
-    public ReceiverPersonController(ReceiverPersonService service, GroupService groupService) {
+    private SessionService sessionService;
+
+    public ReceiverPersonController(
+            ReceiverPersonService service,
+            GroupService groupService,
+            SessionService sessionService
+    ) {
         super(service);
         this.groupService = groupService;
+        this.sessionService = sessionService;
     }
 
     @Override
     public void initializeObjects() {
         group.getItems().addAll(groupService.findAll());
+        lblTitle.setText(sessionService.getReceiverPersonTypeSingular());
     }
 
     @Override

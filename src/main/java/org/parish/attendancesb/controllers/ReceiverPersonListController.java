@@ -8,6 +8,7 @@ import org.parish.attendancesb.aspect.annotation.Function;
 import org.parish.attendancesb.config.StageManager;
 import org.parish.attendancesb.controllers.abstractions.RegistryListController;
 import org.parish.attendancesb.report.Jrxml;
+import org.parish.attendancesb.services.SessionService;
 import org.parish.attendancesb.view.FxmlView;
 import org.parish.attendancesb.models.ReceiverPerson;
 import org.parish.attendancesb.services.interfaces.ReceiverPersonService;
@@ -24,6 +25,9 @@ public class ReceiverPersonListController extends RegistryListController<Receive
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @FXML
+    private Label lblTitle;
+
+    @FXML
     private TableColumn<?, ?> id;
 
     @FXML
@@ -34,8 +38,13 @@ public class ReceiverPersonListController extends RegistryListController<Receive
 
     @FXML
     private TableColumn<?, ?> firstName;
+
     private AttendanceReportController attendanceReportController;
+
     private ReceiverPersonService service;
+
+    private SessionService sessionService;
+
     @Lazy
     @Autowired
     private StageManager stageManager;
@@ -43,11 +52,13 @@ public class ReceiverPersonListController extends RegistryListController<Receive
     public ReceiverPersonListController(
             ReceiverPersonController controller,
             ReceiverPersonService service,
-            AttendanceReportController attendanceReportController
+            AttendanceReportController attendanceReportController,
+            SessionService sessionService
     ) {
         super(controller, service);
         this.service = service;
         this.attendanceReportController = attendanceReportController;
+        this.sessionService = sessionService;
     }
 
     @Function
@@ -56,6 +67,7 @@ public class ReceiverPersonListController extends RegistryListController<Receive
         setModal(FxmlView.RECEIVER_PEOPLE);
         setReport(Jrxml.RECEIVER_PERSON_LIST);
         this.addAllMenu();
+        lblTitle.setText(sessionService.getReceiverPersonTypePlural());
     }
 
     private void addAllMenu() {

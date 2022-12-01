@@ -41,6 +41,9 @@ public class Catequesis {
     @NonNull
     private int tolerance;
 
+    @NonNull
+    private String receiverPersonType;
+
     @EqualsAndHashCode.Exclude
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<User> users;

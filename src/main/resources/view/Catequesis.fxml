@@ -55,6 +55,12 @@
                         <ComboBox fx:id="tolerance" prefHeight="25.0" prefWidth="268.0" promptText="--- SELECCIONAR ---" />
                      </children>
                   </HBox>
+                  <HBox alignment="CENTER" layoutX="10.0" layoutY="142.0" spacing="8.0">
+                     <children>
+                        <Label alignment="CENTER_RIGHT" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="17.0" prefWidth="72.0" text="Dirigido a:" />
+                        <ComboBox fx:id="receiverPersonType" prefHeight="25.0" prefWidth="268.0" promptText="--- SELECCIONAR ---" />
+                     </children>
+                  </HBox>
                </children>
             </VBox>
          </children>
