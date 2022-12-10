@@ -5,7 +5,7 @@ public enum ValidationType {
     TEXT {
         @Override
         public String getPattern() {
-            return "[a-zA-Z ]+";
+            return "[a-zA-ZÀ-ÿ ]+";
         }
     },
     NUMBER {
@@ -17,7 +17,7 @@ public enum ValidationType {
     ALPHANUMERIC {
         @Override
         public String getPattern() {
-            return "[a-zA-Z0-9 ]+";
+            return "[a-zA-ZÀ-ÿ0-9 ]+";
         }
     },
     EMAIL {
