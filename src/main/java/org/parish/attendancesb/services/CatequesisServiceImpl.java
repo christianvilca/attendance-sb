@@ -2,6 +2,7 @@ package org.parish.attendancesb.services;
 
 import org.parish.attendancesb.models.Catequesis;
 import org.parish.attendancesb.models.Group;
+import org.parish.attendancesb.models.access.User;
 import org.parish.attendancesb.repositories.CatequesisRepository;
 import org.parish.attendancesb.services.interfaces.CatequesisService;
 import org.parish.attendancesb.services.interfaces.GroupService;
@@ -16,7 +17,10 @@ public class CatequesisServiceImpl implements CatequesisService {
 
     private GroupService groupService;
 
-    public CatequesisServiceImpl(CatequesisRepository repository, GroupService groupService) {
+    public CatequesisServiceImpl(
+            CatequesisRepository repository,
+            GroupService groupService
+    ) {
         this.repository = repository;
         this.groupService = groupService;
     }
@@ -29,6 +33,26 @@ public class CatequesisServiceImpl implements CatequesisService {
     @Override
     public boolean contains(Catequesis catequesis) {
         return repository.contains(catequesis);
+    }
+
+    @Override
+    public List<Catequesis> findByUser(User user) {
+        return repository.findByCatequistas_User(user);
+    }
+
+    @Override
+    public boolean hasManyByUser(User user) {
+        return countByUsers(user) >= 2;
+    }
+
+    @Override
+    public boolean hasOneByUser(User user) {
+        return countByUsers(user) == 1;
+    }
+
+    @Override
+    public long countByUsers(User user) {
+        return repository.countByCatequistas_User(user);
     }
 
     @Override

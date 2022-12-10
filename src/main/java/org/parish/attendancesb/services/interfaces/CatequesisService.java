@@ -1,12 +1,21 @@
 package org.parish.attendancesb.services.interfaces;
 
 import org.parish.attendancesb.models.Catequesis;
+import org.parish.attendancesb.models.access.User;
 
 import java.util.List;
 
 public interface CatequesisService extends Service<Integer, Catequesis> {
 
-    public List<Catequesis> findByName(String name);
+    List<Catequesis> findByName(String name);
 
-    public boolean contains(Catequesis catequesis);
+    boolean contains(Catequesis catequesis);
+
+    List<Catequesis> findByUser(User user);
+
+    boolean hasManyByUser(User user);
+
+    long countByUsers(User user);
+
+    boolean hasOneByUser(User user);
 }

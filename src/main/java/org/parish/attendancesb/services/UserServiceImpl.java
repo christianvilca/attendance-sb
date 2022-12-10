@@ -2,7 +2,6 @@ package org.parish.attendancesb.services;
 
 
 import org.parish.attendancesb.models.access.User;
-import org.parish.attendancesb.repositories.RoleRepository;
 import org.parish.attendancesb.repositories.UserRepository;
 import org.parish.attendancesb.services.interfaces.RoleService;
 import org.parish.attendancesb.services.interfaces.UserService;
@@ -18,11 +17,10 @@ public class UserServiceImpl implements UserService {
     private UserRepository repository;
 
     @Autowired
-    private RoleRepository roleRepository;
-
-    @Autowired
     private RoleService roleService;
 
+    @Autowired
+    private SessionService sessionService;
     private User user;
 
     @Override
@@ -33,6 +31,7 @@ public class UserServiceImpl implements UserService {
             return false;
 
         this.user = userFound;
+        sessionService.setUser(this.user);
 
         return password.equals(userFound.getPassword());
     }
