@@ -23,7 +23,10 @@
       </HBox>
       <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="946.0" spacing="8.0">
          <children>
-            <Label maxWidth="-Infinity" minWidth="-Infinity" prefHeight="17.0" prefWidth="94.0" text="{ReceiverPerson}:" />
+            <Label fx:id="lblReceiverPerson" alignment="CENTER_RIGHT" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="17.0" prefWidth="102.0" text="{ReceiverPerson}:">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
             <Label fx:id="person" layoutX="10.0" layoutY="14.0" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="22.0" prefWidth="269.0" style="-fx-border-color: #B5B5B5; -fx-border-radius: 4px;" HBox.hgrow="ALWAYS">
                <font>
                   <Font name="System Bold" size="14.0" />

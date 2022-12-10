@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import org.parish.attendancesb.config.StageManager;
 import org.parish.attendancesb.models.ReceiverPerson;
 import org.parish.attendancesb.models.report.AttendanceDetailReport;
+import org.parish.attendancesb.services.SessionService;
 import org.parish.attendancesb.services.attendance.Resume;
 import org.parish.attendancesb.services.interfaces.AttendanceService;
 import org.parish.attendancesb.services.report.AttendanceReportService;
@@ -30,6 +31,9 @@ import java.util.ResourceBundle;
 public class AttendanceReportController implements Initializable {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    @FXML
+    private Label lblReceiverPerson;
 
     @FXML
     private Label person;
@@ -76,10 +80,14 @@ public class AttendanceReportController implements Initializable {
     @Autowired
     private AttendanceReportService attendanceReportService;
 
+    @Autowired
+    private SessionService sessionService;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.setColumnFromModel();
         this.setReport();
+        lblReceiverPerson.setText(sessionService.getReceiverPersonTypeSingular() + ":");
     }
 
     public void setColumnFromModel() {
@@ -96,7 +104,7 @@ public class AttendanceReportController implements Initializable {
         logger.info("{}", person.getCode());
     }
 
-    private void setReport(){
+    private void setReport() {
 
         this.person.setText(receiverPerson.toString());
         attendanceReportService.setAttendanceReport(receiverPerson);
