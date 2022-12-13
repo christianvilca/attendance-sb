@@ -4,7 +4,6 @@ import lombok.*;
 import org.parish.attendancesb.models.access.User;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -27,10 +26,6 @@ public class Catequista {
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
-
-    @EqualsAndHashCode.Exclude
-    @ManyToMany(fetch = FetchType.EAGER)
-    private List<Group> groups;
 
     @Override
     public String toString() {

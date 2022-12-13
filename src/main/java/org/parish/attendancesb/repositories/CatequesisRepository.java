@@ -24,16 +24,8 @@ public interface CatequesisRepository extends JpaRepository<Catequesis, Integer>
             " AND r.receiverPersonType = :#{#catequesis.receiverPersonType} " )
     boolean contains(@Param("catequesis") Catequesis catequesis);
 
-    List<Catequesis> findByUsers(User user);
-
-    long countByUsers(User users);
-
     List<Catequesis> findByCatequistas_User(User user);
 
     long countByCatequistas_User(User user);
-
-    boolean existsByUsers(User users);
-
-
 
 }

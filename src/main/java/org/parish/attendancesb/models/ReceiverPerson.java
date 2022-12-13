@@ -1,6 +1,7 @@
 package org.parish.attendancesb.models;
 
 import lombok.*;
+import org.parish.attendancesb.exceptions.RemoveException;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -36,6 +37,13 @@ public class ReceiverPerson {
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "receiverPerson", fetch = FetchType.EAGER)
     private Set<Attendance> attendances;
+
+    @PreRemove
+    public void preRemove() {
+        if (!this.attendances.isEmpty()) {
+            throw new RemoveException("No puede eliminar una Persona que tiene Asistencia.");
+        }
+    }
 
     public ReceiverPerson(Integer id) {
         this.id = id;

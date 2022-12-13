@@ -1,6 +1,7 @@
 package org.parish.attendancesb.models;
 
 import lombok.*;
+import org.parish.attendancesb.exceptions.RemoveException;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -30,6 +31,16 @@ public class Group {
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "group")
     private Set<ReceiverPerson> receiverPeople;
+
+    @PreRemove
+    public void preRemove() {
+        if (!this.catequistas.isEmpty()) {
+            throw new RemoveException("No puede eliminar un Grupo que tiene Catequista.");
+        }
+        if (!this.receiverPeople.isEmpty()) {
+            throw new RemoveException("No puede eliminar un Grupo que tiene persona de catequesis.");
+        }
+    }
 
     public Group(Integer id) {
         this.id = id;
