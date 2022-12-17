@@ -28,6 +28,10 @@ public class ReceiverPerson {
     @Column(name = "last_name")
     private String lastName;
 
+    @EqualsAndHashCode.Exclude
+    @Column(columnDefinition = "TEXT")
+    private String photo;
+
     @NonNull
     @ManyToOne
     @JoinColumn(name = "group_id")

@@ -30,6 +30,7 @@ public interface ReceiverPersonRepository extends JpaRepository<ReceiverPerson, 
             " FROM ReceiverPerson r" +
             " WHERE r.firstName = :#{#person.firstName} " +
             " AND r.lastName = :#{#person.lastName} " +
+            " AND r.photo = :#{#person.photo} " +
             " AND r.group = :#{#person.group} ")
     boolean contains(@Param("person") ReceiverPerson person);
 
