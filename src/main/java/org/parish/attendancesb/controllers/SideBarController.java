@@ -150,6 +150,11 @@ public class SideBarController implements Initializable {
         setCatequesis();
     }
 
+    @FXML
+    void pageInstitution(ActionEvent event) {
+        stageManager.sceneModal(FxmlView.INSTITUTION);
+    }
+
     private void setCatequesis() {
         mainService.setAutorizeAllCatequesis(mainService.authorize(RoleType.MANAGER.name()));
 
