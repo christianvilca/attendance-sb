@@ -20,6 +20,13 @@ public class Group {
     private String name;
 
     @NonNull
+    private String color;
+
+    @EqualsAndHashCode.Exclude
+    @Column(columnDefinition = "TEXT")
+    private String logo;
+
+    @NonNull
     @ManyToOne
     @JoinColumn(name = "catequesis_id")
     private Catequesis catequesis;

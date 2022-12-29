@@ -60,6 +60,8 @@ public class GroupServiceImpl implements GroupService {
                 .map(
                         g -> {
                             g.setName(group.getName());
+                            g.setColor(group.getColor());
+                            g.setLogo(group.getLogo());
                             g.setCatequesis(group.getCatequesis());
                             g.setCatequistas(group.getCatequistas());
                             return repository.save(g);

@@ -21,6 +21,8 @@ public interface GroupRepository extends JpaRepository<Group, Integer> {
     @Query("SELECT  case when count(r)> 0 then true else false end " +
             " FROM group_catequesis r" +
             " WHERE r.name = :#{#group_catequesis.name} " +
+            " AND r.color = :#{#group_catequesis.color} " +
+            " AND r.logo = :#{#group_catequesis.logo} " +
             " AND r.catequesis = :#{#group_catequesis.catequesis} ")
     boolean contains(@Param("group_catequesis") Group group);
 
