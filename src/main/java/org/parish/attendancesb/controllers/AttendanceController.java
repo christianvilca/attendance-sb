@@ -14,11 +14,10 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import org.parish.attendancesb.config.StageManager;
-import org.parish.attendancesb.controllers.utils.Alert;
+import org.parish.attendancesb.controllers.utils.alert.AlertFx;
 import org.parish.attendancesb.models.Attendance;
 import org.parish.attendancesb.services.interfaces.AttendanceService;
 import org.parish.attendancesb.services.interfaces.ReceiverPersonService;
-import org.parish.attendancesb.services.report.AttendanceReportService;
 import org.parish.attendancesb.view.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -79,12 +78,12 @@ public class AttendanceController implements Initializable {
         code.setText("");
 
         if (codePerson == null || codePerson.trim().equals("")) {
-            Alert.information("Debe ingresar un codigo!");
+            AlertFx.information("Debe ingresar un codigo!");
             return;
         }
 
         if (!receiverPersonService.existsById(Integer.parseInt(codePerson))) {
-            Alert.error("El codigo: " + codePerson + " no existe!");
+            AlertFx.error("El codigo: " + codePerson + " no existe!");
             return;
         }
 
@@ -97,7 +96,7 @@ public class AttendanceController implements Initializable {
     @FXML
     void report(ActionEvent event) {
         if (codePerson == null || codePerson.trim().equals("")) {
-            Alert.information("Debe ingresar un codigo!");
+            AlertFx.information("Debe ingresar un codigo!");
             code.requestFocus();
             return;
         }

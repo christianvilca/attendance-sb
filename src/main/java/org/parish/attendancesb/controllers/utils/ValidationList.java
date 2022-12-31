@@ -1,5 +1,7 @@
 package org.parish.attendancesb.controllers.utils;
 
+import org.parish.attendancesb.controllers.utils.alert.AlertFx;
+
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -16,7 +18,7 @@ public class ValidationList {
         if (fieldInvalid.isEmpty())
             return true;
 
-        fieldInvalid.ifPresent(validation -> Alert.warning(validation.getWarnning()));
+        fieldInvalid.ifPresent(validation -> AlertFx.warning(validation.getWarnning()));
         return false;
     }
 }

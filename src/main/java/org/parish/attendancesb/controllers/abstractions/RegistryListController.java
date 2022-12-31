@@ -14,7 +14,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import net.sf.jasperreports.engine.JRException;
 import org.parish.attendancesb.config.StageManager;
-import org.parish.attendancesb.controllers.utils.Alert;
+import org.parish.attendancesb.controllers.utils.alert.AlertFx;
 import org.parish.attendancesb.exceptions.RemoveException;
 import org.parish.attendancesb.report.Jrxml;
 import org.parish.attendancesb.report.Report;
@@ -124,14 +124,14 @@ public abstract class RegistryListController<T> implements Initializable {
     private MenuItem getMenuEliminar() {
         MenuItem menu = new MenuItem("Eliminar");
         menu.setOnAction((ActionEvent e) -> {
-            if (Alert.yesno("¿Realmente desea eliminar el registro?")) {
+            if (AlertFx.yesno("¿Realmente desea eliminar el registro?")) {
                 T registry = this.table.getSelectionModel().getSelectedItem();
                 try {
                     service.delete(registry);
                     refleshTable();
-                    Alert.information("Registro eliminado!");
+                    AlertFx.information("Registro eliminado!");
                 } catch (RemoveException re){
-                    Alert.error(re.getMessage());
+                    AlertFx.error(re.getMessage());
                 }
             }
         });
@@ -191,7 +191,7 @@ public abstract class RegistryListController<T> implements Initializable {
         T registry = this.table.getSelectionModel().getSelectedItem();
 
         if (registry == null) {
-            Alert.error("Debe seleccionar un registro!");
+            AlertFx.error("Debe seleccionar un registro!");
             return;
         }
 

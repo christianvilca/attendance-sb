@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
-import org.parish.attendancesb.controllers.utils.Alert;
+import org.parish.attendancesb.controllers.utils.alert.AlertFx;
 import org.parish.attendancesb.services.interfaces.Service;
 
 import java.net.URL;
@@ -41,13 +41,13 @@ public abstract class RegistryController<T> implements Initializable {
         T newRegistry = this.getModelFromFields();
 
         if (this.service.contains(newRegistry)) {
-            Alert.error("El registro ya existe!");
+            AlertFx.error("El registro ya existe!");
             return;
         }
 
         saveRegistry(newRegistry);
 
-        Alert.information("Se ha guardado correctamente!");
+        AlertFx.information("Se ha guardado correctamente!");
 
         this.cancel(event);
     }

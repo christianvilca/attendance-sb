@@ -11,13 +11,10 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import org.parish.attendancesb.controllers.utils.Alert;
+import org.parish.attendancesb.controllers.utils.alert.AlertFx;
 import org.parish.attendancesb.models.Catequesis;
 import org.parish.attendancesb.models.access.RoleType;
 import org.parish.attendancesb.services.MainService;
-import org.parish.attendancesb.services.SessionService;
-import org.parish.attendancesb.services.interfaces.CatequesisService;
-import org.parish.attendancesb.services.interfaces.UserService;
 import org.parish.attendancesb.view.FxmlView;
 import org.parish.attendancesb.config.StageManager;
 import org.slf4j.Logger;
@@ -183,7 +180,7 @@ public class SideBarController implements Initializable {
                     changeCatequesis(null);
                     return;
                 }
-                Alert.information("No tienes permisos!");
+                AlertFx.information("No tienes permisos!");
             }
         }
 

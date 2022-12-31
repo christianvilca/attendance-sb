@@ -11,7 +11,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import org.parish.attendancesb.config.StageManager;
-import org.parish.attendancesb.controllers.utils.Alert;
+import org.parish.attendancesb.controllers.utils.alert.AlertFx;
 import org.parish.attendancesb.models.Catequesis;
 import org.parish.attendancesb.models.Catequista;
 import org.parish.attendancesb.services.interfaces.CatequesisService;
@@ -110,7 +110,7 @@ public class CatequesisCatequistaListController implements Initializable {
     void save(ActionEvent event) {
         catequesis.setCatequistas(catequistaList);
         service.update(catequesis);
-        Alert.information("Se ha guardado correctamente!");
+        AlertFx.information("Se ha guardado correctamente!");
         this.cancel(event);
     }
 

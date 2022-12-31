@@ -6,10 +6,9 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 
 import org.parish.attendancesb.config.StageManager;
-import org.parish.attendancesb.controllers.utils.Alert;
+import org.parish.attendancesb.controllers.utils.alert.AlertFx;
 import org.parish.attendancesb.models.access.RoleType;
 import org.parish.attendancesb.services.MainService;
-import org.parish.attendancesb.services.SessionService;
 import org.parish.attendancesb.services.interfaces.UserService;
 import org.parish.attendancesb.view.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,7 +72,7 @@ public class LoginController implements Initializable {
             return;
         }
 
-        Alert.error("Usuario o password incorrecto!");
+        AlertFx.error("Usuario o password incorrecto!");
     }
 
     @Override

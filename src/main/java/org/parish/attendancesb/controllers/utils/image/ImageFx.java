@@ -2,7 +2,7 @@ package org.parish.attendancesb.controllers.utils.image;
 
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
-import org.parish.attendancesb.controllers.utils.Alert;
+import org.parish.attendancesb.controllers.utils.alert.AlertFx;
 import org.parish.attendancesb.services.utils.image.ImageBase64;
 
 import javax.imageio.ImageIO;
@@ -17,7 +17,7 @@ public class ImageFx {
                 return ImageBase64.encoder(SwingFXUtils.fromFXImage(fxImage, null));
             }
         } catch (IOException e) {
-            Alert.error(e.getMessage());
+            AlertFx.error(e.getMessage());
         }
 
         return null;
@@ -39,7 +39,7 @@ public class ImageFx {
         try {
             ImageIO.write(bufferedImage, "png", file);
         } catch (IOException e) {
-            Alert.error(e.getMessage());
+            AlertFx.error(e.getMessage());
         }
     }
 }

@@ -1,19 +1,21 @@
-package org.parish.attendancesb.controllers.utils;
+package org.parish.attendancesb.controllers.utils.alert;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 
 import java.util.Optional;
 
-public class Alert {
+public class AlertFx {
 
-    private Alert() {
+    private AlertFx() {
     }
 
     public static void information(String description) {
         final String INFORMATION = "Información";
 
-        javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.INFORMATION);
+        Alert alert = new Alert(AlertType.INFORMATION);
         alert.setHeaderText(null);
         alert.setTitle(INFORMATION);
         alert.setContentText(description);
@@ -23,7 +25,7 @@ public class Alert {
     public static void error(String description) {
         final String ERROR = "Error";
 
-        javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.ERROR);
+        Alert alert = new Alert(AlertType.ERROR);
         alert.setHeaderText(null);
         alert.setTitle(ERROR);
         alert.setContentText(description);
@@ -33,7 +35,7 @@ public class Alert {
     public static void warning(String description) {
         final String WARNING = "Warning";
 
-        javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.WARNING);
+        Alert alert = new Alert(AlertType.WARNING);
         alert.setHeaderText(null);
         alert.setTitle(WARNING);
         alert.setContentText(description);
@@ -43,7 +45,7 @@ public class Alert {
     public static boolean yesno(String description) {
         final String WARNING = "Warning";
 
-        javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.WARNING);
+        Alert alert = new Alert(AlertType.WARNING);
         alert.setHeaderText(null);
         alert.setTitle(WARNING);
         alert.setContentText(description);

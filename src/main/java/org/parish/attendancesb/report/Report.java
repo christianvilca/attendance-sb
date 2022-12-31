@@ -8,7 +8,7 @@ import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
 import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 import net.sf.jasperreports.export.SimpleXlsxReportConfiguration;
-import org.parish.attendancesb.controllers.utils.Alert;
+import org.parish.attendancesb.controllers.utils.alert.AlertFx;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ResourceUtils;
 
@@ -57,7 +57,7 @@ public class Report {
 
         setFormat(jasperPrint, fileChooser, file1);
 
-        Alert.information("Archivo exportado!");
+        AlertFx.information("Archivo exportado!");
     }
 
     private void setFormat(JasperPrint jasperPrint, FileChooser fileChooser, File file1) throws JRException {

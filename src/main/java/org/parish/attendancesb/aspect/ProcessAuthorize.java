@@ -1,19 +1,12 @@
 package org.parish.attendancesb.aspect;
 
-import org.apache.logging.log4j.LogManager;
-import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.parish.attendancesb.aspect.annotation.Function;
-import org.parish.attendancesb.controllers.utils.Alert;
 import org.parish.attendancesb.services.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 

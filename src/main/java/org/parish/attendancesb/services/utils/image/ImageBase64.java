@@ -1,6 +1,6 @@
 package org.parish.attendancesb.services.utils.image;
 
-import org.parish.attendancesb.controllers.utils.Alert;
+import org.parish.attendancesb.controllers.utils.alert.AlertFx;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -43,7 +43,7 @@ public class ImageBase64 {
             image = ImageIO.read(bis);
             bis.close();
         } catch (IOException e) {
-            Alert.error(e.getMessage());
+            AlertFx.error(e.getMessage());
         }
 
         return image;
