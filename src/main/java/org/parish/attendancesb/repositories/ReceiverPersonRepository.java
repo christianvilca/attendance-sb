@@ -34,6 +34,11 @@ public interface ReceiverPersonRepository extends JpaRepository<ReceiverPerson, 
             " AND r.group = :#{#person.group} ")
     boolean contains(@Param("person") ReceiverPerson person);
 
+    @Query(value="SELECT CAST(substr( code, 1, 12) as INTEGER) + 1 as code " +
+            "FROM receiver_person r " +
+            "ORDER BY r.code DESC LIMIT 1", nativeQuery = true)
+    Integer getNextId();
+
     @Override
     boolean existsById(Integer integer);
 }

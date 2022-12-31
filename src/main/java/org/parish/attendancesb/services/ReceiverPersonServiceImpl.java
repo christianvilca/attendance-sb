@@ -2,6 +2,7 @@ package org.parish.attendancesb.services;
 
 import org.parish.attendancesb.models.ReceiverPerson;
 import org.parish.attendancesb.repositories.ReceiverPersonRepository;
+import org.parish.attendancesb.services.attendance.barcode.EAN13;
 import org.parish.attendancesb.services.interfaces.ReceiverPersonService;
 import org.springframework.stereotype.Service;
 
@@ -46,7 +47,18 @@ public class ReceiverPersonServiceImpl implements ReceiverPersonService {
     }
 
     @Override
+    public String getNextId() {
+        Integer id = repository.getNextId();
+
+        if (id == null)
+            return EAN13.get(1);
+
+        return EAN13.get(id);
+    }
+
+    @Override
     public ReceiverPerson save(ReceiverPerson receiverPerson) {
+        receiverPerson.setCode(getNextId());
         return repository.save(receiverPerson);
     }
 
@@ -60,7 +72,6 @@ public class ReceiverPersonServiceImpl implements ReceiverPersonService {
         return repository.findById(receiverPerson.getId())
                 .map(
                         rp -> {
-                            rp.setCode(receiverPerson.getCode());
                             rp.setFirstName(receiverPerson.getFirstName());
                             rp.setLastName(receiverPerson.getLastName());
                             rp.setGroup(receiverPerson.getGroup());
