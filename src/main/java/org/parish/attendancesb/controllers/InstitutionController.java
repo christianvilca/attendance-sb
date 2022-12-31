@@ -2,7 +2,6 @@ package org.parish.attendancesb.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -11,19 +10,14 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.parish.attendancesb.controllers.abstractions.RegistryController;
-import org.parish.attendancesb.controllers.utils.ValidationComboBox;
 import org.parish.attendancesb.controllers.utils.ValidationList;
 import org.parish.attendancesb.controllers.utils.ValidationTextField;
 import org.parish.attendancesb.controllers.utils.ValidationType;
 import org.parish.attendancesb.controllers.utils.image.CarnetFront;
-import org.parish.attendancesb.models.Group;
+import org.parish.attendancesb.controllers.utils.image.ImageFx;
 import org.parish.attendancesb.models.Institution;
-import org.parish.attendancesb.models.ReceiverPerson;
-import org.parish.attendancesb.models.image.ImageBase64;
 import org.parish.attendancesb.services.SessionService;
-import org.parish.attendancesb.services.interfaces.GroupService;
 import org.parish.attendancesb.services.interfaces.InstitutionService;
-import org.parish.attendancesb.services.interfaces.ReceiverPersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -81,7 +75,7 @@ public class InstitutionController extends RegistryController<Institution> {
 
         institution.setInstitutionName(txtInstitution.getText());
         institution.setName(txtName.getText());
-        institution.setLogo(ImageBase64.encoder(imgLogo.getImage()));
+        institution.setLogo(ImageFx.encoder(imgLogo.getImage()));
 
         return institution;
     }
@@ -106,7 +100,7 @@ public class InstitutionController extends RegistryController<Institution> {
     public void setFieldsFromModel() {
         this.txtInstitution.setText(this.registry.getInstitutionName());
         this.txtName.setText(this.registry.getName());
-        this.imgLogo.setImage(ImageBase64.decoder(this.registry.getLogo()));
+        this.imgLogo.setImage(ImageFx.decoder(this.registry.getLogo()));
     }
 
     @Override

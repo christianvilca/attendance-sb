@@ -1,7 +1,5 @@
-package org.parish.attendancesb.models.image;
+package org.parish.attendancesb.services.utils.image;
 
-import javafx.embed.swing.SwingFXUtils;
-import javafx.scene.image.Image;
 import org.parish.attendancesb.controllers.utils.Alert;
 
 import javax.imageio.ImageIO;
@@ -10,18 +8,6 @@ import java.io.*;
 import java.util.Base64;
 
 public class ImageBase64 {
-
-    public static String encoder(Image fxImage) {
-        try {
-            if (fxImage != null) {
-                return encoder(SwingFXUtils.fromFXImage(fxImage, null));
-            }
-        } catch (IOException e) {
-            Alert.error(e.getMessage());
-        }
-
-        return null;
-    }
 
     public static String encoder(BufferedImage bufferedImage) throws IOException {
         ByteArrayOutputStream outputStream = null;
@@ -39,14 +25,7 @@ public class ImageBase64 {
         return Base64.getEncoder().encodeToString(imageBytes);
     }
 
-    public static Image decoder(String imageBase64) {
-        if (imageBase64 == null)
-            return null;
-
-        return new Image(toBais(imageBase64));
-    }
-
-    private static ByteArrayInputStream toBais(String imageBase64) {
+    public static ByteArrayInputStream toBais(String imageBase64) {
         // Decodifica la cadena y obtiene un arreglo de bytes
         byte[] imageBytes = Base64.getDecoder().decode(imageBase64);
 

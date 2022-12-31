@@ -11,16 +11,15 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.parish.attendancesb.controllers.abstractions.RegistryController;
 import org.parish.attendancesb.controllers.utils.*;
+import org.parish.attendancesb.controllers.utils.image.ImageFx;
 import org.parish.attendancesb.models.Group;
 import org.parish.attendancesb.models.ReceiverPerson;
-import org.parish.attendancesb.models.image.ImageBase64;
 import org.parish.attendancesb.services.SessionService;
 import org.parish.attendancesb.services.interfaces.GroupService;
 import org.parish.attendancesb.services.interfaces.ReceiverPersonService;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
-import java.io.IOException;
 
 @Component
 public class ReceiverPersonController extends RegistryController<ReceiverPerson> {
@@ -64,20 +63,19 @@ public class ReceiverPersonController extends RegistryController<ReceiverPerson>
         group.getItems().addAll(groupService.findAll());
         lblTitle.setText(sessionService.getReceiverPersonTypeSingular());
 
-        imgPhoto.setFitWidth(100);
-        imgPhoto.setFitHeight(150);
-        imgPhoto.setPreserveRatio(true);
+        imgPhoto.setFitWidth(183);
+        imgPhoto.setFitHeight(235);
+        //imgPhoto.setPreserveRatio(true);
     }
 
     @Override
     public ReceiverPerson getModelFromFields() {
         ReceiverPerson person = getPerson();
 
-        person.setCode("00");
         person.setGroup(group.getSelectionModel().getSelectedItem());
         person.setFirstName(txtFirstName.getText());
         person.setLastName(txtLastName.getText());
-        person.setPhoto(ImageBase64.encoder(imgPhoto.getImage()));
+        person.setPhoto(ImageFx.encoder(imgPhoto.getImage()));
 
         return person;
     }
@@ -104,7 +102,7 @@ public class ReceiverPersonController extends RegistryController<ReceiverPerson>
         this.group.setValue(this.registry.getGroup());
         this.txtFirstName.setText(this.registry.getFirstName());
         this.txtLastName.setText(this.registry.getLastName());
-        this.imgPhoto.setImage(ImageBase64.decoder(this.registry.getPhoto()));
+        this.imgPhoto.setImage(ImageFx.decoder(this.registry.getPhoto()));
     }
 
     @Override
@@ -115,13 +113,12 @@ public class ReceiverPersonController extends RegistryController<ReceiverPerson>
         clearImageView();
     }
 
-
     @FXML
     void changeImage(MouseEvent event) {
         FileChooser fileChooser = new FileChooser();
         File file = fileChooser.showOpenDialog(new Stage());
         if (file != null) {
-            image = new Image(file.toURI().toString(), 100, 150, true, true);
+            image = new Image(file.toURI().toString(), 183, 235, true, true);
             imgPhoto.setImage(image);
         }
     }

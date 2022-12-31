@@ -15,8 +15,8 @@ import org.parish.attendancesb.controllers.utils.ValidationList;
 import org.parish.attendancesb.controllers.utils.ValidationTextField;
 import org.parish.attendancesb.controllers.utils.ValidationType;
 import org.parish.attendancesb.controllers.utils.image.ColorUtil;
+import org.parish.attendancesb.controllers.utils.image.ImageFx;
 import org.parish.attendancesb.models.Group;
-import org.parish.attendancesb.models.image.ImageBase64;
 import org.parish.attendancesb.services.SessionService;
 import org.parish.attendancesb.services.interfaces.GroupService;
 import org.springframework.stereotype.Component;
@@ -61,7 +61,7 @@ public class GroupController extends RegistryController<Group> {
         group.setCatequesis(sessionService.getCatequesis());
         group.setName(name.getText());
         group.setColor(ColorUtil.rgba2Hex(color.getValue()));
-        group.setLogo(ImageBase64.encoder(imgLogo.getImage()));
+        group.setLogo(ImageFx.encoder(imgLogo.getImage()));
 
         return group;
     }
@@ -84,7 +84,7 @@ public class GroupController extends RegistryController<Group> {
     public void setFieldsFromModel() {
         this.name.setText(this.registry.getName());
         this.color.setValue(ColorUtil.hex2Rgb(this.registry.getColor()));
-        this.imgLogo.setImage(ImageBase64.decoder(this.registry.getLogo()));
+        this.imgLogo.setImage(ImageFx.decoder(this.registry.getLogo()));
     }
 
     @Override

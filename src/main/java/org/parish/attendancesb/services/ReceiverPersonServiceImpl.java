@@ -2,7 +2,7 @@ package org.parish.attendancesb.services;
 
 import org.parish.attendancesb.models.ReceiverPerson;
 import org.parish.attendancesb.repositories.ReceiverPersonRepository;
-import org.parish.attendancesb.services.attendance.barcode.EAN13;
+import org.parish.attendancesb.services.utils.barcode.EAN13;
 import org.parish.attendancesb.services.interfaces.ReceiverPersonService;
 import org.springframework.stereotype.Service;
 
