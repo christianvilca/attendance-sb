@@ -1,4 +1,4 @@
-package org.parish.attendancesb.controllers.utils;
+package org.parish.attendancesb.controllers.utils.validation;
 
 import org.parish.attendancesb.controllers.utils.alert.AlertFx;
 

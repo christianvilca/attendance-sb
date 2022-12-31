@@ -1,4 +1,4 @@
-package org.parish.attendancesb.controllers.utils;
+package org.parish.attendancesb.controllers.utils.validation;
 
 public enum ValidationType {
 
