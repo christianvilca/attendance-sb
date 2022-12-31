@@ -17,7 +17,27 @@ public class ImageBase64 {
             if (fxImage != null) {
                 outputStream = new ByteArrayOutputStream();
                 BufferedImage bufferedImage = SwingFXUtils.fromFXImage(fxImage, null);
-                ImageIO.write(bufferedImage, getFileExtension(fxImage.getUrl()), outputStream);
+//                ImageIO.write(bufferedImage, getFileExtension(fxImage.getUrl()), outputStream);
+                ImageIO.write(bufferedImage, "png", outputStream);
+            }
+        } catch (IOException e) {
+            Alert.error(e.getMessage());
+        }
+
+        if (outputStream == null) {
+            return null;
+        }
+
+        byte[] imageBytes = outputStream.toByteArray();
+        return Base64.getEncoder().encodeToString(imageBytes);
+    }
+
+    public static String encoder(BufferedImage bufferedImage) {
+        ByteArrayOutputStream outputStream = null;
+        try {
+            if (bufferedImage != null) {
+                outputStream = new ByteArrayOutputStream();
+                ImageIO.write(bufferedImage, "png", outputStream);
             }
         } catch (IOException e) {
             Alert.error(e.getMessage());
@@ -35,7 +55,7 @@ public class ImageBase64 {
         return fileUri.split("\\.")[1];
     }
 
-    public static Image decoder(String imageBase64){
+    public static Image decoder(String imageBase64) {
         if (imageBase64 != null) {
             // Decodifica la cadena y obtiene un arreglo de bytes
             byte[] imageBytes = Base64.getDecoder().decode(imageBase64);
@@ -44,6 +64,25 @@ public class ImageBase64 {
         }
 
         return null;
+    }
+
+    public static BufferedImage decodeBuffer(String imageBase64) {
+        BufferedImage image = null;
+
+        if (imageBase64 != null) {
+            // Decodifica la cadena y obtiene un arreglo de bytes
+            byte[] imageBytes = Base64.getDecoder().decode(imageBase64);
+
+            ByteArrayInputStream bis = new ByteArrayInputStream(imageBytes);
+            try {
+                image = ImageIO.read(bis);
+                bis.close();
+            } catch (IOException e) {
+                Alert.error(e.getMessage());
+            }
+        }
+
+        return image;
     }
 
     public static String encoderFromPath(String path) throws IOException {
