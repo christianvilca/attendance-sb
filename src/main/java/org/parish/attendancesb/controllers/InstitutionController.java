@@ -13,7 +13,7 @@ import org.parish.attendancesb.controllers.abstractions.RegistryController;
 import org.parish.attendancesb.controllers.utils.ValidationList;
 import org.parish.attendancesb.controllers.utils.ValidationTextField;
 import org.parish.attendancesb.controllers.utils.ValidationType;
-import org.parish.attendancesb.controllers.utils.image.CarnetFront;
+import org.parish.attendancesb.services.carnet.CarnetFront;
 import org.parish.attendancesb.controllers.utils.image.ImageFx;
 import org.parish.attendancesb.models.Institution;
 import org.parish.attendancesb.services.SessionService;
@@ -108,11 +108,6 @@ public class InstitutionController extends RegistryController<Institution> {
         txtInstitution.clear();
         txtName.clear();
         clearImageView();
-    }
-
-    @Override
-    protected void doAnything() {
-        grafics.draw();
     }
 
     @FXML

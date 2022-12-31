@@ -5,6 +5,9 @@ import javafx.scene.image.Image;
 import org.parish.attendancesb.controllers.utils.Alert;
 import org.parish.attendancesb.services.utils.image.ImageBase64;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 
 public class ImageFx {
@@ -25,5 +28,18 @@ public class ImageFx {
             return null;
 
         return new Image(ImageBase64.toBais(imageBase64));
+    }
+
+    public static void writeToFile(BufferedImage bufferedImage, String nameFile) {
+        if (nameFile == null) {
+            nameFile = "default";
+        }
+        File file = new File(nameFile + ".png");
+
+        try {
+            ImageIO.write(bufferedImage, "png", file);
+        } catch (IOException e) {
+            Alert.error(e.getMessage());
+        }
     }
 }

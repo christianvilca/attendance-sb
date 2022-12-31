@@ -40,7 +40,7 @@
                   <HBox layoutX="10.0" layoutY="76.0" spacing="8.0">
                      <children>
                         <Label alignment="CENTER_RIGHT" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="72.0" text="Logo:" />
-                        <Label fx:id="lblPhoto" alignment="CENTER" maxWidth="1.7976931348623157E308" onMouseClicked="#changeImage" prefHeight="150.0" style="-fx-border-color: #B5B5B5; -fx-border-radius: 4px;" HBox.hgrow="ALWAYS">
+                        <Label fx:id="lblPhoto" alignment="CENTER" maxWidth="1.7976931348623157E308" onMouseClicked="#changeImage" prefHeight="150.0" style="-fx-border-color: #B5B5B5; -fx-border-radius: 4px; -fx-cursor: hand;" HBox.hgrow="ALWAYS">
                            <graphic>
                               <ImageView fx:id="imgLogo" fitHeight="235.0" fitWidth="183.0" onMouseClicked="#changeImage" pickOnBounds="true" preserveRatio="true" />
                            </graphic>

@@ -14,7 +14,7 @@ import org.parish.attendancesb.controllers.abstractions.RegistryController;
 import org.parish.attendancesb.controllers.utils.ValidationList;
 import org.parish.attendancesb.controllers.utils.ValidationTextField;
 import org.parish.attendancesb.controllers.utils.ValidationType;
-import org.parish.attendancesb.controllers.utils.image.ColorUtil;
+import org.parish.attendancesb.controllers.utils.color.ColorUtil;
 import org.parish.attendancesb.controllers.utils.image.ImageFx;
 import org.parish.attendancesb.models.Group;
 import org.parish.attendancesb.services.SessionService;
