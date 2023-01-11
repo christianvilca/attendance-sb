@@ -1,52 +1,48 @@
 package org.parish.attendancesb.services.carnet;
 
-import org.parish.attendancesb.services.interfaces.ReceiverPersonService;
-import org.parish.attendancesb.services.utils.image.ImageBase64;
+import org.parish.attendancesb.models.ReceiverPerson;
+import org.parish.attendancesb.services.barcode.Barcode;
+import org.parish.attendancesb.services.interfaces.InstitutionService;
+import org.parish.attendancesb.utils.image.ImageBase64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.font.FontRenderContext;
 import java.awt.font.TextLayout;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
-import java.awt.image.RenderedImage;
-import java.io.File;
-import java.io.IOException;
+import java.text.Normalizer;
 
 @Component
 public class CarnetFront {
 
-    int width;
-    int height;
-//    private FXGraphics2D graphics;
-//    private GraphicsContext gc;
+    private int width;
+
+    private int height;
 
     private Graphics2D graphics;
+
     private BufferedImage bufferedImage;
 
+    private ReceiverPerson receiverPerson;
+
     @Autowired
-    private ReceiverPersonService service;
+    private InstitutionService institutionService;
+
+    public void setReceiverPerson(ReceiverPerson receiverPerson) {
+        this.receiverPerson = receiverPerson;
+    }
+
+    public BufferedImage getBufferedImage() {
+        return bufferedImage;
+    }
 
     public CarnetFront() {
+    }
 
-        width = 1006;
-        height = 651;
-
-//        width = 500;
-//        height = 325;
-
-//        // Crea un canvas con un ancho y alto de 300 píxeles
-//        Canvas canvas = new Canvas(500, 325);
-//
-//        // Obtiene una referencia al contexto gráfico del canvas
-//        gc = canvas.getGraphicsContext2D();
-//
-//
-//        // Crea una instancia de FXGraphics2D a partir del contexto gráfico del canvas
-//        graphics = new FXGraphics2D(gc);
-//
+    private void initialize() {
+        width = 500; // 1006;
+        height = 325; // 651;
 
         bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 
@@ -63,36 +59,21 @@ public class CarnetFront {
         return Math.round(height * percentage / 100);
     }
 
-    public void drawToFile() {
-        graphics.dispose();
-        RenderedImage rendImage = bufferedImage;
-
-        File file = new File("carnet_front.png");
-        try {
-            ImageIO.write(rendImage, "png", file);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public void drawMainRectangle() {
-        // Establece el color para las siguientes operaciones de dibujo
+    private void drawMainRectangle() {
         graphics.setColor(Color.WHITE);
-
-        // Dibuja un rectángulo en la posición (10, 10) con un ancho y alto de 280 píxeles
         graphics.fillRect(0, 0, width, height);
     }
 
-    public void drawTitleRectangle() {
-        Color color = new Color(0, 150, 65);
+    private void drawTitleRectangle() {
+        Color color = ColorAwt.hex2Rgb(receiverPerson.getGroup().getColor());
         GradientPaint gradient = new GradientPaint(0, 0, Color.WHITE, width / 2, 0, color);
         graphics.setPaint(gradient);
         graphics.fillRect(0, proportionY(4.3f), width, proportionY(11.98f));
     }
 
-    public void drawBottomPolygon1() {
-//        Color color = new Color(0, 150, 65);
-        Color color = new Color(0, 150, 65, 128);
+    private void drawBottomPolygon1() {
+        Color colorAwt = ColorAwt.hex2Rgb(receiverPerson.getGroup().getColor());
+        Color color = new Color(colorAwt.getRed(), colorAwt.getGreen(), colorAwt.getBlue(), 128);
         graphics.setColor(color);
         int[] x = {
                 0,
@@ -111,11 +92,10 @@ public class CarnetFront {
                 height
         };
         graphics.fillPolygon(x, y, 6);
-//        graphics.fillRect(0, proportionY(82.49f), width, height - proportionY(82.49f));
     }
 
-    public void drawBottomPolygon2() {
-        Color color = new Color(0, 150, 65);
+    private void drawBottomPolygon2() {
+        Color color = ColorAwt.hex2Rgb(receiverPerson.getGroup().getColor());
         graphics.setColor(color);
         int[] x = {
                 0,
@@ -136,117 +116,21 @@ public class CarnetFront {
         graphics.fillPolygon(x, y, 6);
     }
 
-    public void drawImage() {
-        BufferedImage image = ImageBase64.decodeToBufferImage(service.getById(48).getPhoto());
-//        BufferedImage image = ImageBase64.decodeBuffer("");
+    private void drawPhoto() {
+        BufferedImage image = ImageBase64.decodeToBufferImage(receiverPerson.getPhoto());
         graphics.drawImage(image, proportionX(4.77f), proportionY(7.37f), proportionX(36.68f), proportionY(72.2f), null);
-//        graphics.drawImage(image, proportionX(4.77f), proportionY(7.37f), null);
     }
 
-    public void drawTextPrueba1() {
-//        graphics.setColor(Color.WHITE);
-//        graphics.setStroke(new BasicStroke((float) 1, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, Color.WHITE));
-//        graphics.setColor(Color.BLACK);
-//        graphics.setFont(new Font("Arial", Font.PLAIN, 20));
-//        graphics.drawString("San Antonio Abad", proportionX(61.63f), proportionY(9.37f));
-
-        ///////////////////////////
-//        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-//                RenderingHints.VALUE_ANTIALIAS_ON);
-//
-//        graphics.setRenderingHint(RenderingHints.KEY_RENDERING,
-//                RenderingHints.VALUE_RENDER_QUALITY);
-
-//        graphics.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
-//                RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
-
-        graphics.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
-                RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
-
-        ///////////////////////////
-
-        graphics.setColor(Color.BLACK);
-        graphics.setFont(new Font("Damn Noisy Kids", Font.PLAIN, proportionX(4.4f)));
-//        graphics.setColor(Color.WHITE);
-        graphics.setStroke(new BasicStroke(4));
-//        graphics.setStroke(new BasicStroke(4, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
-        graphics.drawString("San Antonio 1", proportionX(61.63f), proportionY(10f));
-
-        ///////////////////////////
-
-        TextLayout tl = new TextLayout(
-                "San Antonio 2",
-                graphics.getFont(),
-                graphics.getFontRenderContext()//frc//
-        );
-        tl.draw(graphics, proportionX(61.63f), proportionY(22f));
-
-        Shape shape = tl.getOutline(null);
-
-        graphics.translate(proportionX(61.63f), proportionY(15.36f));
-//        graphics.setStroke(new BasicStroke((float) 4, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
-        graphics.setColor(Color.RED);
-        graphics.draw(shape);
-        graphics.setColor(Color.BLACK);
-        graphics.fill(shape);
-        ///////////////////////////
-
-        Font f = new Font("Damn Noisy Kids", Font.PLAIN, proportionX(4.4f));
-        TextLayout tl1 = new TextLayout(
-                "San Antonio 3",
-                f,
-                graphics.getFontRenderContext());
-        tl1.draw(graphics, proportionX(61.63f), proportionY(30f));
-        Shape sha = tl1.getOutline(null);
-        graphics.translate(proportionX(61.63f), proportionY(45.36f));
-        graphics.setColor(Color.RED);
-        graphics.setStroke(new BasicStroke(4f));
-        graphics.draw(sha);
-        graphics.setColor(Color.BLACK);
-        graphics.fill(sha);
-        //graphics.translate(proportionX(61.63f), proportionY(30.36f));
-
+    private void drawLogoParroquia() {
+        BufferedImage image = ImageBase64.decodeToBufferImage(institutionService.getRegistry().getLogo());
+        graphics.drawImage(image, proportionX(51.39f), proportionY(4.45f), proportionX(9.74f), proportionY(12.29f), null);
     }
 
-    public void drawTextPrueba2() {
-        graphics.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
-                RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
-        graphics.translate(proportionX(61.63f), proportionY(50.36f));
-        Graphics2D g2 = graphics;
-        int w = 500;
-        int h = 200;
-        g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
-                RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
-        g2.setFont(new Font("sansserif", Font.PLAIN, w / 8));
-        FontRenderContext frc = g2.getFontRenderContext();
-//        Font f = new Font("sansserif", Font.PLAIN, w / 8);
-//        Font f1 = new Font("sansserif", Font.ITALIC, w / 8);
-//        String s = "AttributedString";
-//        AttributedString as = new AttributedString(s);
-//        as.addAttribute(TextAttribute.FONT, f, 0, 10);
-//        as.addAttribute(TextAttribute.FONT, f1, 10, s.length());
-//        AttributedCharacterIterator aci = as.getIterator();
-
-        TextLayout tl = new TextLayout("AttributedString", g2.getFont(), frc);
-//        float sw = (float) tl.getBounds().getWidth();
-//        float sh = (float) tl.getBounds().getHeight();
-//        Shape sha = tl.getOutline(AffineTransform.getTranslateInstance(w / 2 - sw
-//                / 2, h * 0.2 + sh / 2));
-
-        Shape sha = tl.getOutline(null);
-        tl.draw(g2, 0, 0);
-//        g2.setColor(Color.BLUE);
-//        g2.setStroke(new BasicStroke(3f));
-//        g2.draw(sha);
-//        g2.setColor(Color.MAGENTA);
-//        g2.fill(sha);
-    }
-
-    public void drawTextTitleParroquia() {
+    private void drawTextTitleParroquia() {
         Graphics2D g2d = graphics;
 
         g2d.setFont(new Font("Damn Noisy Kids", Font.PLAIN, proportionX(1.9f)));
-        TextLayout layout = new TextLayout("Parroquia", g2d.getFont(), g2d.getFontRenderContext());
+        TextLayout layout = new TextLayout(cleanString(institutionService.getRegistry().getInstitutionName()), g2d.getFont(), g2d.getFontRenderContext());
         Shape shape = layout.getOutline(AffineTransform.getTranslateInstance(proportionX(61.63f), proportionY(8.5f)));
         g2d.setStroke(new BasicStroke(proportionX(0.5f), BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
         g2d.setColor(Color.WHITE);
@@ -255,11 +139,11 @@ public class CarnetFront {
         g2d.fill(shape);
     }
 
-    public void drawTextParroquia() {
+    private void drawTextParroquia() {
         Graphics2D g2d = graphics;
 
         g2d.setFont(new Font("Damn Noisy Kids", Font.PLAIN, proportionX(4f)));
-        TextLayout layout = new TextLayout("Inmaculado Corazon", g2d.getFont(), g2d.getFontRenderContext());
+        TextLayout layout = new TextLayout(cleanString(institutionService.getRegistry().getName()), g2d.getFont(), g2d.getFontRenderContext());
         AffineTransform at = new AffineTransform();
         at.setToTranslation(proportionX(61.63f), proportionY(14.5f));
         at.scale(proportionX(37.18f) / layout.getBounds().getWidth(), 1); //sx:374
@@ -271,13 +155,17 @@ public class CarnetFront {
         g2d.fill(shape);
     }
 
-    public void drawTextName() {
+    private void drawBarCode() {
+        BufferedImage image = Barcode.generateEAN13BarcodeImageByBarcode4j(receiverPerson.getCode());
+        graphics.drawImage(image, proportionX(51.89f), proportionY(59.14f), proportionX(34.29f), proportionY(15.97f), null);
+    }
+
+    private void drawTextName() {
         Graphics2D g2d = graphics;
 
         g2d.setFont(new Font("Damn Noisy Kids", Font.PLAIN, proportionX(10f)));
-        TextLayout layout = new TextLayout("Luis Gonzales Rojass", g2d.getFont(), g2d.getFontRenderContext());
+        TextLayout layout = new TextLayout(cleanString(receiverPerson.toString()), g2d.getFont(), g2d.getFontRenderContext());
         AffineTransform at = new AffineTransform();
-//        at.setToTranslation(proportionX(61.63f), proportionY(86.5f)); // y:563 w:970
         at.setToTranslation(getPositionX(layout.getBounds().getWidth()), proportionY(98f)); // y:563 w:970
         at.scale(getScaleX(layout.getBounds().getWidth()), 1);
         Shape shape = layout.getOutline(at);
@@ -288,7 +176,7 @@ public class CarnetFront {
         g2d.fill(shape);
     }
 
-    public double getScaleX(double value) {
+    private double getScaleX(double value) {
         double result = proportionX(96.42f) / value; //970
         if (result > 1) {
             return 1;
@@ -296,7 +184,7 @@ public class CarnetFront {
         return result;
     }
 
-    public double getPositionX(double value) {
+    private double getPositionX(double value) {
         double result = proportionX(96.42f) / value;
         if (result > 1) {
             return (proportionX(100f) - value) / 2;
@@ -304,7 +192,7 @@ public class CarnetFront {
         return proportionX(1.79f);
     }
 
-    public double getScaleY(double value) {
+    private double getScaleY(double value) {
         double result = proportionY(60.83f) / value; // y:396
         if (result > 1) {
             return 1;
@@ -312,7 +200,7 @@ public class CarnetFront {
         return result;
     }
 
-    public double getPositionY(double value) {
+    private double getPositionY(double value) {
         double result = proportionY(60.83f) / value;
         if (result > 1) {
             return ((proportionY(63.75f) - value) / 2) + proportionY(16.59f) + value;
@@ -320,49 +208,67 @@ public class CarnetFront {
         return proportionY(78.56f);
     }
 
-    public void drawTextCatequesis() {
+    private void drawTextCatequesis() {
         Graphics2D g2d = graphics;
 
         g2d.setFont(new Font("Damn Noisy Kids", Font.PLAIN, proportionX(4f)));
-        TextLayout layout = new TextLayout("Confirmacion 2015", g2d.getFont(), g2d.getFontRenderContext());
+        TextLayout layout = new TextLayout(cleanString(receiverPerson.getGroup().getCatequesis().toString()), g2d.getFont(), g2d.getFontRenderContext());
         AffineTransform at = new AffineTransform();
         at.setToTranslation(proportionX(93.84f), getPositionY(layout.getBounds().getWidth())); // y:563 w:970
         at.scale(1, getScaleY(layout.getBounds().getWidth()));
         at.rotate(Math.toRadians(270));
         Shape shape = layout.getOutline(at);
-        Color color = new Color(0, 150, 65);
+        Color color = ColorAwt.hex2Rgb(receiverPerson.getGroup().getColor());
         g2d.setColor(color);
         g2d.fill(shape);
     }
 
-    public void drawTextGroup() {
+    private void drawLogoGroup() {
+        BufferedImage image = ImageBase64.decodeToBufferImage(receiverPerson.getGroup().getLogo());
+        graphics.drawImage(image, proportionX(60.73f), proportionY(17.51f), proportionX(20.08f), proportionY(36.25f), null);
+    }
+
+    private void drawTextGroup() {
         Graphics2D g2d = graphics;
 
         g2d.setFont(new Font("Damn Noisy Kids", Font.PLAIN, proportionX(4f)));
-        TextLayout layout = new TextLayout("Grupo San Juan", g2d.getFont(), g2d.getFontRenderContext());
+        TextLayout layout = new TextLayout(cleanString(receiverPerson.getGroup().toString()), g2d.getFont(), g2d.getFontRenderContext());
         AffineTransform at = new AffineTransform();
         at.setToTranslation(proportionX(97.91f), getPositionY(layout.getBounds().getWidth())); // y:563 w:970
         at.scale(1, getScaleY(layout.getBounds().getWidth()));
-//        at.setToTranslation(proportionX(97.91f), proportionY(78.8f));
         at.rotate(Math.toRadians(270));
         Shape shape = layout.getOutline(at);
-        Color color = new Color(0, 150, 65, 128);
+        Color colorAwt = ColorAwt.hex2Rgb(receiverPerson.getGroup().getColor());
+        Color color = new Color(colorAwt.getRed(), colorAwt.getGreen(), colorAwt.getBlue(), 128);
         g2d.setColor(color);
         g2d.fill(shape);
     }
 
+    private static String cleanString(String texto) {
+        texto = Normalizer.normalize(texto, Normalizer.Form.NFD);
+        texto = texto.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
+        return texto;
+    }
+
     public void draw() {
+        initialize();
+
         drawMainRectangle();
         drawTitleRectangle();
         drawBottomPolygon1();
         drawBottomPolygon2();
 
+        drawPhoto();
+        drawLogoParroquia();
         drawTextTitleParroquia();
         drawTextParroquia();
+        drawBarCode();
         drawTextName();
         drawTextCatequesis();
+        drawLogoGroup();
         drawTextGroup();
-        drawToFile();
+
+        graphics.dispose();
     }
 
     public static void main(String[] args) {
