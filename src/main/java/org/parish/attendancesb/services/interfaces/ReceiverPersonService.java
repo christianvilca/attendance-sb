@@ -10,6 +10,6 @@ public interface ReceiverPersonService extends Service<Integer, ReceiverPerson> 
 
     boolean existsById(Integer integer);
 
-    String getNextId();
+    String getCode();
 
 }

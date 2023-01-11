@@ -39,6 +39,14 @@ public class ReceiverPerson {
     private Group group;
 
     @EqualsAndHashCode.Exclude
+    @Column(columnDefinition = "TEXT")
+    private String carnetFront;
+
+    @EqualsAndHashCode.Exclude
+    @Column(columnDefinition = "TEXT")
+    private String carnetBack;
+
+    @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "receiverPerson", fetch = FetchType.EAGER)
     private Set<Attendance> attendances;
 
@@ -55,6 +63,6 @@ public class ReceiverPerson {
 
     @Override
     public String toString() {
-        return firstName + ", " + lastName;
+        return firstName + " " + lastName;
     }
 }

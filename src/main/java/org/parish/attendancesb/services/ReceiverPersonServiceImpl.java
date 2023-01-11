@@ -2,7 +2,8 @@ package org.parish.attendancesb.services;
 
 import org.parish.attendancesb.models.ReceiverPerson;
 import org.parish.attendancesb.repositories.ReceiverPersonRepository;
-import org.parish.attendancesb.services.utils.barcode.EAN13;
+import org.parish.attendancesb.services.carnet.Carnet;
+import org.parish.attendancesb.services.barcode.EAN13;
 import org.parish.attendancesb.services.interfaces.ReceiverPersonService;
 import org.springframework.stereotype.Service;
 
@@ -16,9 +17,12 @@ public class ReceiverPersonServiceImpl implements ReceiverPersonService {
 
     private SessionService sessionService;
 
-    public ReceiverPersonServiceImpl(ReceiverPersonRepository repository, SessionService sessionService) {
+    private Carnet carnet;
+
+    public ReceiverPersonServiceImpl(ReceiverPersonRepository repository, SessionService sessionService, Carnet carnet) {
         this.repository = repository;
         this.sessionService = sessionService;
+        this.carnet = carnet;
     }
 
     @Override
@@ -47,7 +51,7 @@ public class ReceiverPersonServiceImpl implements ReceiverPersonService {
     }
 
     @Override
-    public String getNextId() {
+    public String getCode() {
         Integer id = repository.getNextId();
 
         if (id == null)
@@ -58,7 +62,11 @@ public class ReceiverPersonServiceImpl implements ReceiverPersonService {
 
     @Override
     public ReceiverPerson save(ReceiverPerson receiverPerson) {
-        receiverPerson.setCode(getNextId());
+        carnet.setReceiverPerson(receiverPerson);
+        carnet.draw();
+        receiverPerson.setCarnetFront(carnet.getCarnetFront());
+        receiverPerson.setCarnetBack(carnet.getCarnetBack());
+
         return repository.save(receiverPerson);
     }
 

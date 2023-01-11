@@ -51,12 +51,15 @@ public class ReceiverPersonController extends RegistryController<ReceiverPerson>
 
     private SessionService sessionService;
 
+    private ReceiverPersonService service;
+
     public ReceiverPersonController(
             ReceiverPersonService service,
             GroupService groupService,
             SessionService sessionService
     ) {
         super(service);
+        this.service = service;
         this.groupService = groupService;
         this.sessionService = sessionService;
     }
@@ -85,8 +88,11 @@ public class ReceiverPersonController extends RegistryController<ReceiverPerson>
 
 
     private ReceiverPerson getPerson() {
-        if (registry == null)
-            return new ReceiverPerson();
+        if (registry == null) {
+            ReceiverPerson receiverPerson = new ReceiverPerson();
+            receiverPerson.setCode(service.getCode());
+            return receiverPerson;
+        }
 
         return registry;
     }
