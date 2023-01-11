@@ -14,7 +14,7 @@ import org.parish.attendancesb.controllers.abstractions.RegistryController;
 import org.parish.attendancesb.controllers.utils.validation.ValidationList;
 import org.parish.attendancesb.controllers.utils.validation.ValidationTextField;
 import org.parish.attendancesb.controllers.utils.validation.ValidationType;
-import org.parish.attendancesb.controllers.utils.color.ColorUtil;
+import org.parish.attendancesb.controllers.utils.color.ColorFx;
 import org.parish.attendancesb.controllers.utils.image.ImageFx;
 import org.parish.attendancesb.models.Group;
 import org.parish.attendancesb.services.SessionService;
@@ -60,7 +60,7 @@ public class GroupController extends RegistryController<Group> {
 
         group.setCatequesis(sessionService.getCatequesis());
         group.setName(name.getText());
-        group.setColor(ColorUtil.rgba2Hex(color.getValue()));
+        group.setColor(ColorFx.rgba2Hex(color.getValue()));
         group.setLogo(ImageFx.encoder(imgLogo.getImage()));
 
         return group;
@@ -83,7 +83,7 @@ public class GroupController extends RegistryController<Group> {
     @Override
     public void setFieldsFromModel() {
         this.name.setText(this.registry.getName());
-        this.color.setValue(ColorUtil.hex2Rgb(this.registry.getColor()));
+        this.color.setValue(ColorFx.hex2Rgb(this.registry.getColor()));
         this.imgLogo.setImage(ImageFx.decoder(this.registry.getLogo()));
     }
 

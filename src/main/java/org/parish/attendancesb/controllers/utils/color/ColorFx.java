@@ -2,9 +2,9 @@ package org.parish.attendancesb.controllers.utils.color;
 
 import javafx.scene.paint.Color;
 
-public class ColorUtil {
+public class ColorFx {
 
-    private ColorUtil() {
+    private ColorFx() {
     }
 
     public static Color hex2Rgb(String colorStr) {
