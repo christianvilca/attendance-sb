@@ -3,7 +3,7 @@ package org.parish.attendancesb.controllers.utils.image;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import org.parish.attendancesb.controllers.utils.alert.AlertFx;
-import org.parish.attendancesb.services.utils.image.ImageBase64;
+import org.parish.attendancesb.utils.image.ImageBase64;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;

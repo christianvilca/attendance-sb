@@ -1,4 +1,4 @@
-package org.parish.attendancesb.services.utils.barcode;
+package org.parish.attendancesb.services.barcode;
 
 public class EAN13 {
 

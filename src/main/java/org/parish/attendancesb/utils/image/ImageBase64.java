@@ -1,4 +1,4 @@
-package org.parish.attendancesb.services.utils.image;
+package org.parish.attendancesb.utils.image;
 
 import org.parish.attendancesb.controllers.utils.alert.AlertFx;
 
