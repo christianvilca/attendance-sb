@@ -83,6 +83,22 @@ public enum Jrxml {
         public String getJrxmlFile() {
             return "/reports/Attendance.jrxml";
         }
+    },
+    CARNET_REPORT {
+        @Override
+        public String getTitle() {
+            return getStringFromResourceBundle("carnet.report.title");
+        }
+
+        @Override
+        public String getExport() {
+            return getStringFromResourceBundle("carnet.report.export");
+        }
+
+        @Override
+        public String getJrxmlFile() {
+            return "/reports/Carnet.jrxml";
+        }
     };
 
     public abstract String getTitle();

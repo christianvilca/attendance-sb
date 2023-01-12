@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Rceiver_Person_List" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ea9d9eab-78ea-4cb9-adce-7588ae6a483e">
+	<parameter name="Title" class="java.lang.String"/>
+	<field name="carnetFront" class="java.lang.String"/>
+	<field name="carnetBack" class="java.lang.String"/>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="40">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="60" backcolor="#006699" uuid="85e72658-faba-481b-9543-b820403d4e69"/>
+				<textField>
+					<reportElement x="20" y="10" width="555" height="40" forecolor="#FFFFFF" uuid="bacb197f-c03f-4cf3-b22a-2abf338a0954"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="24" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{Title}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="186">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<image scaleImage="FillFrame" isUsingCache="false" evaluationTime="Report">
+				<reportElement x="0" y="5" width="275" height="180" uuid="66f3d413-a9e1-4510-986b-7b66e323355a"/>
+				<box>
+					<pen lineColor="#BBBFBD"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#BBBFBD"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#BBBFBD"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#BBBFBD"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#BBBFBD"/>
+				</box>
+				<graphicElement fill="Solid"/>
+				<imageExpression><![CDATA[net.sf.jasperreports.engine.util.JRImageLoader.getInstance(new SimpleJasperReportsContext()).loadAwtImageFromBytes(Base64.getDecoder().decode($F{carnetFront}))]]></imageExpression>
+			</image>
+			<image scaleImage="FillFrame" isUsingCache="false" evaluationTime="Report">
+				<reportElement x="280" y="5" width="275" height="180" uuid="66f3d413-a9e1-4510-986b-7b66e323355a"/>
+				<box>
+					<pen lineColor="#BBBFBD"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#BBBFBD"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#BBBFBD"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#BBBFBD"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#BBBFBD"/>
+				</box>
+				<graphicElement fill="Solid"/>
+				<imageExpression><![CDATA[net.sf.jasperreports.engine.util.JRImageLoader.getInstance(new SimpleJasperReportsContext()).loadAwtImageFromBytes(Base64.getDecoder().decode($F{carnetBack}))]]></imageExpression>
+			</image>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="17">
+			<textField>
+				<reportElement mode="Transparent" x="0" y="4" width="555" height="13" forecolor="#949494" backcolor="#E6E6E6" uuid="49ae4a2c-6f10-434a-b28d-04444b239674"/>
+				<box>
+					<topPen lineWidth="0.25" lineColor="#006699"/>
+				</box>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of  " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="4" width="222" height="13" forecolor="#949494" uuid="8b65a687-d8e8-41b5-9d5a-569760fc1d36"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>
