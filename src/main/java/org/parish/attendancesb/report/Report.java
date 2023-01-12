@@ -9,18 +9,25 @@ import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 import net.sf.jasperreports.export.SimpleXlsxReportConfiguration;
 import org.parish.attendancesb.controllers.utils.alert.AlertFx;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ResourceUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Component
 public class Report {
+
+    @Autowired
+    private ResourceBundle resourceBundle;
+    public void export(
+            List<?> list,
+            Jrxml jrxml
+    ) throws FileNotFoundException, JRException {
+        this.export(list, jrxml, new HashMap<>());
+    }
 
     public void export(
             List<?> list,
@@ -28,13 +35,7 @@ public class Report {
             Map<String, Object> parameters
     ) throws FileNotFoundException, JRException {
         //Report.class.getResource(jrxml.getJrxmlFile() -> Si el metodo es estatico
-        File file = ResourceUtils.getFile(getClass().getResource(jrxml.getJrxmlFile()));
-        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
-        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
-
-        parameters.put("SUBREPORT_DIR", getClass().getResource("/reports/").toString());
-        parameters.put("Title", jrxml.getTitle());
-        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+        JasperPrint jasperPrint = getJasperPrint(list, jrxml, parameters);
 
         FileChooser fileChooser = new FileChooser();
         //fileChooser.setInitialDirectory(new File("."));
@@ -60,6 +61,33 @@ public class Report {
         AlertFx.information("Archivo exportado!");
     }
 
+    public JasperPrint getJasperPrint(List<?> list, Jrxml jrxml, Map<String, Object> parameters) throws FileNotFoundException, JRException {
+        File file = ResourceUtils.getFile(getClass().getResource(jrxml.getJrxmlFile()));
+        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
+
+        parameters.put("SUBREPORT_DIR", getClass().getResource("/reports/").toString());
+        parameters.put("Title", jrxml.getTitle());
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+        return jasperPrint;
+    }
+
+    public void viewer(
+            List<?> list,
+            Jrxml jrxml
+    ) throws FileNotFoundException, JRException {
+        this.viewer(list, jrxml, new HashMap<>());
+    }
+
+    public void viewer(
+            List<?> list,
+            Jrxml jrxml,
+            Map<String, Object> parameters
+    ) throws JRException, FileNotFoundException {
+        JasperPrint jasperPrint = getJasperPrint(list, jrxml, parameters);
+        new JasperViewerFX().viewReport(jrxml.getTitle(), jasperPrint);
+    }
+
     private void setFormat(JasperPrint jasperPrint, FileChooser fileChooser, File file1) throws JRException {
         String formatReport = fileChooser.getSelectedExtensionFilter().getDescription().split(" ")[0];
 
@@ -72,13 +100,6 @@ public class Report {
         if (formatReport.equals(Format.XLSX.name())) {
             excelFormat(jasperPrint, file1.getAbsolutePath());
         }
-    }
-
-    public void export(
-            List<?> list,
-            Jrxml jrxml
-    ) throws FileNotFoundException, JRException {
-        this.export(list, jrxml, new HashMap<>());
     }
 
     private void excelFormat(JasperPrint jasperPrint, String path) throws JRException {
