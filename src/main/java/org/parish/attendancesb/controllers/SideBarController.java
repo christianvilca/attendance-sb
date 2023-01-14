@@ -1,5 +1,6 @@
 package org.parish.attendancesb.controllers;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -68,9 +69,13 @@ public class SideBarController implements Initializable {
     private Label lblCatequesis;
 
     @FXML
+    private Label lblUser;
+
+    @FXML
     private BorderPane mainPane;
 
     private Button beforeButton;
+
     @Lazy
     @Autowired
     private StageManager stageManager;
@@ -111,7 +116,7 @@ public class SideBarController implements Initializable {
     @FXML
     void pageGroup(MouseEvent event) {
         if (mainService.getCatequesis() == null) {
-            this.changeCatequesis(null);
+            setCatequesis();
         }
 
         loadPage(stageManager.getParent(FxmlView.GROUP_LIST));
@@ -121,7 +126,7 @@ public class SideBarController implements Initializable {
     @FXML
     void pageAttendance(MouseEvent event) {
         if (mainService.getCatequesis() == null) {
-            this.changeCatequesis(null);
+            setCatequesis();
         }
         loadPage(stageManager.getParent(FxmlView.ATTENDANCE));
         setStyleButton((Button) event.getSource());
@@ -131,7 +136,7 @@ public class SideBarController implements Initializable {
     @FXML
     void pageReceiverPerson(MouseEvent event) {
         if (mainService.getCatequesis() == null) {
-            this.changeCatequesis(null);
+            setCatequesis();
         }
         loadPage(stageManager.getParent(FxmlView.RECEIVER_PERSON_LIST));
         setStyleButton((Button) event.getSource());
@@ -156,17 +161,23 @@ public class SideBarController implements Initializable {
         mainService.setAutorizeAllCatequesis(mainService.authorize(RoleType.MANAGER.name()));
 
         if (mainService.hasOne()) {
-            setScene(mainService.getCatequesis());
+            setData();
             return;
         }
+
         if (mainService.hasMany() || mainService.authorize(RoleType.MANAGER.name())) {
-            setScene(catequesisSearchController.getModel());
+            catequesisSearchController.setService(mainService.getCatequesisSearchService());
+            stageManager.sceneModal(FxmlView.CATEQUESIS_SEARCH);
+            if (catequesisSearchController.getModel() != null) {
+                mainService.setCatequesis(catequesisSearchController.getModel());
+            }
+            setData();
         }
     }
 
-    private void setScene(Catequesis catequesis) {
-        mainService.setCatequesis(catequesis);
-        lblCatequesis.setText(catequesis.getName());
+    private void setData() {
+        lblCatequesis.setText(mainService.getCatequesis().getName());
+        lblUser.setText(mainService.getUser().toString());
         btnReceiverPerson.setText(mainService.getReceiverPersonTypePlural());
         loadPage(stageManager.getParent(FxmlView.ATTENDANCE));
         setStyleButton(btnAttendance);
@@ -176,14 +187,22 @@ public class SideBarController implements Initializable {
     void changeLabelCatequesis(MouseEvent event) {
         if (event.getButton().equals(MouseButton.PRIMARY)) {
             if (event.getClickCount() == 2) {
-                if (mainService.authorize(RoleType.MANAGER.name())) {
-                    changeCatequesis(null);
+                if (mainService.hasMany() || mainService.authorize(RoleType.MANAGER.name())) {
+                    //changeCatequesis(null);
+                    setCatequesis();
                     return;
                 }
                 AlertFx.information("No tienes permisos!");
             }
         }
 
+    }
+
+    @FXML
+    void exit(ActionEvent event) {
+        if (AlertFx.yesno("¿Está seguro de salir de la aplicación?")) {
+            Platform.exit();
+        }
     }
 
     @Override
@@ -193,7 +212,7 @@ public class SideBarController implements Initializable {
         stageManager.getStage().setMinWidth(816);
         stageManager.getStage().setMinHeight(646);
 
-        setCatequesis();
+        setData();
 
         loadPage(stageManager.getParent(FxmlView.ATTENDANCE));
         setStyleButton(btnAttendance);
@@ -221,17 +240,14 @@ public class SideBarController implements Initializable {
         if (sideBarMenu.getChildren().contains(boxCoordinator))
             sideBarMenu.getChildren().remove(boxCoordinator);
 
-        if (mainService.authorize(RoleType.COORDINATOR.name())) {
+        if (mainService.authorize(RoleType.COORDINATOR.name()))
             sideBarMenu.getChildren().add(1, boxCoordinator);
-        }
 
-        if (mainService.authorize(RoleType.MANAGER.name())) {
-
+        if (mainService.authorize(RoleType.MANAGER.name()))
             sideBarMenu.getChildren().add(1, boxManager);
-            //sideBarMenu.getChildren().add(2, boxCoordinator);
-            mnuCatequesisCambiar.setVisible(true);
-        }
 
+        if (mainService.hasMany() || mainService.authorize(RoleType.MANAGER.name()))
+            mnuCatequesisCambiar.setVisible(true);
     }
 
     private void loadPage(Parent page) {

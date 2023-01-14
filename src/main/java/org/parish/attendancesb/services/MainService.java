@@ -15,6 +15,7 @@ import java.util.List;
 
 @Component
 public class MainService {
+
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private Catequesis catequesis;
 
@@ -55,6 +56,10 @@ public class MainService {
         this.catequesis = catequesis;
     }
 
+    public User getUser() {
+        return sessionService.getUser();
+    }
+
     public void setAutorizeAllCatequesis(boolean autorizeAllCatequesis) {
         isAutorizeAllCatequesis = autorizeAllCatequesis;
     }
@@ -71,6 +76,10 @@ public class MainService {
 
     public boolean authorize(String role) {
         return userService.authorize(role);
+    }
+
+    public boolean authenticate(String username, String password) {
+        return userService.authenticate(username, password);
     }
 
     public boolean hasOne() {

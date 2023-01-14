@@ -9,7 +9,6 @@ import org.parish.attendancesb.config.StageManager;
 import org.parish.attendancesb.controllers.utils.alert.AlertFx;
 import org.parish.attendancesb.models.access.RoleType;
 import org.parish.attendancesb.services.MainService;
-import org.parish.attendancesb.services.interfaces.UserService;
 import org.parish.attendancesb.view.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -46,9 +45,6 @@ public class LoginController implements Initializable {
     private StageManager stageManager;
 
     @Autowired
-    private UserService userService;
-
-    @Autowired
     private CatequesisSearchController catequesisSearchController;
 
     @Autowired
@@ -56,7 +52,7 @@ public class LoginController implements Initializable {
 
     @FXML
     void handleButtonAction(MouseEvent event) {
-        if (userService.authenticate(txtUsername.getText(), txtPassword.getText())) {
+        if (mainService.authenticate(txtUsername.getText(), txtPassword.getText())) {
             mainService.setAutorizeAllCatequesis(mainService.authorize(RoleType.MANAGER.name()));
             if (mainService.hasOne()) {
                 stageManager.switchScene(FxmlView.MAIN);
@@ -67,6 +63,7 @@ public class LoginController implements Initializable {
                 stageManager.sceneModal(FxmlView.CATEQUESIS_SEARCH);
             }
             if (catequesisSearchController.getModel() != null) {
+                mainService.setCatequesis(catequesisSearchController.getModel());
                 stageManager.switchScene(FxmlView.MAIN);
             }
             return;
