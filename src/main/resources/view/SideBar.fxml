@@ -169,7 +169,6 @@
         <menus>
           <Menu mnemonicParsing="false" text="Usuario">
             <items>
-                  <MenuItem mnemonicParsing="false" text="Perfil" />
                   <MenuItem mnemonicParsing="false" onAction="#logOut" text="Cerrar sesión" />
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem mnemonicParsing="false" onAction="#exit" text="Salir" />
@@ -177,7 +176,7 @@
           </Menu>
             <Menu mnemonicParsing="false" text="Catequesis">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Información" />
+                  <MenuItem mnemonicParsing="false" onAction="#informationCatequesis" text="Información" />
                   <MenuItem fx:id="mnuCatequesisCambiar" mnemonicParsing="false" onAction="#changeCatequesis" text="Cambiar" />
                </items>
             </Menu>

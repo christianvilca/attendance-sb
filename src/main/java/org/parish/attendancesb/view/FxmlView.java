@@ -114,6 +114,17 @@ public enum FxmlView {
             return "/view/Catequesis.fxml";
         }
     },
+    CATEQUESIS_VIEW {
+        @Override
+        public String getTitle() {
+            return getStringFromResourceBundle("catequesis_view.title");
+        }
+
+        @Override
+        public String getFxmlFile() {
+            return "/view/CatequesisView.fxml";
+        }
+    },
     CATEQUESIS_SEARCH {
         @Override
         public String getTitle() {
