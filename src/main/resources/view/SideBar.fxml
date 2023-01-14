@@ -124,7 +124,7 @@
    <bottom>
       <HBox prefHeight="12.0" prefWidth="800.0" style="-fx-background-color: #282828;" styleClass="h-box" stylesheets="@../css/styles.css" BorderPane.alignment="CENTER">
          <children>
-            <Label maxWidth="1.7976931348623157E308" styleClass="sbCatequesis" stylesheets="@../css/styles.css" text="Catequesis:" textFill="#909090">
+            <Label maxWidth="1.7976931348623157E308" prefHeight="23.0" prefWidth="79.0" styleClass="sbCatequesis" stylesheets="@../css/styles.css" text="Catequesis:" textFill="#909090">
                <font>
                   <Font name="Arial Bold" size="12.0" />
                </font>
@@ -132,7 +132,7 @@
                   <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
                </padding>
             </Label>
-            <Label fx:id="lblCatequesis" layoutX="11.0" layoutY="11.0" maxWidth="1.7976931348623157E308" onMouseClicked="#changeLabelCatequesis" styleClass="sbCatequesis" stylesheets="@../css/styles.css" text="--- Catequesis ---" textFill="#909090">
+            <Label fx:id="lblCatequesis" layoutX="11.0" layoutY="11.0" maxWidth="1.7976931348623157E308" onMouseClicked="#changeLabelCatequesis" prefHeight="23.0" prefWidth="272.0" styleClass="sbCatequesis" stylesheets="@../css/styles.css" text="--- Catequesis ---" textFill="#909090">
                <font>
                   <Font name="Arial Bold" size="12.0" />
                </font>
@@ -140,11 +140,27 @@
                   <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
                </padding>
             </Label>
-            <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+            <Pane prefHeight="25.0" prefWidth="75.0" HBox.hgrow="ALWAYS" />
             <Button alignment="BOTTOM_CENTER" mnemonicParsing="false" prefHeight="25.0" styleClass="btn-log-out" text="Cerrar sesión" textFill="WHITE" visible="false">
                <graphic>
                   <FontIcon iconColor="WHITE" iconLiteral="fas-power-off" />
                </graphic></Button>
+            <Label maxWidth="1.7976931348623157E308" prefHeight="23.0" prefWidth="58.0" styleClass="sbCatequesis" stylesheets="@../css/styles.css" text="Usuario:" textFill="#909090">
+               <font>
+                  <Font name="Arial Bold" size="12.0" />
+               </font>
+               <padding>
+                  <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+               </padding>
+            </Label>
+            <Label fx:id="lblUser" maxWidth="1.7976931348623157E308" onMouseClicked="#changeLabelCatequesis" prefHeight="23.0" prefWidth="98.0" styleClass="sbCatequesis" stylesheets="@../css/styles.css" text="--- Usuario ---" textFill="#909090">
+               <font>
+                  <Font name="Arial Bold" size="12.0" />
+               </font>
+               <padding>
+                  <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+               </padding>
+            </Label>
          </children>
       </HBox>
    </bottom>
@@ -156,7 +172,7 @@
                   <MenuItem mnemonicParsing="false" text="Perfil" />
                   <MenuItem mnemonicParsing="false" onAction="#logOut" text="Cerrar sesión" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Salir" />
+                  <MenuItem mnemonicParsing="false" onAction="#exit" text="Salir" />
             </items>
           </Menu>
             <Menu mnemonicParsing="false" text="Catequesis">
