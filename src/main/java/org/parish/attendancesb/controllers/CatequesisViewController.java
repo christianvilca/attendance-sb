@@ -3,12 +3,9 @@ package org.parish.attendancesb.controllers;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import org.parish.attendancesb.config.StageManager;
 import org.parish.attendancesb.models.Catequesis;
 import org.parish.attendancesb.services.MainService;
-import org.parish.attendancesb.services.interfaces.CatequesisService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 
 import java.net.URL;

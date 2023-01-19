@@ -36,7 +36,7 @@ public abstract class RegistryListController<T> implements Initializable {
     private Label total;
 
     @FXML
-    private TableView<T> table;
+    protected TableView<T> table;
 
     @FXML
     private TextField search;
@@ -162,7 +162,7 @@ public abstract class RegistryListController<T> implements Initializable {
     @FXML
     void export(ActionEvent event) {
         try {
-            reportService.export(this.table.getItems(), report);
+            reportService.viewer(this.table.getItems(), report);
         } catch (FileNotFoundException | JRException e) {
             e.printStackTrace();
         }
