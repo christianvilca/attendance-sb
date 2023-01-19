@@ -180,9 +180,9 @@
                   <MenuItem fx:id="mnuCatequesisCambiar" mnemonicParsing="false" onAction="#changeCatequesis" text="Cambiar" />
                </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="Acerca de.">
+            <Menu fx:id="mnuAbout" mnemonicParsing="false" text="Acerca de.">
                <items>
-              <MenuItem mnemonicParsing="false" onAction="#pageInstitution" text="Institución" />
+              <MenuItem fx:id="mnuInstitution" mnemonicParsing="false" onAction="#pageInstitution" text="Institución" />
                </items>
             </Menu>
         </menus>

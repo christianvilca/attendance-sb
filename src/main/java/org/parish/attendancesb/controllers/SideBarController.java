@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -60,10 +61,15 @@ public class SideBarController implements Initializable {
 
     @FXML
     private Button btnReceiverPerson;
+
     @FXML
     private MenuItem mnuCatequesisCambiar;
+
     @FXML
-    private Button btnReport;
+    private Menu mnuAbout;
+
+    @FXML
+    private MenuItem mnuInstitution;
 
     @FXML
     private Label lblCatequesis;
@@ -159,6 +165,11 @@ public class SideBarController implements Initializable {
 
     @FXML
     void informationCatequesis(ActionEvent event) {
+        if (mainService.getCatequesis() == null) {
+            AlertFx.warning("¡No se ha seleccionado una catequesis!");
+            return;
+        }
+
         stageManager.sceneModal(FxmlView.CATEQUESIS_VIEW);
     }
 
@@ -223,6 +234,8 @@ public class SideBarController implements Initializable {
         setStyleButton(btnAttendance);
 
         mnuCatequesisCambiar.setVisible(false);
+        mnuAbout.setVisible(false);
+        mnuInstitution.setVisible(false);
 
         setBoxes();
     }
@@ -248,8 +261,11 @@ public class SideBarController implements Initializable {
         if (mainService.authorize(RoleType.COORDINATOR.name()))
             sideBarMenu.getChildren().add(1, boxCoordinator);
 
-        if (mainService.authorize(RoleType.MANAGER.name()))
+        if (mainService.authorize(RoleType.MANAGER.name())) {
             sideBarMenu.getChildren().add(1, boxManager);
+            mnuAbout.setVisible(true);
+            mnuInstitution.setVisible(true);
+        }
 
         if (mainService.hasMany() || mainService.authorize(RoleType.MANAGER.name()))
             mnuCatequesisCambiar.setVisible(true);
