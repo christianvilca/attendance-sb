@@ -25,6 +25,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @Controller
@@ -122,4 +123,14 @@ public class ReceiverPersonListController extends RegistryListController<Receive
         this.group.setCellValueFactory(new PropertyValueFactory<>("group"));
     }
 
+    @FXML
+    void carnet(ActionEvent event) {
+        try {
+            report.viewer(this.table.getItems(), Jrxml.CARNET_REPORT);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (JRException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
